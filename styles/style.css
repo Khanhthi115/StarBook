@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+header{
+    height: 100px;
+    border: green thin solid;
+}
+nav {
+    height: 20px;
+    border: red thin solid;
+}
+nav>a {
+    width: 16.66666666667%;
+    float: left;
+    height: inherit;
+    text-decoration: none;
+    border: 2px solid red;
+    text-align: center;
+}
+.container, header, nav, footer {
+    width: 100%;
+    float: left;
+}
+.container aside {
+    float:left;
+    width: 15%;
+    min-height: 300px;
+    border: blue thin solid;
+}
+.container article {
+    float:left;
+    width: 70%;
+    min-height: 300px;
+    border: blue thin solid;
+}
+footer {
+    width: 100%;
+    border: blue thin solid;
+}
