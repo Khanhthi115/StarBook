@@ -1,6 +1,9 @@
 <?php
 $connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
 ?>
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +22,15 @@ $connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
             <a href="?option=home">Home</a>
             <a href="?option=feedback">Feedback</a>
             <a href="?option=cart">Cart</a>
+            <?php if (empty($_SESSION['member'])):?>
             <a href="?option=signin">SignIn</a>
             <a href="?option=register">Register</a>
+            <?php else:?>
+                <section>
+                    Hello: <span style="color: red"><?=$_SESSION['member']?></span>
+                    <a href="?option=logout">Đăng xuất</a> 
+                </section>
+            <?php endif;?>
         </nav>
         <section class="container">
             <aside>Left</aside>
@@ -45,6 +55,10 @@ $connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
                             break;
                         case "cart":
                             include "views/cart.php";
+                            break;
+                        case "logout":
+                            unset($_SESSION['member']);
+                            header("location: ?option=home");
                             break;
                     }
                 }
