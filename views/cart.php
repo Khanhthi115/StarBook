@@ -3,7 +3,7 @@ if (empty($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
 if (isset($_GET['action'])) {
-    $id = $_GET['id'];
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
     switch ($_GET['action']) {
         case 'add':
             // if product is already in cart we increase its quantity else the quantity of it is 1
@@ -16,13 +16,19 @@ if (isset($_GET['action'])) {
                 header("location: ?option=cart");
             }
             break;
+        case 'delete':
+            unset($_SESSION['cart'][$id]);
+            break;
+        case 'delete_all':
+            unset($_SESSION['cart']);
+            break;
     }
 }
 ?>
 <section class="cart">
     <?php
     $total = 0;
-    if (isset($_SESSION['cart'])) :
+    if (!empty($_SESSION['cart'])) :
         // $ids below must be a string
         $ids = implode(',', array_keys($_SESSION['cart']));
         $query = "Select * from products where id in ($ids)";
@@ -42,19 +48,27 @@ if (isset($_GET['action'])) {
                 <?php
                 foreach ($result as $item) :
                 ?>
-                <tr>
-                    <td width="20%"><img width="100%" src="./images/<?=$item['image']?>"></td>
-                    <td><?=$item['name']?></td>
-                    <td><?=number_format($item['price'], 0, ',','.')?></td>
-                    <td><?=$_SESSION['cart'][$item['id']]?></td>
-                    <td><?=number_format($subTotal=$item['price'] * $_SESSION['cart'][$item['id']], 0, ',','.')?></td>
-                    <?php $total += $subTotal;?>
-                </tr>
+                    <tr>
+                        <td width="20%"><img width="100%" src="./images/<?= $item['image'] ?>"></td>
+                        <td><?= $item['name'] ?><br><input type="button" value="Delete" onclick="location='?option=cart&action=delete&id=<?=$item['id']?>';"></td>
+                        <td><?= number_format($item['price'], 0, ',', '.') ?></td>
+                        <td><?= $_SESSION['cart'][$item['id']] ?></td>
+                        <td><?= number_format($subTotal = $item['price'] * $_SESSION['cart'][$item['id']], 0, ',', '.') ?></td>
+                        <?php $total += $subTotal; ?>
+                    </tr>
                 <?php
                 endforeach;
                 ?>
-                <tr><td colspan="5">Total: <?=number_format($total, 0, ',','.')?> VND</td></tr>
+                <tr>
+                    <td colspan="5">
+                        <section>
+                            Total: <?= number_format($total, 0, ',', '.') ?> VND
+                            <input type="button" value="Delete All" onclick="location='?option=cart&action=delete_all'">
+                    </section> 
+                    </td>
+                </tr>
             </tbody>
         </table>
+    <?php else : ?> <section>Giỏ hàng trống</section>
     <?php endif; ?>
 </section>
