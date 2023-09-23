@@ -29,6 +29,13 @@ if (isset($_GET['action'])) {
                 if ($_SESSION['cart'][$id] > 1) $_SESSION['cart'][$id]--;
             header("location: ?option=cart");
             break;
+        case 'order':
+            if (isset($_SESSION['member'])){
+                header("location: ?option=order");
+            } else {
+                header("location: ?option=signin&order=1");
+            }
+            break;
     }
 }
 ?>
@@ -75,6 +82,7 @@ if (isset($_GET['action'])) {
                         <section>
                             Total: <?= number_format($total, 0, ',', '.') ?> VND
                             <input type="button" value="Delete All" onclick="if(confirm('Are you want to delete all cart?')) location='?option=cart&action=delete_all'">
+                            <input type="button" value="Order" onclick="location='?option=cart&action=order'">
                         </section>
                     </td>
                 </tr>

@@ -5,19 +5,21 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $query = "SELECT * FROM member WHERE username = '$username' AND password = '$password'";
     $result_signin = $connect->query($query);
 
-    if ($result_signin) { 
+    if ($result_signin) {
         if ($result_signin->num_rows == 0) {
             $alert = "Sai tên đăng nhập hoặc mật khẩu";
-        } 
-        else if (mysqli_fetch_array($result_signin)['status'] == 0) {
-                $alert = "Tài khoản bị khóa hoặc đang được xử lý";           
-        }
-        else {
+        } else if (mysqli_fetch_array($result_signin)['status'] == 0) {
+            $alert = "Tài khoản bị khóa hoặc đang được xử lý";
+        } else {
             $_SESSION['member'] = $username;
-            // navigate with js
-            // echo "<script>location='?option=home';</script>";
-            //navigate with php
-            header("location: ?option=home");
+            if (isset($_GET['order'])) {
+                header("location: ?option=order");
+            } else {
+                // navigate with js
+                // echo "<script>location='?option=home';</script>";
+                //navigate with php
+                header("location: ?option=home");
+            }
         }
     } else {
         $alert = "Lỗi khi thực hiện truy vấn";
@@ -37,7 +39,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <body>
     <section>
         <h1>Đăng nhập tài khoản</h1>
-        <section><?=isset($alert)?$alert:""?></section>
+        <section><?= isset($alert) ? $alert : "" ?></section>
         <section>
             <form method="post">
                 <section>
