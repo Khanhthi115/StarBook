@@ -21,11 +21,10 @@ if (isset($_GET['action'])) {
 ?>
 <section class="cart">
     <?php
+    $total = 0;
     if (isset($_SESSION['cart'])) :
-        $ids="0";
-        foreach(array_keys($_SESSION['cart']) as $key)
-        $ids .= ",".$key;
-        // $ids below must be a string not an array so we need add each item from array_keys($_SESSION['cart'] like before 
+        // $ids below must be a string
+        $ids = implode(',', array_keys($_SESSION['cart']));
         $query = "Select * from products where id in ($ids)";
         $result = $connect->query($query);
     ?>
@@ -34,8 +33,9 @@ if (isset($_GET['action'])) {
                 <tr>
                     <td>Image</td>
                     <td>Name</td>
-                    <td>Price</td>
+                    <td>Price (VND)</td>
                     <td>Quantity</td>
+                    <td>Subtotal (VND)</td>
                 </tr>
             </thead>
             <tbody>
@@ -45,12 +45,15 @@ if (isset($_GET['action'])) {
                 <tr>
                     <td width="20%"><img width="100%" src="./images/<?=$item['image']?>"></td>
                     <td><?=$item['name']?></td>
-                    <td><?=$item['price']?></td>
+                    <td><?=number_format($item['price'], 0, ',','.')?></td>
                     <td><?=$_SESSION['cart'][$item['id']]?></td>
+                    <td><?=number_format($subTotal=$item['price'] * $_SESSION['cart'][$item['id']], 0, ',','.')?></td>
+                    <?php $total += $subTotal;?>
                 </tr>
                 <?php
                 endforeach;
                 ?>
+                <tr><td colspan="5">Total: <?=number_format($total, 0, ',','.')?> VND</td></tr>
             </tbody>
         </table>
     <?php endif; ?>
