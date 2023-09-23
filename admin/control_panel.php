@@ -1,4 +1,4 @@
-<table border="1" width="100%" cellpadding="1" cellspacing="1">
+<table class="table table-bordered">
     <tr>
         <td width="15%" height="100">
             Hello: <?=$_SESSION['admin']?> <br><a href="?option=logout">Logout</a>
@@ -9,7 +9,7 @@
     </tr>
     <tr>
         <td>
-            <section><a href="">Tác giả</a></section>
+            <section><a href="?option=author">Tác giả</a></section>
             <section><a href="">Sản phẩm</a></section>
         </td>
         <td>
@@ -19,6 +19,12 @@
                         case 'logout':
                             unset($_SESSION['admin']);
                             header("Location: .");
+                            break;
+                        case 'author':
+                            include "./authors/show_author.php";
+                            break;
+                        case 'author_add':
+                            include "authors/author_add.php";
                             break;
                     }
                 }
