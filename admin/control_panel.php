@@ -26,6 +26,9 @@
                         case 'author_add':
                             include "authors/author_add.php";
                             break;
+                        case 'author_update':
+                            include "authors/update_author.php";
+                            break;
                     }
                 }
             ?>

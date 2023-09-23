@@ -6,7 +6,8 @@
             $alert = "Tác giả đã tồn tại";
         } else {
             $status = $_POST['status'];
-            $query = "insert authors (name, status) values ($name, $status)";
+            $connect->query("insert authors (name, status) values ('$name', '$status')");
+            header("Location: ?option=author");
         }
     }
 ?>
@@ -24,6 +25,9 @@
             <input type="radio" name="status" value="0">
             Unactive
         </section>
-        <section><input type="submit" value="Thêm" class="btn btn-success"></section>
+        <section>
+            <input type="submit" value="Thêm" class="btn btn-success">
+            <a href="?option=author" class="btn btn-outline-primary">&lt;&lt;Back</a>
+        </section>
     </form>
 </section>

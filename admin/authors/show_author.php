@@ -25,7 +25,7 @@ $result = $connect->query($query);
                 <td><?=$item['name']?></td>
                 <td><?=$item['status']==1?'Active':'Unactive'?></td>
                 <td>
-                    <a class="btn btn-sm btn-info" href="">Update</a>
+                    <a class="btn btn-sm btn-info" href="?option=author_update&id=<?=$item['id']?>">Update</a>
                     <a class="btn btn-sm btn-danger" href="">Delete</a>
                 </td>
             </tr>
