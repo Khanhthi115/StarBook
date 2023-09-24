@@ -14,7 +14,7 @@
     $query = "select * from authors";
     $result = $connect->query($query);
 ?>
-<h1>Hãng sản xuất</h1>
+<h1>DANH SÁCH TÁC GIẢ</h1>
 <section style="text-align:center">
     <a href="?option=author_add" class="btn btn-success">Thêm tác giả</a>
 </section>
