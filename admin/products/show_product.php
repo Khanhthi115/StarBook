@@ -6,7 +6,9 @@
             $query = "update products set status=0 where id = $id";
             $connect->query($query);
         }else {
+            // delete product and its image
             $connect->query("delete from products where id = $id");
+            unlink("../images/".$_GET['image']);
         }
     }
 ?>
@@ -42,7 +44,7 @@
                 <td><?=$item['status']==1?'Active':'Unactive'?></td>
                 <td>
                     <a class="btn btn-sm btn-info" href="?option=product_update&id=<?=$item['id']?>">Update</a>
-                    <a class="btn btn-sm btn-danger" href="?option=product&id=<?=$item['id']?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
+                    <a class="btn btn-sm btn-danger" href="?option=product&id=<?=$item['id']?>&image=<?=$item['image']?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
                 </td>
             </tr>
         <?php endforeach ?>
