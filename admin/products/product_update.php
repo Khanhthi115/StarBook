@@ -30,6 +30,7 @@ if (isset($_POST['name'])) {
             // move file upload to the destination want to save
             move_uploaded_file($imageTemp, $store . $imageName);
             // if ("../images" . $product['image']) unlink("../images" . $product['image']);
+            // delete the old image after update new image to save the memory
             unlink($store.$product['image']);
         } 
         else {

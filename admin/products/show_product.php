@@ -1,12 +1,12 @@
 <?php
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        $product = $connect->query("select * from products where author_id = $id");
+        $product = $connect->query("select * from order_detail where productId = $id");
         if (mysqli_num_rows($product)!=0) {
-            $query = "update authors set status=0 where id = $id";
+            $query = "update products set status=0 where id = $id";
             $connect->query($query);
         }else {
-            $connect->query("delete from authors where id = $id");
+            $connect->query("delete from products where id = $id");
         }
     }
 ?>
