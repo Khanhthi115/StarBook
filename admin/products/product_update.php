@@ -30,18 +30,20 @@ if (isset($_POST['name'])) {
             // move file upload to the destination want to save
             move_uploaded_file($imageTemp, $store . $imageName);
             // if ("../images" . $product['image']) unlink("../images" . $product['image']);
+            unlink($store.$product['image']);
         } 
         else {
             $alert = "File đã chọn không hợp lệ";
         }
-        if ($imageName == '') {
-            $imageName = $product['image']['name'];
+        if (empty($imageName)) {
+            //if admin don't change the image it will be the old
+            $imageName = $product['image'];
         }
-        echo $author_id, $name, $price, $description, $status, "image: ", $imageName;
+        // echo $author_id, $name, $price, $description, $status, "image: ", $imageName;
         $query = ("update products set author_id = $author_id, name='$name',
             image='$imageName', description='$description', price=$price, status='$status' where id=" . $product['id']);
         $connect->query($query);
-        // header("Location: ?option=product");
+        header("Location: ?option=product");
     }
 }
 ?>
