@@ -35,6 +35,9 @@
                     case 'product_add':
                         include "./products/product_add.php";
                         break;
+                    case "product_update":
+                        include "./products/product_update.php";
+                        break;
                 }
             }
             ?>
