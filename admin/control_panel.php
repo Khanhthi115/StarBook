@@ -1,4 +1,10 @@
-<table class="table table-bordered">
+<?php
+    $chuaXuLy = mysqli_num_rows($connect->query("select * from orders where status=1"));
+    $dangXuLy = mysqli_num_rows($connect->query("select * from orders where status=2"));
+    $daXuLy = mysqli_num_rows($connect->query("select * from orders where status=3"));
+    $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
+?>
+<table class="table table-bordered tbl-admin">
     <tr>
         <td width="15%" height="100">
             Hello: <?= $_SESSION['admin'] ?> <br><a href="?option=logout">Logout</a>
@@ -11,6 +17,13 @@
         <td>
             <section><a href="?option=author">Tác giả</a></section>
             <section><a href="?option=product">Sản phẩm</a></section>
+            <section>
+                <a href="?option=order">Đơn hàng</a>
+                <section><a href="?option=order&status=1">&nbsp;&nbsp;Đơn hàng chưa xử lý (<?=$chuaXuLy?>)</a></section>
+                <section><a href="?option=order&status=2">&nbsp;&nbsp;Đơn hàng đang xử lý (<?=$dangXuLy?>)</a></section>
+                <section><a href="?option=order&status=3">&nbsp;&nbsp;Đơn hàng đã xử lý (<?=$daXuLy?>)</a></section>
+                <section><a href="?option=order&status=4">&nbsp;&nbsp;Hủy (<?=$huy?>)</a></section>
+            </section>
         </td>
         <td>
             <?php
@@ -37,6 +50,9 @@
                         break;
                     case "product_update":
                         include "./products/product_update.php";
+                        break;
+                    case "order":
+                        include "./orders/show_order.php";
                         break;
                 }
             }

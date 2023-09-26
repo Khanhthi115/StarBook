@@ -2,3 +2,9 @@ h1 {
     font-size: 30px;
     text-align: center;
 }
+.tbl-admin td>section {
+    margin-top: 20px;
+}
+a {
+    text-decoration: none !important;
+}
