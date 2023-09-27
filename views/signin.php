@@ -3,26 +3,62 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $query = "SELECT * FROM member WHERE username = '$username' AND password = '$password'";
-    $result_signin = $connect->query($query);
+    $result = $connect->query($query);
 
-    if ($result_signin) {
-        if ($result_signin->num_rows == 0) {
-            $alert = "Sai tên đăng nhập hoặc mật khẩu";
-        } else if (mysqli_fetch_array($result_signin)['status'] == 0) {
-            $alert = "Tài khoản bị khóa hoặc đang được xử lý";
+    // if ($result_signin) {
+    //     if ($result_signin->num_rows == 0) {
+    //         $alert = "Sai tên đăng nhập hoặc mật khẩu";
+    //     } else if (mysqli_fetch_array($result_signin)['status'] == 0) {
+    //         $alert = "Tài khoản bị khóa hoặc đang được xử lý";
+    //     } else {
+    //         $_SESSION['member'] = $username;
+    //         if (isset($_GET['order'])) {
+    //             header("location: ?option=order");
+    //         } 
+    //         //phần của chức năng bình luận sản phẩm khi chưa đăng nhập
+    //         else if ($_GET['product_id']){
+    //             $result = mysqli_fetch_array($result_signin);
+    //             echo $result, "hello";
+    //             $member_id = $result['id'];
+    //             $product_id = $_GET['product_id'];
+    //             $content = $_SESSION['content'];
+    //             $connect->query("insert comments (memberId, productId, date, content) values ($member_id, $product_id, now(), '$content')");
+    //             echo "<script>alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!')</script>";
+    //         }
+    //         else {
+    //             // navigate with js
+    //             // echo "<script>location='?option=home';</script>";
+    //             //navigate with php
+    //             header("location: ?option=home");
+    //         }
+    //     }
+    // } else {
+    //     $alert = "Lỗi khi thực hiện truy vấn";
+    // }
+    if (mysqli_num_rows($result) == 0) {
+        $alert = "Sai tên đăng nhập hoặc mật khẩu";
+    } else {
+        $result = mysqli_fetch_array($result);
+        if ($result['status'] == 0) {
+            $alert = "Tài khoản bạn đang bị khóa hoặc trong quá trình xử lý";
         } else {
             $_SESSION['member'] = $username;
-            if (isset($_GET['order'])) {
+            if (isset($_GET['order'])){
                 header("location: ?option=order");
+            } elseif (isset($_GET['product_id'])){
+                $member_id = $result['id'];
+                $product_id = $_GET['product_id'];
+                $content = $_SESSION['content'];
+                $connect->query("insert comments (memberId, productId, date, content) values ($member_id, $product_id, now(), '$content')");
+                echo "
+                <script>
+                    alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!');
+                    location='?option=detail_product&id=$product_id';
+                </script>";
             } else {
-                // navigate with js
-                // echo "<script>location='?option=home';</script>";
-                //navigate with php
                 header("location: ?option=home");
             }
         }
-    } else {
-        $alert = "Lỗi khi thực hiện truy vấn";
     }
 }
 ?>
