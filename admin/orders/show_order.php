@@ -31,7 +31,7 @@ $result = $connect->query($query);
                 <td>
                     <a class="btn btn-sm btn-info" href="?option=order_detail&id=<?= $item['id'] ?>">Detail</a>
                     <!-- delete button only display when status = 'HUY' -->
-                    <a class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
+                    <a style="display: <?= $item['status'] == 4 ? '' : 'none' ?>" class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
                 </td>
             </tr>
         <?php endforeach ?>

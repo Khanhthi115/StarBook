@@ -1,4 +1,16 @@
 <?php
+if (isset($_GET['action'])) {
+    $condition = "orderId = " . $_GET['id'] . " and productId = " . $_GET['product_id'];
+    if ($_GET['type'] == 'asc') {
+        $query = "update order_detail set quantity = quantity + 1
+        where $condition";
+    } else {
+        $query = "update order_detail set quantity = quantity - 1
+        where $condition";
+    }
+    $connect->query($query);
+    header("Location: ?option=order_detail&id=" . $_GET['id']);
+}
 if (isset($_POST['status'])) {
     $connect->query("update orders set status=" . $_POST['status'] . " where id=" . $_GET['id']);
     header("Refresh: 0");
@@ -65,7 +77,7 @@ $order = mysqli_fetch_array($connect->query($query));
 <h2>PHƯƠNG THỨC THANH TOÁN</h2>
 <section><?= $order['order_method_name'] ?></section>
 <?php
-$query = "select a.status, b.quantity, b.price, c.name, c.image 
+$query = "select a.status, b.*, c.name, c.image 
     from orders a join order_detail b on a.id = b.orderId 
     join products c on b.productId = c.id 
     where a.id = " . $order['id'];
@@ -90,25 +102,29 @@ $order_detail = $connect->query($query);
                 <td><?= $item['name'] ?></td>
                 <td><img width="100px" src="../images/<?= $item['image'] ?>"></td>
                 <td><?= number_format($item['price'], 0, ',', '.') ?></td>
-                <td><?= $item['quantity'] ?></td>
+                <td>
+                    <input <?= $item['quantity'] == 1 ? 'disabled' : '' ?> type="button" value="-" onclick="location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=dec&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
+                    <?= $item['quantity'] ?>
+                    <input type="button" value="+" onclick="location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=asc&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
+                </td>
             </tr>
         <?php endforeach; ?>
     </table>
     <h2>TRẠNG THÁI ĐƠN HÀNG</h2>
-    <p style="display: <?= $order['status'] == 2 || $order['status'] == 3 || $order['status'] == 4 ? 'none':'block'?>">
+    <p style="display: <?= $order['status'] == 2 || $order['status'] == 3 || $order['status'] == 4 ? 'none' : 'block' ?>">
         <input type="radio" name="status" value="1" <?= $order['status'] == 1 ? 'checked' : '' ?>> Chưa xử lý
     </p>
-    <p style="display: <?= $order['status'] == 3 || $order['status'] == 4 ? 'none':'block'?>">
+    <p style="display: <?= $order['status'] == 3 || $order['status'] == 4 ? 'none' : 'block' ?>">
         <input type="radio" name="status" value="2" <?= $order['status'] == 2 ? 'checked' : '' ?>> Đang xử lý
     </p>
-    <p style="display: <?= $order['status'] == 4 ? 'none':'block'?>">
+    <p style="display: <?= $order['status'] == 4 ? 'none' : 'block' ?>">
         <input type="radio" name="status" value="3" <?= $order['status'] == 3 ? 'checked' : '' ?>> Đã xử lý
     </p>
     <p>
         <input type="radio" name="status" value="4" <?= $order['status'] == 4 ? 'checked' : '' ?>> Hủy
     </p>
     <section>
-        <input <?= $order['status'] == 3 || $order['status'] == 4 ? 'disable':''?> type="submit" value="Update đơn hàng" class="btn btn-success">
+        <input <?= $order['status'] == 3 || $order['status'] == 4 ? 'disabled' : '' ?> type="submit" value="Update đơn hàng" class="btn btn-success">
         <a href="?option=order&status=1" class="btn btn-outline-secondary">Back</a>
     </section>
 </form>
