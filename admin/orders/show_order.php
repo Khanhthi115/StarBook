@@ -1,16 +1,10 @@
 <?php
-// if (isset($_GET['id'])) {
-//     $id = $_GET['id'];
-//     $product = $connect->query("select * from order_detail where productId = $id");
-//     if (mysqli_num_rows($product)!=0) {
-//         $query = "update products set status=0 where id = $id";
-//         $connect->query($query);
-//     }else {
-//         // delete product and its image
-//         $connect->query("delete from products where id = $id");
-//         unlink("../images/".$_GET['image']);
-//     }
-// }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $connect->query("delete from order_detail where order_id = $id");
+    $connect->query("delete from orders where id = $id");
+    header("location: ?option=order&status=4");
+}
 ?>
 <?php
 $status = $_GET['status'];
@@ -37,7 +31,7 @@ $result = $connect->query($query);
                 <td>
                     <a class="btn btn-sm btn-info" href="?option=order_detail&id=<?= $item['id'] ?>">Detail</a>
                     <!-- delete button only display when status = 'HUY' -->
-                    <a style="display: <?= $status == 4 ? 'none' : '' ?>" class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
+                    <a class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
                 </td>
             </tr>
         <?php endforeach ?>

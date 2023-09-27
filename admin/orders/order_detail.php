@@ -1,4 +1,10 @@
 <?php
+if (isset($_POST['status'])) {
+    $connect->query("update orders set status=" . $_POST['status'] . " where id=" . $_GET['id']);
+    header("Refresh: 0");
+}
+?>
+<?php
 $query = "select a.fullname, a.phonenumber as 'member_phone', a.address as 'member_address', a.email  as 'member_email',
     b.*, c.name as 'order_method_name' from member a join orders b on a.id = b.member_id
     join order_methods c on b.order_method_id = c.id
@@ -65,25 +71,44 @@ $query = "select a.status, b.quantity, b.price, c.name, c.image
     where a.id = " . $order['id'];
 $order_detail = $connect->query($query);
 ?>
-<h2>CÁC SẢN PHẨM ĐẶT MUA</h2>
-<?php $count = 1; ?>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên sản phẩm</th>
-            <th>Ảnh</th>
-            <th>Giá (VND)</th>
-            <th>Số lượng</th>
-        </tr>
-    </thead>
-    <?php foreach ($order_detail as $item) : ?>
-        <tr>
-            <td><?=$count++?></td>
-            <td><?=$item['name']?></td>
-            <td><img width="100px" src="../images/<?=$item['image']?>"></td>
-            <td><?=number_format($item['price'], 0, ',', '.')?></td>
-            <td><?=$item['quantity']?></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<form method="post">
+    <h2>CÁC SẢN PHẨM ĐẶT MUA</h2>
+    <?php $count = 1; ?>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Ảnh</th>
+                <th>Giá (VND)</th>
+                <th>Số lượng</th>
+            </tr>
+        </thead>
+        <?php foreach ($order_detail as $item) : ?>
+            <tr>
+                <td><?= $count++ ?></td>
+                <td><?= $item['name'] ?></td>
+                <td><img width="100px" src="../images/<?= $item['image'] ?>"></td>
+                <td><?= number_format($item['price'], 0, ',', '.') ?></td>
+                <td><?= $item['quantity'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <h2>TRẠNG THÁI ĐƠN HÀNG</h2>
+    <p style="display: <?= $order['status'] == 2 || $order['status'] == 3 || $order['status'] == 4 ? 'none':'block'?>">
+        <input type="radio" name="status" value="1" <?= $order['status'] == 1 ? 'checked' : '' ?>> Chưa xử lý
+    </p>
+    <p style="display: <?= $order['status'] == 3 || $order['status'] == 4 ? 'none':'block'?>">
+        <input type="radio" name="status" value="2" <?= $order['status'] == 2 ? 'checked' : '' ?>> Đang xử lý
+    </p>
+    <p style="display: <?= $order['status'] == 4 ? 'none':'block'?>">
+        <input type="radio" name="status" value="3" <?= $order['status'] == 3 ? 'checked' : '' ?>> Đã xử lý
+    </p>
+    <p>
+        <input type="radio" name="status" value="4" <?= $order['status'] == 4 ? 'checked' : '' ?>> Hủy
+    </p>
+    <section>
+        <input <?= $order['status'] == 3 || $order['status'] == 4 ? 'disable':''?> type="submit" value="Update đơn hàng" class="btn btn-success">
+        <a href="?option=order&status=1" class="btn btn-outline-secondary">Back</a>
+    </section>
+</form>
