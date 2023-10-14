@@ -1,51 +1,47 @@
-
-<?php  include("views/layout/categories.php"); ?>
-    <!-- Categories Section Begin -->
-    <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/sach_van_hoc.webp">
-                            <h5><a href="#">Văn học</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/sach_ky_nang.webp">
-                            <h5><a href="#">Kỹ năng</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/sach_thieu_nhi.webp">
-                            <h5><a href="#">Thiếu nhi</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/sach_giao_khoa.webp">
-                            <h5><a href="#">tham khảo</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/sach_nuoc_ngoai.webp">
-                            <h5><a href="#">NƯỚC NGOÀI</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="../images/truyen_tranh.webp">
-                            <h5><a href="#">Truyện tranh</a></h5>
-                        </div>
-                    </div>
-
+<?php include("views/layout/categories.php"); ?>
+<!-- Categories Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories__slider owl-carousel">
+                <div class="list-author">
+                    <img src="../images/authors/nguyennhatanh.jpg" alt="" />
+                    <h5>Nguyễn Nhật Ánh</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/giacminhluat.png" alt="" />
+                    <h5>Giác Minh Luật</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/batnguyettruongan.webp" alt="" />
+                    <h5>Bát Nguyệt Trường An</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/daohai.jpg" alt="" />
+                    <h5>Đào Hải</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/holloway.jpg" alt="" />
+                    <h5>Richard Holloway</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/thichnhathanh.webp" alt="" />
+                    <h5>Thích Nhất Hạnh</h5>
+                </div>
+                <div class="list-author">
+                    <img src="../images/authors/tranquangduc.jpg" alt="" />
+                    <h5>Trần Quang Đức</h5>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Categories Section End -->
+    </div>
+</section>
+<!-- Categories Section End -->
 
-    <?php include("views/layout/featured_products.php"); ?>
+<?php include("views/layout/featured_products.php"); ?>
 
-    <?php include("views/layout/banner_bonus.php"); ?>
+<?php include("views/layout/banner_bonus.php"); ?>
 
-    <?php include("views/layout/latest_product.php"); ?>
+<?php include("views/layout/latest_product.php"); ?>
 
-    <?php include("views/layout/blog.php"); ?>
+<?php include("views/layout/blog.php"); ?>

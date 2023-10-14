@@ -73,7 +73,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 </head>
 
 <body>
-
     <section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
         <div class="container">
             <div class="signin-content">

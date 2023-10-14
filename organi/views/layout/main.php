@@ -17,6 +17,9 @@ if (isset($_GET['option'])) {
             unset($_SESSION['member']);
             header("location: ?option=home");
             break;
+        case "change_password":
+            include "views/change_password.php";
+            break;
         case "detail_product":
             include "views/detail_product.php";
             break;

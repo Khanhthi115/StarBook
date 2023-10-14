@@ -14,9 +14,9 @@ $result = $connect->query($query);
                     </div>
                     <ul>
                         <?php foreach ($result as $item) : ?>
-                            <li><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                            <li class='list-category'><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                         <?php endforeach; ?>
-                        <li><a href="?option=show_products">Tất Cả</a></li>
+                        <li class='list-category'><a href="?option=show_products">Tất Cả</a></li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +30,7 @@ $result = $connect->query($query);
                             </div>
                             <input type="hidden" name="option" value="show_products">
                             <input type="search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                            <button type="submit" class="site-btn">TÌM KIẾM</button>
                         </form>
                     </div>
                     <div class="hero__search__phone">

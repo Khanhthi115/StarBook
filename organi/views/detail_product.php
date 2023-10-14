@@ -25,6 +25,11 @@ $id = $_GET['id'];
 $query = "select * from products where id = $id";
 $result = $connect->query($query);
 $item = mysqli_fetch_array($result);
+
+$id_author = $item['author_id'];
+$queryAuthor = "select * from authors where id = $id_author";
+$resultAuthor = $connect->query($queryAuthor);
+$itemAuthor = mysqli_fetch_array($resultAuthor);
 ?>
 
 <!-- Product Details Section Begin -->
@@ -42,19 +47,19 @@ $item = mysqli_fetch_array($result);
                 <div class="product__details__text">
                     <h3><?= $item['name'] ?></h3>
                     <div class="product__details__price"><?= number_format($item['price'], 0, ",", ".") ?>đ</div>
-                    <div class="product__details__quantity">
+                    <!-- <div class="product__details__quantity">
                         <div class="quantity">
                             <div class="pro-qty">
                                 <input type="text" value="1">
                             </div>
                         </div>
-                    </div>
-                    <a href="?option=cart&action=add&id=<?=$item['id']?>" class="primary-btn">Thêm vào giỏ hàng</a>
+                    </div> -->
+                    <a href="?option=cart&action=add&id=<?= $item['id'] ?>" class="primary-btn">Thêm vào giỏ hàng</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>Tình Trạng</b> <span>Còn hàng</span></li>
                         <li><b>Giao hàng</b> <span>3 - 5 ngày trên toàn quốc</span></li>
-                        <li><b>Tác giả</b> <span>Nguyễn Nhật Ánh</span></li>
+                        <li><b>Tác giả</b> <a href="?option=show_products&authorId=<?= $itemAuthor['id'] ?>"><span><?= $itemAuthor['name'] ?></span></a></li>
                         <li><b>Share on</b>
                             <div class="share">
                                 <a href="#"><i class="fa fa-facebook"></i></a>

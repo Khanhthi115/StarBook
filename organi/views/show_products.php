@@ -47,9 +47,15 @@ if ($total_products)
     $total_pages = ceil(mysqli_num_rows($total_products) / $product_per_page);
 
 // take products from current page
-$query .= " ORDER BY RAND() limit $from, $product_per_page";
-$result = $connect->query($query);
-$number = mysqli_num_rows($result);
+if (!isset($_GET['sort'])) {
+    $query .= " ORDER BY RAND() limit $from, $product_per_page";
+    $result = $connect->query($query);
+    $number = mysqli_num_rows($result);
+} else {
+    $query .= " limit $from, $product_per_page";
+    $result = $connect->query($query);
+    $number = mysqli_num_rows($result);
+}
 ?>
 
 <?php
@@ -80,7 +86,7 @@ while ($row = $result_latest->fetch_assoc()) {
                     <h2>Star Book</h2>
                     <div class="breadcrumb__option">
                         <a href="./index.php">Home</a>
-                        <span>Finding products</span>
+                        <span>Tìm kiếm sách</span>
                     </div>
                 </div>
             </div>
@@ -96,16 +102,16 @@ while ($row = $result_latest->fetch_assoc()) {
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar">
                     <div class="sidebar__item">
-                        <h4>Categories</h4>
+                        <h4>Danh Mục Sách</h4>
                         <ul>
                             <?php foreach ($result_categories as $item) : ?>
-                                <li><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                                <li class="left-list-category"><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                             <?php endforeach; ?>
                             <li><a href="?option=show_products">Tất cả</li>
                         </ul>
                     </div>
                     <div class="sidebar__item">
-                        <h4>Price</h4>
+                        <h4>Lọc theo giá</h4>
                         <div class="price-range-wrap">
                             <section>
                                 <form>
@@ -137,7 +143,7 @@ while ($row = $result_latest->fetch_assoc()) {
                     </div>
                     <div class="sidebar__item">
                         <div class="latest-product__text">
-                            <h4>Latest Products</h4>
+                            <h4>Sách Mới</h4>
                             <div class="latest-product__slider owl-carousel">
                                 <div class="latest-prdouct__slider__item">
                                     <?php foreach ($evenProducts as $item) : ?>
@@ -170,12 +176,36 @@ while ($row = $result_latest->fetch_assoc()) {
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-9 col-md-7">
+                <!-- Hero Section Begin -->
+                <section class="hero hero-normal">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="hero__search">
+                                    <div class="hero__search__form">
+                                        <form>
+                                            <div class="hero__search__categories">
+                                                ALL BOOKS
+                                                <span class="arrow_carrot-down"></span>
+                                            </div>
+                                            <input type="hidden" name="option" value="show_products">
+                                            <input type="search" name="keyword" value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : "" ?>">
+                                            <button type="submit" class="site-btn">Tìm Kiếm</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Hero Section End -->
                 <div class="filter__item">
                     <div class="row">
                         <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
-                                <span>Sort By</span>
+                                <span>Sắp xếp theo</span>
                                 <select onchange="redirectToPage(this)">
                                     <option value="0">Tên Sách</option>
                                     <option value="1">Giá Sách</option>
@@ -184,7 +214,7 @@ while ($row = $result_latest->fetch_assoc()) {
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
-                                <h6><span>Products found</h6>
+                                <h6><span>Các sản phẩm tìm được</h6>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3">

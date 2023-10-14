@@ -12,7 +12,7 @@ $query = "select * from orders where status = " . $_GET['status'];
 $result = $connect->query($query);
 ?>
 <h1>DANH SÁCH ĐƠN HÀNG <?= $status == 1 ? 'CHƯA XỬ LÝ' : ($status == 2 ? 'ĐANG XỬ LÝ' : ($status == 3 ? 'ĐÃ XỬ LÝ' : 'HỦY')) ?></h1>
-<table class="table table-bordered">
+<table class="table table-bordered" style="text-align: center">
     <thead>
         <tr>
             <th>STT</th>

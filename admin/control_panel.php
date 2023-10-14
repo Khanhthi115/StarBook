@@ -7,7 +7,9 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
 <table class="table table-bordered tbl-admin">
     <tr>
         <td width="15%" height="100">
-            Hello: <?= $_SESSION['admin'] ?> <br><a href="?option=logout">Logout</a>
+            Hello: <?= $_SESSION['admin'] ?>
+            <a href="?option=change_password">Đổi mật khẩu</a>
+            <a href="?option=logout">Đăng xuất</a>
         </td>
         <td align="center">
             ADMIN CONTROL PANEL

@@ -76,6 +76,7 @@ footer {
     height: 100%;
     object-fit: contain;
 }
+
 .pages {
     width: 100%;
     float: left;
@@ -83,6 +84,7 @@ footer {
     text-align: center;
     margin-top: 10px;
 }
+
 .hightlight {
     color: white;
     font-weight: bold;
