@@ -1080,6 +1080,10 @@ ol {
 	margin-bottom: 30px;
 }
 
+.article-container {
+	cursor: pointer;
+}
+
 .from-blog__title {
 	margin-bottom: 70px;
 }
@@ -2362,6 +2366,8 @@ ol {
 
 .blog__item__text h5 {
 	margin-bottom: 12px;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .blog__item__text h5 a {
@@ -2372,6 +2378,7 @@ ol {
 
 .blog__item__text p {
 	margin-bottom: 25px;
+	font-size: 15px;
 }
 
 .blog__item__text .blog__btn {
@@ -3721,4 +3728,118 @@ ol {
 
 .signin-image img {
 	width: 100%;
+}
+
+.article-detail-container {
+	margin: 30px auto;
+	display: flex;
+	width: 90%;
+	justify-content: space-around;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.article-detail-main {
+	width: 60%;
+}
+
+.article-detail-main h1 {
+	font-size: 3rem;
+	font-weight: bold;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+}
+
+.article-detail-main .article-create-date {
+	margin: 15px 0;
+	font-size: 15px;
+}
+
+.article-detail-main .article-summary h4 {
+	font-size: 18px;
+	margin-bottom: 15px;
+	font-style: italic;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+}
+
+.article-detail-main .article-image {
+	width: 80%;
+	display: flex;
+	justify-content: center;
+}
+
+.article-detail-main .article-image img {
+	margin: 20px auto;
+}
+
+.article-detail-main .article-content p {
+	font-size: 16px;
+	color: black;
+}
+
+.article-detail-main .article-video {
+	width: 80%;
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.image.image-style-side {
+	display: flex;
+	justify-content: center;
+}
+
+.article-detail-main .article-video {
+	width: 100%;
+}
+
+.article-detail-main .article-video iframe {
+	width: 650px;
+	height: 400px;
+}
+
+.article-relate {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.article-relate-item {
+	display: flex;
+	justify-content: space-between;
+	height: 140px;
+	overflow: hidden;
+	padding: 20px;
+	cursor: pointer;
+}
+
+.article-relate-item:hover {
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+}
+
+.article-relate h3 {
+	font-weight: bold;
+	font-size: 30px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.article-relate-item img {
+	width: 30%;
+	height: 100px;
+	object-fit: cover;
+
+}
+
+.article-relate-item .articles-relate-intro {
+	width: 60%;
+	height: 100px;
+	color: black;
+	font-size: 16px;
+}
+
+.article-relate-item span {
+	font-family: Arial, Helvetica, sans-serif;
+	color: gray;
+	font-size: 13px;
 }

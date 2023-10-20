@@ -26,6 +26,9 @@ if (isset($_GET['option'])) {
         case "show_products":
             include "views/show_products.php";
             break;
+        case "article_detail":
+            include "views/detail_article.php";
+            break;
         case 'order':
             include "views/order.php";
             break;
@@ -36,4 +39,3 @@ if (isset($_GET['option'])) {
 } else {
     include "views/home.php";
 }
-?>

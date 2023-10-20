@@ -1,6 +1,6 @@
 <?php
 $option = 'show_products';
-$query = "select * from products where status = 1";
+$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from products join authors on products.author_id = authors.id where products.status = 1";
 // search by authors
 if (isset($_GET['authorId'])) {
     $query .= " and author_id=" . $_GET['authorId'];
@@ -14,7 +14,7 @@ if (isset($_GET['cat_id'])) {
 // search by keyword
 elseif (isset($_GET['keyword'])) {
     $keyword = htmlspecialchars($_GET['keyword']);
-    $query .= " and name like '%" . $keyword . "%'";
+    $query .= " and (products.name like '%" . $keyword . "%' or authors.name like '%" . $keyword . "%')";
     $option = 'show_products&keyword=' . $_GET['keyword'];
 }
 // search by range of price
@@ -153,7 +153,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $item['name'] ?></h6>
-                                                <span><?= $item['price'] ?></span>
+                                                <span><?= number_format($item['price']) ?>đ</span>
                                             </div>
                                         </a>
                                     <?php endforeach; ?>
@@ -166,7 +166,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $item['name'] ?></h6>
-                                                <span><?= $item['price'] ?></span>
+                                                <span><?= number_format($item['price']) ?>đ</span>
                                             </div>
                                         </a>
                                     <?php endforeach; ?>

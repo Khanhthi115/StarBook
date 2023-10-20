@@ -1,3 +1,7 @@
+ <?php
+    $query = "select * from article_categories";
+    $result = $connect->query($query);
+    ?>
  <div class="humberger__menu__overlay"></div>
  <div class="humberger__menu__wrapper">
      <div class="humberger__menu__logo">
@@ -24,6 +28,9 @@
              <li><a href="./shop-grid.html">Books</a></li>
              <li><a href="#">Authors</a>
                  <ul class="header__menu__dropdown">
+                     <?php foreach ($result as $item) : ?>
+                         <li><a href="?option=article&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                     <?php endforeach; ?>
                      <li><a href="./shop-details.html">Nguyễn Nhật Ánh</a></li>
                      <li><a href="./shoping-cart.html">Trần Đăng Khoa</a></li>
                  </ul>
@@ -90,14 +97,17 @@
                  <nav class="header__menu">
                      <ul>
                          <li class="active"><a href="?option=home">Home</a></li>
-                         <li><a href="?option=show_products">Khám phá</a></li>
-                         <li><a href="#">Tác giả</a>
+                         <li><a href="?option=show_products">Sách</a></li>
+                         <li><a href="?option=cart">Giỏ hàng</a></li>
+                         <li><a href="#">Bài viết</a>
                              <ul class="header__menu__dropdown">
+                                 <?php foreach ($result as $item) : ?>
+                                     <li><a href="?option=article&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                                 <?php endforeach; ?>
                                  <li><a href="?option=show_products&authorId=1">Nguyễn Nhật Ánh</a></li>
                                  <li><a href="?option=show_products&authorId=20">Tây Tử Tự</a></li>
                              </ul>
                          </li>
-                         <li><a href="?option=cart">Giỏ hàng</a></li>
                          <li><a href="./contact.html">Liên hệ</a></li>
                      </ul>
                  </nav>
@@ -106,7 +116,7 @@
                  <div class="header__cart">
                      <ul>
                          <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                         <li><a href="?option=cart.php"><i class="fa fa-shopping-bag"></i></a></li>
+                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i></a></li>
                      </ul>
                      <div class="header__cart__price">item: <span>$150.00</span></div>
                  </div>
