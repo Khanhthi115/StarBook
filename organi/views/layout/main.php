@@ -26,6 +26,9 @@ if (isset($_GET['option'])) {
         case "show_products":
             include "views/show_products.php";
             break;
+        case "show_articles":
+            include "views/show_articles.php";
+            break;
         case "article_detail":
             include "views/detail_article.php";
             break;

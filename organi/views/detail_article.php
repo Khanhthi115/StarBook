@@ -1,27 +1,4 @@
 <?php
-if (isset($_POST['content'])) {
-    $content = $_POST['content'];
-    $productId = $_GET['id'];
-    // when user have signed in and comment
-    if (isset($_SESSION['member'])) {
-        $date = time();
-        $memberId = mysqli_fetch_array($connect->query("select * from member where username='" . $_SESSION['member'] . "'"));
-        $memberId = $memberId['id'];
-        $connect->query("insert comments (memberId, productId, date, content) values ($memberId, $productId, now(), '$content')");
-        echo "<script>alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!')</script>";
-    } else {
-        // when user have not signed in and comment
-        $_SESSION['content'] = $content;
-        echo "
-        <script>
-            alert('Đăng nhập để thực hiện chức năng này!');
-            location='?option=signin&product_id=$productId';
-        </script>";
-    }
-}
-?>
-
-<?php
 $id = $_GET['id'];
 $query = "select * from articles where id = $id";
 $result = $connect->query($query);
@@ -32,8 +9,7 @@ $queryCat = "select * from article_categories where id = $article_cat";
 $resultCat = $connect->query($queryCat);
 $itemCat = mysqli_fetch_array($resultCat);
 
-echo $itemCat['id'];
-$queryArticles = "select * from articles where status = 1";
+$queryArticles = "select * from articles where status = 1 order by rand() limit 6";
 $resultArticles = $connect->query($queryArticles);
 $numberArticles = mysqli_num_rows($resultArticles);
 ?>

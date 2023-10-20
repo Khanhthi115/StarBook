@@ -102,10 +102,9 @@
                          <li><a href="#">Bài viết</a>
                              <ul class="header__menu__dropdown">
                                  <?php foreach ($result as $item) : ?>
-                                     <li><a href="?option=article&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                                     <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                                  <?php endforeach; ?>
-                                 <li><a href="?option=show_products&authorId=1">Nguyễn Nhật Ánh</a></li>
-                                 <li><a href="?option=show_products&authorId=20">Tây Tử Tự</a></li>
+                                 <li><a href="?option=show_articles">Tất Cả</a></li>
                              </ul>
                          </li>
                          <li><a href="./contact.html">Liên hệ</a></li>
