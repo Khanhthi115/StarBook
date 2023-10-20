@@ -42,7 +42,7 @@ $item = mysqli_fetch_array($result);
 <section>
     <h2>Bình luận về sản phẩm</h2>
     <?php
-    $comment = $connect->query("select * from member a join comments b on a.id = b.memberId join products c on b.productId = c.id where b.status and productId = ".$_GET['id']);
+    $comment = $connect->query("select * from member a join comments b on a.id = b.memberId join products c on b.productId = c.id where b.status = 0 and productId = ".$_GET['id']);
     if (mysqli_num_rows($comment) == 0) :
         echo "<section>Chưa có bình luận nào</section>";
     else :

@@ -6,11 +6,13 @@ if (isset($_GET['authorId'])) {
     $query .= " and author_id=" . $_GET['authorId'];
     $option = 'show_products&authorId='.$_GET['authorId'];
 }
+
 // search by keyword
 elseif (isset($_GET['keyword'])) {
     $query .= " and name like '%" . $_GET['keyword'] . "%'";
     $option = 'show_products&keyword='.$_GET['keyword'];
 }
+
 // search by range of price
 elseif (isset($_GET['range'])) {
     $query .= " and price <= " . $_GET['range'];

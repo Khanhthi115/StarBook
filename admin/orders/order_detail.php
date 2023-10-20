@@ -86,7 +86,7 @@ $order_detail = $connect->query($query);
 <form method="post">
     <h2>CÁC SẢN PHẨM ĐẶT MUA</h2>
     <?php $count = 1; ?>
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="text-align: center">
         <thead>
             <tr>
                 <th>STT</th>
@@ -103,9 +103,9 @@ $order_detail = $connect->query($query);
                 <td><img width="100px" src="../images/<?= $item['image'] ?>"></td>
                 <td><?= number_format($item['price'], 0, ',', '.') ?></td>
                 <td>
-                    <input <?= $item['quantity'] == 1 ? 'disabled' : '' ?> type="button" value="-" onclick="location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=dec&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
+                    <input <?= $order['status'] == 3 || $order['status'] == 4 ? 'disabled' : '' ?> <?= $item['quantity'] == 1 ? 'disabled' : '' ?> type="button" value="-" onclick="if (confirm('Bạn có chắc muốn giảm số lượng sản phẩm cho đơn hàng này?')) location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=dec&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
                     <?= $item['quantity'] ?>
-                    <input type="button" value="+" onclick="location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=asc&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
+                    <input <?= $order['status'] == 3 || $order['status'] == 4 ? 'disabled' : '' ?> type="button" value="+" onclick="if (confirm('Bạn có chắc muốn tăng số lượng sản phẩm cho đơn hàng này')) location='?option=order_detail&id=<?= $_GET['id'] ?>&action=update&type=asc&order_id=<?= $item['orderId'] ?>&product_id=<?= $item['productId'] ?>';">
                 </td>
             </tr>
         <?php endforeach; ?>

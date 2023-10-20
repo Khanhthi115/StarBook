@@ -2,9 +2,45 @@ h1 {
     font-size: 30px;
     text-align: center;
 }
+
 .tbl-admin td>section {
     margin-top: 20px;
 }
+
 a {
     text-decoration: none !important;
+}
+
+.admin-container {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.admin-container label {
+    width: 15%;
+}
+
+.admin-container>section {
+    margin-bottom: 25px;
+}
+
+.admin-container input {
+    width: 40%;
+    outline: none;
+    padding: 8px 16px;
+    border: 1px solid gray;
+
+}
+
+.admin-container {
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 40px 0px;
+}
+
+@media screen and (max-width: 1200px) {
+    .admin-container {
+        width: 80%;
+    }
 }

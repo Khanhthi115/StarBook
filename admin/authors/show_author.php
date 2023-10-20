@@ -18,7 +18,7 @@
 <section style="text-align:center">
     <a href="?option=author_add" class="btn btn-success">Thêm tác giả</a>
 </section>
-<table class="table table-bordered">
+<table class="table table-bordered" style="text-align: center">
     <thead>
         <tr>
             <th>STT</th>
