@@ -1,8 +1,9 @@
 <?php
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $query = "SELECT * FROM member WHERE username = '$username' AND password = '$password'";
+    $password = $_POST['password'];
+    $hashPassword = md5($password);
+    $query = "SELECT * FROM member WHERE username = '$username' AND password = '$hashPassword'";
     $result = $connect->query($query);
 
     // if ($result_signin) {
@@ -56,6 +57,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     location='?option=detail_product&id=$product_id';
                 </script>";
             } else {
+                echo "Helooooooooooooooooooooooo";
                 header("location: ?option=home");
             }
         }
