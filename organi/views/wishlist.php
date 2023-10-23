@@ -24,35 +24,37 @@
 ?>
 
 <?php
-if ($_GET['action'] === 'add') {
-    // Kiểm tra xem sản phẩm đã tồn tại trong danh sách yêu thích của người dùng hay chưa
-    $productId = $_GET['id'];
-    $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId");
-    $result = mysqli_fetch_array($result);
-    $member = $_SESSION['member'];
-    $memberId = $connect->query("SELECT `id` FROM `member` WHERE `username` = '$member'");
-    $memberId = mysqli_fetch_array($memberId);
-    $memberId = $memberId['id'];
-    $checkQuery = "SELECT * FROM `wishlist` WHERE `member_id` = '$memberId' AND `product_id` = $productId";
-    $checkStatement = $connect->query($checkQuery);
-    if (mysqli_num_rows($checkStatement) != 0) {
-        confirm('Đã có sản phẩm này trong wishlist');
-        header("location: ?option=wishlist");
-    } else {
-        // Nếu sản phẩm chưa tồn tại, thêm vào danh sách yêu thích
-        $productName = $result['name'];
-        $productPrice = $result['price'];
-        $productImg = $result['image'];
-        $insertQuery = "INSERT INTO `wishlist` (`member_id`, `product_id`, `product_name`, `product_image`, `product_price`) 
-                        VALUES ($memberId, $productId, '$productName', '$productImg', $productPrice)";
-        $insertStatement = $connect->query($insertQuery);
+if (isset($_GET['action'])){
+    if ($_GET['action'] === 'add') {
+        // Kiểm tra xem sản phẩm đã tồn tại trong danh sách yêu thích của người dùng hay chưa
+        $productId = $_GET['id'];
+        $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId");
+        $result = mysqli_fetch_array($result);
+        $member = $_SESSION['member'];
+        $memberId = $connect->query("SELECT `id` FROM `member` WHERE `username` = '$member'");
+        $memberId = mysqli_fetch_array($memberId);
+        $memberId = $memberId['id'];
+        $checkQuery = "SELECT * FROM `wishlist` WHERE `member_id` = '$memberId' AND `product_id` = $productId";
+        $checkStatement = $connect->query($checkQuery);
+        if (mysqli_num_rows($checkStatement) != 0) {
+            // alert('Đã có sản phẩm này trong wishlist');
+            header("location: ?option=wishlist");
+        } else {
+            // Nếu sản phẩm chưa tồn tại, thêm vào danh sách yêu thích
+            $productName = $result['name'];
+            $productPrice = $result['price'];
+            $productImg = $result['image'];
+            $insertQuery = "INSERT INTO `wishlist` (`member_id`, `product_id`, `product_name`, `product_image`, `product_price`) 
+                            VALUES ($memberId, $productId, '$productName', '$productImg', $productPrice)";
+            $insertStatement = $connect->query($insertQuery);
+            header("location: ?option=wishlist");
+        }
+    } else if ($_GET['action'] === 'remove') {
+        $Id = $_GET['id'];
+        $deleteQuery = "DELETE FROM `wishlist` WHERE `id` = $Id";
+        $deleteStatement = $connect->query($deleteQuery);
         header("location: ?option=wishlist");
     }
-} else if ($_GET['action'] === 'remove') {
-    $Id = $_GET['id'];
-    $deleteQuery = "DELETE FROM `wishlist` WHERE `id` = $Id";
-    $deleteStatement = $connect->query($deleteQuery);
-    header("location: ?option=wishlist");
 }
 
 ?>
@@ -111,7 +113,9 @@ if ($_GET['action'] === 'add') {
                                     foreach ($result as $item) :
                                 ?>
                             <tr>
-                                <td class="wishlist__item">
+                                <td class="wishlist__item"
+                                onclick="location='?option=detail_product&id=<?= $item['product_id'] ?>';"
+                                >
                                     <img width="100px" src="../images/<?= $item['product_image'] ?>" alt="">
                                     <h5>
                                         <?= $item['product_name'] ?>
