@@ -3,7 +3,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $hashPassword = md5($password);
-    $query = "SELECT * FROM member WHERE username = '$username' AND password = '$hashPassword'";
+    $query = "SELECT * FROM `member` WHERE `username` = '$username' AND `password` = '$hashPassword'";
     $result = $connect->query($query);
 
     // if ($result_signin) {

@@ -34,7 +34,7 @@ $resultArticleCategories = $connect->query($queryArticleCategories);
                     </ul>
                     <ul>
                         <?php foreach ($resultAuthors as $item) : ?>
-                            <li><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                            <li><a href="?option=show_products&authorId=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -51,14 +51,14 @@ $resultArticleCategories = $connect->query($queryArticleCategories);
             </div>
             <div class="col-lg-1 col-md-6 col-sm-6">
                 <div class="footer__widget" style="font-weight: bold">
-                    S <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    T <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    A <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    R <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    B <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    O <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    O <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
-                    K <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br/>
+                    S <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    T <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    A <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    R <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    B <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    O <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    O <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
+                    K <i style="color: green" class="fa fa-heart" aria-hidden="true"></i><br />
                 </div>
             </div>
         </div>
