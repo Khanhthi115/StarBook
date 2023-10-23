@@ -1,0 +1,27 @@
+.wishlist__table{
+    width: 100%;
+    font-size: 20px;
+}
+
+.wishlist__table tr{
+    margin-bottom: 30px;
+}
+
+.wishlist__item,
+.wishlist__product{
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.wishlist__item h5{
+    padding: 40px;
+}
+
+.wishlist__remove{
+    font-size: 25px;
+    color: rgb(173, 173, 169);
+}
+
+.wishlist__remove span{
+    cursor: pointer;
+}

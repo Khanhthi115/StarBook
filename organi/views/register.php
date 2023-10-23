@@ -11,8 +11,8 @@ if (isset($_POST['username'])) {
         $phone = $_POST['phone'];
         $address = $_POST['address'];
         $email = $_POST['email'];
-        $query = "insert member (
-                username, password, fullname, phonenumber, address, email) values ('$username', '$password',
+        $query = "insert `member` (
+                `username`, `password`, `fullname`, `phonenumber`, `address`, `email`) values ('$username', '$password',
                 '$fullname', '$phone', '$address', '$email')";
         $connect->query($query);
         echo "<script>alert('Đăng ký thành công'); location='?option=home'</script>";

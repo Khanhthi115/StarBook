@@ -55,7 +55,7 @@ $itemAuthor = mysqli_fetch_array($resultAuthor);
                         </div>
                     </div> -->
                     <a href="?option=cart&action=add&id=<?= $item['id'] ?>" class="primary-btn">Thêm vào giỏ hàng</a>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    <a href="?option=wishlist&action=add&id=<?= $item['id'] ?>" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>Tình Trạng</b> <span>Còn hàng</span></li>
                         <li><b>Giao hàng</b> <span>3 - 5 ngày trên toàn quốc</span></li>

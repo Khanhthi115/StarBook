@@ -38,6 +38,9 @@ if (isset($_GET['option'])) {
         case 'order_success':
             include "views/order_success.php";
             break;
+        case 'wishlist':
+            include "views/wishlist.php";
+            break;
     }
 } else {
     include "views/home.php";
