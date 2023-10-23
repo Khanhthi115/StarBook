@@ -232,7 +232,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="../images/<?= $item['image'] ?>">
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="?option=wishlist&action=add&id=<?= $item['id'] ?>"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="?option=cart&action=add&id=<?= $item['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>

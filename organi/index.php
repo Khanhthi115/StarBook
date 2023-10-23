@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
+$connect = new MySQLi('localhost', 'root', '12345678', 'starbook_databse', 3306);
 ?>
 <?php
 ob_start();
@@ -28,6 +28,7 @@ session_start();
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/wishlist.css" type="text/css" />
 </head>
 <body>
     <section><?php include "views/layout/header.php"; ?></section>
