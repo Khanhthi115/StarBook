@@ -44,7 +44,7 @@ $resultArticleCategories = $connect->query($queryArticleCategories);
                     <h6>Danh mục bài viết</h6>
                     <ul>
                         <?php foreach ($resultArticleCategories as $item) : ?>
-                            <li><a href="?option=show_products&cat_id=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                            <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

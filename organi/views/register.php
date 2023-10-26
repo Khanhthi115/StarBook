@@ -66,13 +66,13 @@ if (isset($_POST['username'])) {
                             <input type="text" name="address" id="address" placeholder="Địa chỉ" />
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="signup" id="signup" class="btn btn-primary btn-signup" value="Register" />
+                            <input type="submit" name="signup" id="signup" class="btn btn-primary btn-signup" value="Đăng ký" />
                         </div>
                     </form>
                 </div>
                 <div class="signup-image">
                     <figure><img src="../images/signup-image.jpg" alt="sing up image"></figure>
-                    <a href="?option=signin" class="signup-image-link">Đăng nhập</a>
+                    <a href="?option=signin" class="signup-image-link">Đã có tài khoản? Đăng nhập</a>
                 </div>
             </div>
         </div>
