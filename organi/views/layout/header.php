@@ -1,6 +1,18 @@
  <?php
     $query = "select * from article_categories";
     $result = $connect->query($query);
+
+    if (isset($_SESSION['member'])) {
+        $memberId = mysqli_fetch_array($connect->query("select * from member where username='" . $_SESSION['member'] . "'"));
+        $memberId = $memberId['id'];
+
+        $queryWishlist = "select * from wishlist where member_id = " . $memberId;
+        $numberOfProductsInWishlist = mysqli_num_rows($connect->query($queryWishlist));
+
+        $queryCart = "select * from cart where member_id = " . $memberId;
+        $numberOfProductsInCart = mysqli_num_rows($connect->query($queryCart));
+    }
+
     ?>
  <div class="humberger__menu__overlay"></div>
  <div class="humberger__menu__wrapper">
@@ -9,10 +21,11 @@
      </div>
      <div class="humberger__menu__cart">
          <ul>
-             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-             <li><a href="?option=signin.php"><i class="fa fa-shopping-bag"></i></a></li>
+             <li><a href="#"><i class="fa fa-heart"></i> <?php if ($numberOfProductsInWishlist > 0) echo "<span>$numberOfProductsInWishlist</span>";
+                                                            else echo "0"; ?></a></li>
+             <li><a href="?option=signin.php"><i class="fa fa-shopping-bag"></i><?php if ($numberOfProductsInCart > 0) echo "<span>$numberOfProductsInCart</span>";
+                                                                                else echo "0"; ?></a></li>
          </ul>
-         <div class="header__cart__price">item: <span>$150.00</span></div>
      </div>
      <div class="humberger__menu__widget">
          <div class="header__top__right__auth">
@@ -114,10 +127,9 @@
              <div class="col-lg-3">
                  <div class="header__cart">
                      <ul>
-                         <li><a href="?option=wishlist"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i></a></li>
+                         <li><a href="?option=wishlist"><i class="fa fa-heart"></i> <span><?= $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></span></a></li>
+                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i> <span><?= $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a></li>
                      </ul>
-                     <div class="header__cart__price">item: <span>$150.00</span></div>
                  </div>
              </div>
          </div>

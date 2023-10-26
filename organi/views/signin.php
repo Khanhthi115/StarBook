@@ -57,7 +57,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     location='?option=detail_product&id=$product_id';
                 </script>";
             } else {
-                echo "Helooooooooooooooooooooooo";
                 header("location: ?option=home");
             }
         }
