@@ -40,12 +40,12 @@
 // }
 //
 if (isset($_SESSION['member'])) {
-    $query  = "select * from member where username='" . $_SESSION['member'] . "'";
+    $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
     $memberId = $member['id'];
     if (isset($_GET['action'])) {
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $queryProducts = "select * from products where id = $id";
+        $queryProducts = "select * from `products` where `id` = $id";
         $result1 = $connect->query($queryProducts);
         if ($result1 && mysqli_num_rows($result1) > 0) {
             $product = mysqli_fetch_array($result1);
@@ -56,9 +56,9 @@ if (isset($_SESSION['member'])) {
         }
         switch ($_GET['action']) {
             case 'add':
-                $queryProductsInCart = "select * from cart where product_id = $productId and member_id = $memberId";
+                $queryProductsInCart = "select * from `cart` where `product_id` = $productId and `member_id` = $memberId";
                 if (mysqli_num_rows($connect->query($queryProductsInCart)) != 0) {
-                    $connect->query("update cart " . " set quantity = quantity + 1 where product_id = " . $productId . " and member_id = " . $memberId);
+                    $connect->query("update `cart` " . " set `quantity` = `quantity` + 1 where `product_id` = " . $productId . " and `member_id` = " . $memberId);
                     header("location: ?option=cart");
                 } else {
                     $connect->query("insert into cart (product_id, product_name, product_price, product_image, member_id, quantity) values ($productId, '$productName', $productPrice, '$productImage', $memberId, 1)");
@@ -79,13 +79,6 @@ if (isset($_SESSION['member'])) {
                     $connect->query("update cart " . " set quantity = quantity - 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
                 header("location: ?option=cart");
                 break;
-                // case 'order':
-                //     if (isset($_SESSION['member'])) {
-                //         header("location: ?option=order");
-                //     } else {
-                //         header("location: ?option=signin&order=1");
-                //     }
-                //     break;
         }
     }
 } else {
@@ -148,7 +141,9 @@ $productsInCart = $connect->query($queryCart);
                                     <tr>
                                         <td class="shoping__cart__item">
                                             <img width="100px" src="../images/<?= $item['product_image'] ?>" alt="">
-                                            <a href="?option=detail_product&id=<?=$item['product_id']?>"><h5><?= $item['product_name'] ?></h5></a>
+                                            <a href="?option=detail_product&id=<?= $item['product_id'] ?>">
+                                                <h5><?= $item['product_name'] ?></h5>
+                                            </a>
                                         </td>
                                         <td class="shoping__cart__price">
                                             <?= number_format($item['product_price'], 0, ',', '.') ?>đ

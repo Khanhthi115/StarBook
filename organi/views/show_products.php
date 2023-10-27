@@ -24,7 +24,7 @@ elseif (isset($_GET['range'])) {
 }
 
 // sort by price, name
-elseif (isset($_GET['sort'])) {
+if (isset($_GET['sort'])) {
     $query .= " order by " . $_GET['sort'];
     $option = 'show_products&sort=' . $_GET['sort'];
 }
@@ -77,6 +77,7 @@ while ($row = $result_latest->fetch_assoc()) {
     }
 }
 ?>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="../images/background_show_products.jpg">
     <div class="container">
@@ -207,8 +208,8 @@ while ($row = $result_latest->fetch_assoc()) {
                             <div class="filter__sort">
                                 <span>Sắp xếp theo</span>
                                 <select onchange="redirectToPage(this)">
-                                    <option value="0">Tên Sách</option>
-                                    <option value="1">Giá Sách</option>
+                                    <option value="0" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'name') echo 'selected'; ?>>Tên Sách</option>
+                                    <option value="1" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'price') echo 'selected'; ?>>Giá Sách</option>
                                 </select>
                             </div>
                         </div>
@@ -268,7 +269,7 @@ while ($row = $result_latest->fetch_assoc()) {
             sortParam = "price";
         }
 
-        var url = "?option=show_products&sort=" + sortParam;
-        window.location.href = url;
+        var url = "&sort=" + sortParam;
+        window.location.href += url;
     }
 </script>
