@@ -18,9 +18,9 @@ elseif (isset($_GET['keyword'])) {
     $option = 'show_products&keyword=' . $_GET['keyword'];
 }
 // search by range of price
-elseif (isset($_GET['range'])) {
+if (isset($_GET['range'])) {
     $query .= " and price <= " . $_GET['range'];
-    $option = 'show_products&range=' . $_GET['range'];
+    // $option = 'show_products&range=' . $_GET['range'];
 }
 
 // sort by price, name
@@ -118,23 +118,23 @@ while ($row = $result_latest->fetch_assoc()) {
                                 <form>
                                     <input type="hidden" name="option" value="show_products">
                                     <div class="sidebar__item__size">
-                                        <label for="100000">
-                                            <= 100.000 <input type="submit" name="range" value="100000" id="100000">
+                                        <label for="btn-100000">
+                                            <= 100.000 <input type="submit" name="range" value="100000" id="btn-100000">
                                         </label>
                                     </div>
                                     <div class="sidebar__item__size">
-                                        <label for="200000">
-                                            <= 200.000 <input type="submit" name="range" value="200000" id="200000">
+                                        <label for="btn-200000">
+                                            <= 200.000 <input type="submit" name="range" value="200000" id="btn-200000">
                                         </label>
                                     </div>
                                     <div class="sidebar__item__size">
-                                        <label for="300000">
-                                            <= 300.000 <input type="submit" name="range" value="300000" id="300000">
+                                        <label for="btn-300000">
+                                            <= 300.000 <input type="submit" name="range" value="300000" id="btn-300000">
                                         </label>
                                     </div>
                                     <div class="sidebar__item__size">
-                                        <label for="400000">
-                                            <= 400.000 <input type="submit" name="range" value="400000" id="400000">
+                                        <label for="btn-400000">
+                                            <= 400.000 <input type="submit" name="range" value="400000" id="btn-400000">
                                         </label>
                                     </div>
 
@@ -208,8 +208,8 @@ while ($row = $result_latest->fetch_assoc()) {
                             <div class="filter__sort">
                                 <span>Sắp xếp theo</span>
                                 <select onchange="redirectToPage(this)">
-                                    <option value="0" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'name') echo 'selected'; ?>>Tên Sách</option>
-                                    <option value="1" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'price') echo 'selected'; ?>>Giá Sách</option>
+                                    <option value="0" <?php if (isset($_GET['sort']) && $_GET['sort'] === 'name') echo 'selected'; ?>>Tên Sách</option>
+                                    <option value="1" <?php if (isset($_GET['sort']) && $_GET['sort'] === 'price') echo 'selected'; ?>>Giá Sách</option>
                                 </select>
                             </div>
                         </div>
@@ -272,4 +272,29 @@ while ($row = $result_latest->fetch_assoc()) {
         var url = "&sort=" + sortParam;
         window.location.href += url;
     }
+
+    function addRangeParam(range) {
+        // Redirect to the new URL
+        window.location.href += "&range=" + range;
+    }
+    var btn100 = document.getElementById("btn-100000");
+    btn100.addEventListener("click", function(e) {
+        e.preventDefault();
+        addRangeParam('100000');
+    });
+    var btn200 = document.getElementById("btn-200000");
+    btn200.addEventListener("click", function(e) {
+        e.preventDefault();
+        addRangeParam('200000');
+    });
+    var btn300 = document.getElementById("btn-300000");
+    btn300.addEventListener("click", function(e) {
+        e.preventDefault();
+        addRangeParam('300000');
+    });
+    var btn400 = document.getElementById("btn-400000");
+    btn400.addEventListener("click", function(e) {
+        e.preventDefault();
+        addRangeParam('400000');
+    });
 </script>
