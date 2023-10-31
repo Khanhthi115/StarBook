@@ -9,6 +9,7 @@ if (isset($_POST['name'])) {
         $alert = "Sản phẩm đã tồn tại";
     } else {
         $author_id = $_POST['author_id'];
+        $cat_id = $_POST['cat_id'];
         $price = $_POST['price'];
         $description = $_POST['description'];
         $status = $_POST['status'];
@@ -41,7 +42,7 @@ if (isset($_POST['name'])) {
             $imageName = $product['image'];
         }
         // echo $author_id, $name, $price, $description, $status, "image: ", $imageName;
-        $query = ("update products set author_id = $author_id, name='$name',
+        $query = ("update products set author_id = $author_id, cat_id = $cat_id, name='$name',
             image='$imageName', description='$description', price=$price, status='$status' where id=" . $product['id']);
         $connect->query($query);
         header("Location: ?option=product");
@@ -50,6 +51,7 @@ if (isset($_POST['name'])) {
 ?>
 <?php
 $author = $connect->query("select * from authors");
+$categories = $connect->query("select * from categories");
 ?>
 <h1>Update sản phẩm</h1>
 <section style="color: red; text-align:center"><?= isset($alert) ? $alert : '' ?></section>
@@ -60,7 +62,18 @@ $author = $connect->query("select * from authors");
             <select name="author_id" class="form-control">
                 <option hidden>--Chọn tác giả--</option>
                 <?php foreach ($author as $item) : ?>
-                    <option value="<?= $item['id'] ?>" <?= $item['id'] == $product['author_id'] ? 'selected' : '' ?>><?= $item['name'] ?></option>
+                <option value="<?= $item['id'] ?>" <?= $item['id'] == $product['author_id'] ? 'selected' : '' ?>>
+                    <?= $item['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </section>
+        <section class="form-group">
+            Tên danh mục:
+            <select name="cat_id" class="form-control">
+                <option hidden>--Chọn danh mục--</option>
+                <?php foreach ($categories as $item) : ?>
+                <option value="<?= $item['id'] ?>" <?= $item['id'] == $product['cat_id'] ? 'selected' : '' ?>>
+                    <?= $item['name'] ?></option>
                 <?php endforeach; ?>
             </select>
         </section>

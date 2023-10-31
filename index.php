@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
 // if($connect->connect_error){
 //     die("Kết nối không thành công". $connect->connect_error);
 // }
