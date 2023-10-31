@@ -139,7 +139,7 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title">
-                    <h2>Related Product</h2>
+                    <h2>Sản phẩm liên quan</h2>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
                         </div>
                         <div class="product__item__text">
                             <h6><a href="#"><?= $item['name'] ?></a></h6>
-                            <h5><?= $item['price'] ?></h5>
+                            <h5><?= number_format($item['price']) ?>đ</h5>
                         </div>
                     </div>
                 </div>
