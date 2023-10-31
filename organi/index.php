@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
 ?>
 <?php
 ob_start();
