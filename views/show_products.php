@@ -14,10 +14,10 @@ elseif (isset($_GET['keyword'])) {
 }
 
 // search by range of price
-elseif (isset($_GET['range'])) {
-    $query .= " and price <= " . $_GET['range'];
-    $option = 'show_products&range='.$_GET['range'];
-}
+// elseif (isset($_GET['range'])) {
+//     $query .= " and price <= " . $_GET['range'];
+//     $option = 'show_products&range='.$_GET['range'];
+// }
 
 // watch products in page ?
 $page = 1;
