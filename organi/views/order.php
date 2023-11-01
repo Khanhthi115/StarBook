@@ -147,5 +147,8 @@ if (isset($_POST['name'])) {
         <section class="order-button">
             <input type="submit" value="Đặt hàng" name="redirect" style="margin-top: 20px">
         </section>
+        <section>
+            <div id="paypal-button-container"></div>
+        </section>
     </form>
 </section>
