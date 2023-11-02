@@ -3850,10 +3850,11 @@ ol {
 }
 
 .order_success-container {
-	margin-bottom: 50px;
 	width: 60%;
 	margin: 50px auto;
-	padding: 20px;
+	margin-bottom: 100px;
+	padding-top: 20px;
+	padding-bottom: 50px;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .order_success-container .img-order-success, .btn-order-success{
@@ -3866,9 +3867,9 @@ ol {
 }
 .order_success-container img {
 	margin: 0 auto;
-	width: 200px;
-	height: 200px;
-	object-fit: contain;
+	width: 320px;
+	height: 300px;
+	object-fit: cover;
 }
 @media only screen and (max-width: 600px) {
 	.order_success-container {

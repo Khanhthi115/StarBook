@@ -9,6 +9,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
@@ -30,6 +31,7 @@ session_start();
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/wishlist.css" type="text/css" />
 </head>
+
 <body>
     <section><?php include "views/layout/header.php"; ?></section>
     <section><?php include("views/layout/main.php"); ?> </section>
@@ -44,8 +46,42 @@ session_start();
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <!---------Tích hợp thanh toán paypal-------------------->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD"></script>
+    <script>
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'blue',
+                shape: 'rect',
+                label: 'paypal'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '70'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for details');
+                    window.location.replace('http://localhost/project-php/organi/?option=order_success&method=paypal')
+                });
+            },
+            onCancel: function(data) {
+                window.location.replace('http://localhost/project-php/organi/?option=order');
+            }
+        }).render('#paypal-button-container');
+    </script>
 </body>
+
 </html>
 <?php
-    ob_end_flush()
+ob_end_flush()
 ?>
