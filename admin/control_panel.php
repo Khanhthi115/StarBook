@@ -7,8 +7,7 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
 <table class="table table-bordered tbl-admin">
     <tr>
         <td width="15%" height="100">
-            Hello: <?= $_SESSION['admin'] ?>
-            <a href="?option=change_password">Đổi mật khẩu</a>
+            Hello: <?= $_SESSION['admin'] ?><br />
             <a href="?option=logout">Đăng xuất</a>
         </td>
         <td align="center">
@@ -19,6 +18,8 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
         <td>
             <section><a href="?option=author">Tác giả</a></section>
             <section><a href="?option=product">Sản phẩm</a></section>
+            <section><a href="?option=article_categories">Danh mục bài viết</a></section>
+            <section><a href="?option=article">Bài viết</a></section>
             <section>
                 <a>Đơn hàng</a>
                 <section><a href="?option=order&status=1">&nbsp;&nbsp;Đơn hàng chưa xử lý (<?= $chuaXuLy ?>)</a></section>
@@ -52,6 +53,24 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
                         break;
                     case "product_update":
                         include "./products/product_update.php";
+                        break;
+                    case "article_categories":
+                        include "./article_categories/show_articles_cat.php";
+                        break;
+                    case "article_categories_add":
+                        include "./article_categories/articles_cat_add.php";
+                        break;
+                    case "article_categories_update":
+                        include "./article_categories/articles_cat_update.php";
+                        break;
+                    case "article":
+                        include "./articles/show_article.php";
+                        break;
+                    case "article_update":
+                        include "./articles/article_update.php";
+                        break;
+                    case "article_add":
+                        include "./articles/article_add.php";
                         break;
                     case "order":
                         include "./orders/show_order.php";

@@ -128,39 +128,6 @@ while ($row2 = $resultNPV->fetch_assoc()) {
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-lg-4 col-md-6">
-                <div class="latest-product__text">
-                    <h4>Nguyen Phong Viet</h4>
-                    <div class="latest-product__slider owl-carousel">
-                        <div class="latest-prdouct__slider__item">
-                            <?php foreach ($evenProductsNPV as $item) : ?>
-                                <a href="?option=detail_product&id=<?= $item['id'] ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="../images/<?= $item['image'] ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?= $item['name'] ?></h6>
-                                        <span><?= number_format($item['price']) ?>đ</span>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="latest-prdouct__slider__item">
-                            <?php foreach ($oddProductsNPV as $item) : ?>
-                                <a href="?option=detail_product&id=<?= $item['id'] ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="../images/<?= $item['image'] ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?= $item['name'] ?></h6>
-                                        <span><?= number_format($item['price']) ?>đ</span>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="col-lg-4 col-md-6">
                 <div class="latest-product__text">
                     <h4>Trinh thám hot</h4>

@@ -3,6 +3,11 @@ $query  = "select * from member where username='" . $_SESSION['member'] . "'";
 $member = mysqli_fetch_array($connect->query($query));
 ?>
 <?php
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    echo $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+?>
+<?php
 if (isset($_POST['name'])) {
     $name = $_POST['name'];
     $phone = $_POST['phone'];
@@ -15,24 +20,28 @@ if (isset($_POST['name'])) {
     $connect->query($query);
     $query = "select id from orders order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
-    foreach ($_SESSION['cart'] as $key=>$value){
-        $productId = $key;
-        $number = $value;
-        $query = "select price from products where id = $key";
-        $price = mysqli_fetch_array($connect->query($query))['price'];
-        $query = "insert order_detail values ($productId, $orderId, $number, $price)";
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    echo $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+    foreach ($resultQueryCart as $item) {
+        $productId = $item['product_id'];
+        $number = $item['quantity'];
+        $price = $item['product_price'];
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
         $connect->query($query);
     }
-    unset($_SESSION['cart']);
+    $queryDeleteCart = "delete from `cart` where `member_id` = " . $member['id'];
+    $connect->query($queryDeleteCart);
     header("location: ?option=order_success");
 }
 ?>
 
-<h1>Đặt hàng</h1>
+<h2 class="text-center my-3"><b>Đặt hàng</b></h2>
+<p class="text-center"><i>(Điền đầy đủ thông tin phía bên dưới)</i></p>
 
-<section>
+<section class="order-container">
     <form method="post">
-        <h2>Thông tin người nhận hàng</h2>
+        <h4 class="my-3">Thông tin người nhận hàng</h4>
         <section>
             <section>
                 <label>Họ tên: </label>
@@ -44,7 +53,7 @@ if (isset($_POST['name'])) {
             </section>
             <section>
                 <label>Địa chỉ: </label>
-                <textarea name="address" rows="3"><?= $member['address'] ?></textarea>
+                <textarea name="address" rows="3" cols="50"><?= $member['address'] ?></textarea>
             </section>
             <section>
                 <label>Email: </label>
@@ -52,20 +61,23 @@ if (isset($_POST['name'])) {
             </section>
             <section>
                 <label>Note: </label>
-                <textarea name="note" rows="3"></textarea>
+                <textarea name="note" rows="3" cols="50"></textarea>
             </section>
         </section>
-        <h2>Hình thức thanh toán</h2>
         <?php
         $query = "select * from order_methods where status";
         $result = $connect->query($query);
         ?>
-        <select name="order_methods">
-            <?php foreach ($result as $item) : ?>
-                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-            <?php endforeach ?>
-        </select>
+        <span>Hình thức thanh toán:</span>
         <section>
+            <select name="order_methods" class="order-select">
+                <?php foreach ($result as $item) : ?>
+                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </section>
+        <br />
+        <section class="order-button">
             <input type="submit" value="Đặt hàng" name="order_btn" style="margin-top: 20px">
         </section>
     </form>

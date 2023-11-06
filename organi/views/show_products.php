@@ -1,6 +1,6 @@
 <?php
 $option = 'show_products';
-$query = "select * from products where status = 1";
+$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from products join authors on products.author_id = authors.id where products.status = 1";
 // search by authors
 if (isset($_GET['authorId'])) {
     $query .= " and author_id=" . $_GET['authorId'];
@@ -14,7 +14,7 @@ if (isset($_GET['cat_id'])) {
 // search by keyword
 elseif (isset($_GET['keyword'])) {
     $keyword = htmlspecialchars($_GET['keyword']);
-    $query .= " and name like '%" . $keyword . "%'";
+    $query .= " and (products.name like '%" . $keyword . "%' or authors.name like '%" . $keyword . "%')";
     $option = 'show_products&keyword=' . $_GET['keyword'];
 }
 // search by range of price
@@ -24,7 +24,7 @@ elseif (isset($_GET['range'])) {
 }
 
 // sort by price, name
-elseif (isset($_GET['sort'])) {
+if (isset($_GET['sort'])) {
     $query .= " order by " . $_GET['sort'];
     $option = 'show_products&sort=' . $_GET['sort'];
 }
@@ -77,6 +77,7 @@ while ($row = $result_latest->fetch_assoc()) {
     }
 }
 ?>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="../images/background_show_products.jpg">
     <div class="container">
@@ -153,7 +154,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $item['name'] ?></h6>
-                                                <span><?= $item['price'] ?></span>
+                                                <span><?= number_format($item['price']) ?>đ</span>
                                             </div>
                                         </a>
                                     <?php endforeach; ?>
@@ -166,7 +167,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6><?= $item['name'] ?></h6>
-                                                <span><?= $item['price'] ?></span>
+                                                <span><?= number_format($item['price']) ?>đ</span>
                                             </div>
                                         </a>
                                     <?php endforeach; ?>
@@ -207,8 +208,8 @@ while ($row = $result_latest->fetch_assoc()) {
                             <div class="filter__sort">
                                 <span>Sắp xếp theo</span>
                                 <select onchange="redirectToPage(this)">
-                                    <option value="0">Tên Sách</option>
-                                    <option value="1">Giá Sách</option>
+                                    <option value="0" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'name') echo 'selected'; ?>>Tên Sách</option>
+                                    <option value="1" <?php if(isset($_GET['sort']) && $_GET['sort'] === 'price') echo 'selected'; ?>>Giá Sách</option>
                                 </select>
                             </div>
                         </div>
@@ -232,7 +233,7 @@ while ($row = $result_latest->fetch_assoc()) {
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="../images/<?= $item['image'] ?>">
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="?option=wishlist&action=add&id=<?= $item['id'] ?>"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="?option=cart&action=add&id=<?= $item['id'] ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
@@ -268,7 +269,7 @@ while ($row = $result_latest->fetch_assoc()) {
             sortParam = "price";
         }
 
-        var url = "?option=show_products&sort=" + sortParam;
-        window.location.href = url;
+        var url = "&sort=" + sortParam;
+        window.location.href += url;
     }
 </script>

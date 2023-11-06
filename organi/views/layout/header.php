@@ -1,3 +1,19 @@
+ <?php
+    $query = "select * from `article_categories`";
+    $result = $connect->query($query);
+
+    if (isset($_SESSION['member'])) {
+        $memberId = mysqli_fetch_array($connect->query("select * from `member` where `username`='" . $_SESSION['member'] . "'"));
+        $memberId = $memberId['id'];
+
+        $queryWishlist = "select * from `wishlist` where `member_id` = " . $memberId;
+        $numberOfProductsInWishlist = mysqli_num_rows($connect->query($queryWishlist));
+
+        $queryCart = "select * from `cart` where `member_id` = " . $memberId;
+        $numberOfProductsInCart = mysqli_num_rows($connect->query($queryCart));
+    }
+
+    ?>
  <div class="humberger__menu__overlay"></div>
  <div class="humberger__menu__wrapper">
      <div class="humberger__menu__logo">
@@ -5,10 +21,11 @@
      </div>
      <div class="humberger__menu__cart">
          <ul>
-             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-             <li><a href="?option=signin.php"><i class="fa fa-shopping-bag"></i></a></li>
+             <li><a href="#"><i class="fa fa-heart"></i> <?php if ($numberOfProductsInWishlist > 0) echo "<span>$numberOfProductsInWishlist</span>";
+                                                            else echo "0"; ?></a></li>
+             <li><a href="?option=signin.php"><i class="fa fa-shopping-bag"></i><?php if ($numberOfProductsInCart > 0) echo "<span>$numberOfProductsInCart</span>";
+                                                                                else echo "0"; ?></a></li>
          </ul>
-         <div class="header__cart__price">item: <span>$150.00</span></div>
      </div>
      <div class="humberger__menu__widget">
          <div class="header__top__right__auth">
@@ -24,6 +41,9 @@
              <li><a href="./shop-grid.html">Books</a></li>
              <li><a href="#">Authors</a>
                  <ul class="header__menu__dropdown">
+                     <?php foreach ($result as $item) : ?>
+                         <li><a href="?option=article&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                     <?php endforeach; ?>
                      <li><a href="./shop-details.html">Nguyễn Nhật Ánh</a></li>
                      <li><a href="./shoping-cart.html">Trần Đăng Khoa</a></li>
                  </ul>
@@ -90,14 +110,16 @@
                  <nav class="header__menu">
                      <ul>
                          <li class="active"><a href="?option=home">Home</a></li>
-                         <li><a href="?option=show_products">Khám phá</a></li>
-                         <li><a href="#">Tác giả</a>
+                         <li><a href="?option=show_products">Sách</a></li>
+                         <li><a href="?option=cart">Giỏ hàng</a></li>
+                         <li><a href="?option=show_articles">Bài viết</a>
                              <ul class="header__menu__dropdown">
-                                 <li><a href="?option=show_products&authorId=1">Nguyễn Nhật Ánh</a></li>
-                                 <li><a href="?option=show_products&authorId=20">Tây Tử Tự</a></li>
+                                 <?php foreach ($result as $item) : ?>
+                                     <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                                 <?php endforeach; ?>
+                                 <li><a href="?option=show_articles">Tất Cả</a></li>
                              </ul>
                          </li>
-                         <li><a href="?option=cart">Giỏ hàng</a></li>
                          <li><a href="./contact.html">Liên hệ</a></li>
                      </ul>
                  </nav>
@@ -105,10 +127,9 @@
              <div class="col-lg-3">
                  <div class="header__cart">
                      <ul>
-                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                         <li><a href="?option=cart.php"><i class="fa fa-shopping-bag"></i></a></li>
+                         <li><a href="?option=wishlist"><i class="fa fa-heart"></i> <span><?= $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></span></a></li>
+                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i> <span><?= $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a></li>
                      </ul>
-                     <div class="header__cart__price">item: <span>$150.00</span></div>
                  </div>
              </div>
          </div>

@@ -1,8 +1,9 @@
 <?php
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
-    $query = "SELECT * FROM member WHERE username = '$username' AND password = '$password'";
+    $password = $_POST['password'];
+    $hashPassword = md5($password);
+    $query = "SELECT * FROM `member` WHERE `username` = '$username' AND `password` = '$hashPassword'";
     $result = $connect->query($query);
 
     // if ($result_signin) {
@@ -61,6 +62,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +89,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="password" id="pass" placeholder="Mật khẩu" />
                         </div>
+                        <a href="?option=forgot_password" class="signup-image-link">Quên mật khẩu?</a>
+
                         <div class="form-group">
                             <input type="submit" name="signin" id="signup" class="btn btn-primary btn-signup" value="Đăng nhập" />
+                        
                         </div>
                     </form>
                 </div>

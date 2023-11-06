@@ -1,37 +1,21 @@
+<?php
+$queryAuthors = "select * from authors where status = 1 and image != ''";
+$resultAuthors = $connect->query($queryAuthors);
+?>
 <?php include("views/layout/categories.php"); ?>
 <!-- Categories Section Begin -->
 <section class="categories">
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                <div class="list-author">
-                    <img src="../images/authors/nguyennhatanh.jpg" alt="" />
-                    <h5>Nguyễn Nhật Ánh</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/giacminhluat.png" alt="" />
-                    <h5>Giác Minh Luật</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/batnguyettruongan.webp" alt="" />
-                    <h5>Bát Nguyệt Trường An</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/daohai.jpg" alt="" />
-                    <h5>Đào Hải</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/holloway.jpg" alt="" />
-                    <h5>Richard Holloway</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/thichnhathanh.webp" alt="" />
-                    <h5>Thích Nhất Hạnh</h5>
-                </div>
-                <div class="list-author">
-                    <img src="../images/authors/tranquangduc.jpg" alt="" />
-                    <h5>Trần Quang Đức</h5>
-                </div>
+                <?php foreach ($resultAuthors as $item) : ?>
+                    <a href="?option=show_products&authorId=<?= $item['id'] ?>">
+                        <div class="list-author">
+                            <img src="../images/authors/<?= $item['image'] ?>" alt="" />
+                            <h5><?= $item['name'] ?></h5>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
