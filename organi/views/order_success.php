@@ -18,27 +18,22 @@ if (isset($_GET['vnp_Amount'])) {
     `vnp_PayDate`, `vnp_TmnCode`, `vnp_TransactionNo`, `order_id`) values ('$vnp_Amount', '$vnp_BankCode', '$vnp_BankTranNo', '$vnp_OrderInfo', 
     '$vnp_PayDate', '$vnp_TmnCode', '$vnp_TransactionNo', '$orderId')";
     $connect->query($insert_vnpay);
-} else {
-    if (isset($_GET['method']) == 'paypal') {
-        $query = "insert orders (order_method_id, member_id) values (4, $memberId)";
-        $connect->query($query);
-        $query = "select id from orders order by id desc limit 1";
-        $orderId = mysqli_fetch_array($connect->query($query))['id'];
-        $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-        echo $member['id'];
-        $resultQueryCart = $connect->query($queryCart);
-        $total = 0;
-        foreach ($resultQueryCart as $item) {
-            $productId = $item['product_id'];
-            $number = $item['quantity'];
-            $price = $item['product_price'];
-            $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
-            $pay_result = $connect->query($query);
-            $total += $item['product_price'] * $item['quantity'];
-        }
-    }
-    if (!$pay_result) {
-       echo "Giao dịch thất bại"; 
+} else if (isset($_GET['method']) == 'paypal') {
+    $query = "insert orders (order_method_id, member_id) values (4, $memberId)";
+    $connect->query($query);
+    $query = "select id from orders order by id desc limit 1";
+    $orderId = mysqli_fetch_array($connect->query($query))['id'];
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    echo $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+    $total = 0;
+    foreach ($resultQueryCart as $item) {
+        $productId = $item['product_id'];
+        $number = $item['quantity'];
+        $price = $item['product_price'];
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+        $pay_result = $connect->query($query);
+        $total += $item['product_price'] * $item['quantity'];
     }
 }
 ?>

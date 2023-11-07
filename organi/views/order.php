@@ -104,7 +104,7 @@ if (isset($_POST['name'])) {
 ?>
 
 <h2 class="text-center my-3"><b>Đặt hàng</b></h2>
-<p class="text-center"><i>(Điền đầy đủ thông tin phía bên dưới)</i></p>
+<p class="text-center"><i>(Điền đầy đủ thông tin phía bên dưới trừ thanh toán với Paypal)</i></p>
 
 <section class="order-container">
     <form method="post">
@@ -112,15 +112,15 @@ if (isset($_POST['name'])) {
         <section>
             <section>
                 <label>Họ tên: </label>
-                <input name="name" value="<?= $member['fullname'] ?>">
+                <input name="name" value="<?= $member['fullname'] ?>" required>
             </section>
             <section>
                 <label>Điện thoại: </label>
-                <input type="tel" name="phone" value="<?= $member['phonenumber'] ?>">
+                <input type="tel" name="phone" value="<?= $member['phonenumber'] ?>" required>
             </section>
             <section>
                 <label>Địa chỉ: </label>
-                <textarea name="address" rows="3" cols="50"><?= $member['address'] ?></textarea>
+                <textarea name="address" rows="3" cols="50" required><?= $member['address'] ?></textarea>
             </section>
             <section>
                 <label>Email: </label>
@@ -147,8 +147,9 @@ if (isset($_POST['name'])) {
         <section class="order-button">
             <input type="submit" value="Đặt hàng" name="redirect" style="margin-top: 20px">
         </section>
+        <p style="text-align: center">Hoặc thanh toán ngay với Paypal</p>
         <section>
-            <div id="paypal-button-container"></div>
+            <div id="paypal-button-container" style="width: 50%; margin: 0 auto"></div>
         </section>
     </form>
 </section>
