@@ -1,10 +1,6 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
-// if($connect->connect_error){
-//     die("Kết nối không thành công". $connect->connect_error);
-// }
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3306);
 
-// echo "Kết nối thành công";
 ?>
 <?php
 session_start();
