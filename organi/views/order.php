@@ -1,5 +1,5 @@
 <?php
-$query  = "select * from member where username='" . $_SESSION['member'] . "'";
+$query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
 $member = mysqli_fetch_array($connect->query($query));
 ?>
 <?php
@@ -11,16 +11,16 @@ if (isset($_POST['name'])) {
     $note = $_POST['note'];
     $order_method_id = $_POST['order_methods'];
     $memberId = $member['id'];
-    $query = "insert orders (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
+    $query = "insert `orders` (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
     $connect->query($query);
-    $query = "select id from orders order by id desc limit 1";
+    $query = "select `id` from `orders` order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     foreach ($_SESSION['cart'] as $key=>$value){
         $productId = $key;
         $number = $value;
-        $query = "select price from products where id = $key";
+        $query = "select `price` from `products` where id = $key";
         $price = mysqli_fetch_array($connect->query($query))['price'];
-        $query = "insert order_detail values ($productId, $orderId, $number, $price)";
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
         $connect->query($query);
     }
     unset($_SESSION['cart']);
@@ -57,7 +57,7 @@ if (isset($_POST['name'])) {
         </section>
         <h2>Hình thức thanh toán</h2>
         <?php
-        $query = "select * from order_methods where status";
+        $query = "select * from `order_methods` where status";
         $result = $connect->query($query);
         ?>
         <select name="order_methods">
@@ -67,6 +67,15 @@ if (isset($_POST['name'])) {
         </select>
         <section>
             <input type="submit" value="Đặt hàng" name="order_btn" style="margin-top: 20px">
-        </section>
+        </section>  
     </form>
-</section>
+    <form action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+        action="init_payment.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger">
+    </form>
+    <p></p>
+    <form action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+        action="init_payment.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger">
+    </form>
+</section>  

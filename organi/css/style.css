@@ -3719,6 +3719,7 @@ ol {
 .signin-image a:hover {
 	background-color: green;
 	transition: all 0.3s ease;
+	color: white !important;
 }
 
 .btn-signup {
@@ -3728,6 +3729,10 @@ ol {
 
 .signin-image img {
 	width: 100%;
+}
+
+.signup-image-link:hover a {
+	color: white;
 }
 
 .article-detail-container {

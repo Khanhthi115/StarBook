@@ -4,7 +4,7 @@ if (isset($_POST['change_password'])) {
     $username = $_POST['username'];
     $old_password = md5($_POST['old_password']);
     $new_password = md5($_POST['new_password']);
-    $query = "SELECT * FROM member WHERE username = '$username' AND password = '$old_password' limit 1";
+    $query = "SELECT * FROM `member` WHERE `username` = '$username' AND `password` = '$old_password' limit 1";
     $result = $connect->query($query);
 
     if (mysqli_num_rows($result) == 0) {
@@ -14,7 +14,7 @@ if (isset($_POST['change_password'])) {
         if ($result['status'] == 0) {
             $alert = "Tài khoản bạn đang bị khóa hoặc trong quá trình xử lý";
         } else {
-            $sql_update = $connect->query("update member set password = '" . $new_password . "' where username = '" . $username . "'");
+            $sql_update = $connect->query("update `member` set `password` = '" . $new_password . "' where `username` = '" . $username . "'");
             $alert = "Mật khẩu đã được cập nhật";
         }
     }
