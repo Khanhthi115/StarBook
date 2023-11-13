@@ -128,7 +128,8 @@ if (isset($_SESSION['member'])) {
                                                 <?= number_format($item['product_price'], 0, ',', '.') ?>đ
                                             </td>
                                             <td class="wishlist__remove">
-                                                <span class="icon_close" onclick="if (confirm('Bạn có chắc chắn muốn xóa sản phẩm khỏi wishlist?')) location='?option=wishlist&action=remove&id=<?= $item['id'] ?>';"></span>
+                                                <span class="icon_close" 
+                                                onclick="if (confirm('Bạn có chắc chắn muốn xóa sản phẩm khỏi wishlist?')) location='?option=wishlist&action=remove&id=<?= $item['id'] ?>';"></span>
                                             </td>
                                         </tr>
                                 <?php

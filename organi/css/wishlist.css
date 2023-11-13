@@ -13,6 +13,10 @@
     margin-bottom: 30px;
 }
 
+.wishlist__item{
+    cursor: pointer;
+}
+
 .wishlist__item h5{
     padding: 40px;
 }
