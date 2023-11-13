@@ -1,11 +1,10 @@
 <?php
 require_once("./config_vnpay.php");
-$query  = "select * from member where username='" . $_SESSION['member'] . "'";
+$query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
 $member = mysqli_fetch_array($connect->query($query));
 ?>
 <?php
 $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-echo $member['id'];
 $resultQueryCart = $connect->query($queryCart);
 ?>
 <?php
@@ -16,10 +15,10 @@ if (isset($_POST['name'])) {
     $address = $_POST['address'];
     $note = $_POST['note'];
     $order_method_id = $_POST['order_methods'];
-
-    $query = "insert orders (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
+    $memberId = $member['id'];
+    $query = "insert `orders` (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
     $connect->query($query);
-    $query = "select id from orders order by id desc limit 1";
+    $query = "select `id` from `orders` order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
     echo $member['id'];
@@ -132,7 +131,7 @@ if (isset($_POST['name'])) {
             </section>
         </section>
         <?php
-        $query = "select * from order_methods where status";
+        $query = "select * from `order_methods` where status";
         $result = $connect->query($query);
         ?>
         <span>Hình thức thanh toán:</span>
@@ -152,4 +151,14 @@ if (isset($_POST['name'])) {
             <div id="paypal-button-container" style="width: 50%; margin: 0 auto"></div>
         </section>
     </form>
-</section>
+    <p style="text-align: center">Hoặc thanh toán ngay với Momo</p>
+    <form class="btn-momo-container" action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+        action="init_payment.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger btn-momo">
+    </form>
+    <p></p>
+    <form class="btn-momo-container" action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+        action="init_payment.php">
+                <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger btn-momo">
+    </form>
+</section>  

@@ -1,44 +1,4 @@
 <?php
-// if (empty($_SESSION['cart'])) {
-//     $_SESSION['cart'] = array();
-// }
-// if (isset($_GET['action'])) {
-//     $id = isset($_GET['id']) ? $_GET['id'] : '';
-//     switch ($_GET['action']) {
-//         case 'add':
-//             // if product is already in cart we increase its quantity else the quantity of it is 1
-//             if (array_key_exists($id, array_keys($_SESSION['cart']))) {
-//                 $_SESSION['cart'][$id]++;
-//                 // change link or when reload page the quantity will increase
-//                 header("location: ?option=cart");
-//             } else {
-//                 $_SESSION['cart'][$id] = 1;
-//                 header("location: ?option=cart");
-//             }
-//             break;
-//         case 'delete':
-//             unset($_SESSION['cart'][$id]);
-//             break;
-//         case 'delete_all':
-//             unset($_SESSION['cart']);
-//             break;
-//         case 'update':
-//             if ($_GET['type'] == 'asc')
-//                 $_SESSION['cart'][$id]++;
-//             else if ($_GET['type'] == 'dec')
-//                 if ($_SESSION['cart'][$id] > 1) $_SESSION['cart'][$id]--;
-//             header("location: ?option=cart");
-//             break;
-//         case 'order':
-//             if (isset($_SESSION['member'])) {
-//                 header("location: ?option=order");
-//             } else {
-//                 header("location: ?option=signin&order=1");
-//             }
-//             break;
-//     }
-// }
-//
 if (isset($_SESSION['member'])) {
     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
@@ -61,22 +21,22 @@ if (isset($_SESSION['member'])) {
                     $connect->query("update `cart` " . " set `quantity` = `quantity` + 1 where `product_id` = " . $productId . " and `member_id` = " . $memberId);
                     header("location: ?option=cart");
                 } else {
-                    $connect->query("insert into cart (product_id, product_name, product_price, product_image, member_id, quantity) values ($productId, '$productName', $productPrice, '$productImage', $memberId, 1)");
+                    $connect->query("insert into `cart` (product_id, product_name, product_price, product_image, member_id, quantity) values ($productId, '$productName', $productPrice, '$productImage', $memberId, 1)");
                     header("location: ?option=cart");
                 }
                 break;
             case 'delete':
-                $connect->query("delete from cart where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                $connect->query("delete from `cart` where `product_id` = " . $_GET['id'] . " and `member_id` = " . $memberId);
                 break;
             case 'delete_all':
                 echo $memberId;
-                $result = $connect->query("delete from cart where member_id = " . $memberId);
+                $result = $connect->query("delete from `cart` where member_id = " . $memberId);
                 break;
             case 'update':
                 if ($_GET['type'] == 'asc')
-                    $connect->query("update cart " . " set quantity = quantity + 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                    $connect->query("update `cart` " . " set quantity = quantity + 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
                 else if ($_GET['type'] == 'dec')
-                    $connect->query("update cart " . " set quantity = quantity - 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                    $connect->query("update `cart` " . " set quantity = quantity - 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
                 header("location: ?option=cart");
                 break;
         }
@@ -114,11 +74,6 @@ $productsInCart = $connect->query($queryCart);
 <section class="shoping-cart spad">
     <?php
     $total = 0;
-    // if (!empty($_SESSION['id'])) :
-    //     // $ids below must be a string
-    //     $ids = implode(',', array_keys($_SESSION['cart']));
-    //     $query = "Select * from products where id in ($ids)";
-    //     $result = $connect->query($query);
     if (mysqli_num_rows($connect->query($queryCart)) != 0) :
         // 
     ?>
