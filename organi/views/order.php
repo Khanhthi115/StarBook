@@ -5,7 +5,6 @@ $member = mysqli_fetch_array($connect->query($query));
 ?>
 <?php
 $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-echo $member['id'];
 $resultQueryCart = $connect->query($queryCart);
 ?>
 <?php
@@ -152,13 +151,14 @@ if (isset($_POST['name'])) {
             <div id="paypal-button-container" style="width: 50%; margin: 0 auto"></div>
         </section>
     </form>
-    <form action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+    <p style="text-align: center">Hoặc thanh toán ngay với Momo</p>
+    <form class="btn-momo-container" action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
         action="init_payment.php">
-                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger">
+                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger btn-momo">
     </form>
     <p></p>
-    <form action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
+    <form class="btn-momo-container" action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded"
         action="init_payment.php">
-                <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger">
+                <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger btn-momo">
     </form>
 </section>  
