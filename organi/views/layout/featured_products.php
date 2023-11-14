@@ -23,7 +23,7 @@ $result_categories = $connect->query($query_categories);
                 </div>
             </div>
         </div>
-        <div class="row featured__filter">
+        <div class="row featured__filter" style="animation-name: fadeInUp; animation-duration: 2s">
             <?php foreach ($result as $item) : ?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">

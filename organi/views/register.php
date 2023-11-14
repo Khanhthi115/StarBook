@@ -33,7 +33,7 @@ if (isset($_POST['username'])) {
     <!-- Sign up form -->
     <section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
         <div class="container">
-            <div class="signup-content">
+            <div class="signup-content" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="signup-form">
                     <h2 class="form-title">Đăng ký tài khoản</h2>
                     <form method="POST" class="register-form" id="register-form" onsubmit="if(repassword.value!=password.value){alert('Mật khẩu nhập lại không khớp'); return false;}">

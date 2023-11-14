@@ -39,14 +39,14 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
 <section class="product-details spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6" style="animation-name: fadeInLeft; animation-duration: 1s">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="product__details__pic__item--large" src="../images/<?= $item['image'] ?>" alt="">
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6"  style="animation-name: fadeInRight; animation-duration: 1s">
                 <div class="product__details__text">
                     <h3><?= $item['name'] ?></h3>
                     <div class="product__details__price"><?= number_format($item['price'], 0, ",", ".") ?>đ</div>
@@ -74,7 +74,7 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12"  style="animation-name: fadeIn; animation-duration: 1s">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -143,7 +143,7 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="animation-name: fadeIn; animation-duration: 1s">
             <?php foreach ($resultRelatedBooks as $item) : ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">

@@ -38,18 +38,17 @@
      <nav class="humberger__menu__nav mobile-menu">
          <ul>
              <li class="active"><a href="./index.html">Home</a></li>
-             <li><a href="./shop-grid.html">Books</a></li>
-             <li><a href="#">Authors</a>
+             <li><a href="./shop-grid.html">Sách</a></li>
+             <li><a href="?option=cart">Giỏ hàng</a></li>
+             <li><a href="?option=show_articles">Bài viết</a>
                  <ul class="header__menu__dropdown">
                      <?php foreach ($result as $item) : ?>
-                         <li><a href="?option=article&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                         <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                      <?php endforeach; ?>
-                     <li><a href="./shop-details.html">Nguyễn Nhật Ánh</a></li>
-                     <li><a href="./shoping-cart.html">Trần Đăng Khoa</a></li>
+                     <li><a href="?option=show_articles">Tất Cả</a></li>
                  </ul>
              </li>
-             <li><a href="./blog.html">Cart</a></li>
-             <li><a href="./contact.html">Contact</a></li>
+             <li><a href="./contact.html">Liên hệ</a></li>
          </ul>
      </nav>
      <div id="mobile-menu-wrap"></div>

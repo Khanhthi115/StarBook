@@ -79,9 +79,9 @@ use PHPMailer\PHPMailer\Exception;
     <title>Document</title>
 </head>
 <body>
-<section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
+<section class="signup" style="margin-bottom: 50px; margin-top: 20px;" style="animation-name: fadeIn; animation-duration: 1s">
         <div class="container">
-            <div class="signin-content">
+            <div class="signin-content" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="signup-form">
                     <h2 class="form-title">Lấy lại mật khẩu</h2>
                     <form method="POST" class="register-form" id="register-form">
