@@ -77,7 +77,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <body>
     <section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
         <div class="container">
-            <div class="signin-content">
+            <div class="signin-content" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="signup-form">
                     <h2 class="form-title">Đăng nhập</h2>
                     <form method="POST" class="register-form" id="register-form">

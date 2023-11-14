@@ -100,7 +100,7 @@ while ($row = $result_latest->fetch_assoc()) {
 <section class="product spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-5">
+            <div class="col-lg-3 col-md-5" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="sidebar">
                     <div class="sidebar__item">
                         <h4>Danh Mục Sách</h4>
@@ -226,7 +226,7 @@ while ($row = $result_latest->fetch_assoc()) {
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row"  style="animation-name: fadeIn; animation-duration: 2s">
                     <?php if ($number > 0) : ?>
                         <?php foreach ($result as $item) : ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">

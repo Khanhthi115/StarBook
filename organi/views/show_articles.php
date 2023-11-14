@@ -36,7 +36,7 @@ $numberArticles = mysqli_num_rows($resultArticles);
 <section class="show-articles-container">
     <div style="margin: 20px auto" class="container">
         <div class="col-lg-12 col-md-7">
-            <div class="row">
+            <div class="row" style="animation-name: fadeInUp; animation-duration: 2s">
                 <?php if ($numberArticles > 0) : ?>
                     <?php foreach ($resultArticles as $item) : ?>
                         <div class="col-lg-3 col-md-6 col-sm-6">

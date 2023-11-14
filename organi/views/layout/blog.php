@@ -17,7 +17,7 @@
                  </div>
              </div>
          </div>
-         <div class="row">
+         <div class="row"  style="animation-name: fadeInUp; animation-duration: 3s">
              <?php if ($number > 0) : ?>
                  <?php foreach ($result as $item) : ?>
                      <a class="col-lg-4 col-md-4 col-sm-6" href="?option=article_detail&id=<?= $item['id'] ?>">
