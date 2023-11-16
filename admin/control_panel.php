@@ -17,13 +17,16 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
     <tr>
         <td>
             <section><a href="?option=author">Tác giả</a></section>
+            <section><a href="?option=product_categories">Danh mục sản phẩm</a></section>
             <section><a href="?option=product">Sản phẩm</a></section>
             <section><a href="?option=article_categories">Danh mục bài viết</a></section>
             <section><a href="?option=article">Bài viết</a></section>
             <section>
                 <a>Đơn hàng</a>
-                <section><a href="?option=order&status=1">&nbsp;&nbsp;Đơn hàng chưa xử lý (<?= $chuaXuLy ?>)</a></section>
-                <section><a href="?option=order&status=2">&nbsp;&nbsp;Đơn hàng đang xử lý (<?= $dangXuLy ?>)</a></section>
+                <section><a href="?option=order&status=1">&nbsp;&nbsp;Đơn hàng chưa xử lý (<?= $chuaXuLy ?>)</a>
+                </section>
+                <section><a href="?option=order&status=2">&nbsp;&nbsp;Đơn hàng đang xử lý (<?= $dangXuLy ?>)</a>
+                </section>
                 <section><a href="?option=order&status=3">&nbsp;&nbsp;Đơn hàng đã xử lý (<?= $daXuLy ?>)</a></section>
                 <section><a href="?option=order&status=4">&nbsp;&nbsp;Hủy (<?= $huy ?>)</a></section>
             </section>
@@ -53,6 +56,15 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
                         break;
                     case "product_update":
                         include "./products/product_update.php";
+                        break;
+                    case "product_categories":
+                        include "./product_categories/show_product_cat.php";
+                        break;
+                    case "product_cat_add":
+                        include "./product_categories/product_cat_add.php";
+                        break;
+                    case "product_cat_update":
+                        include "./product_categories/product_cat_update.php";
                         break;
                     case "article_categories":
                         include "./article_categories/show_articles_cat.php";

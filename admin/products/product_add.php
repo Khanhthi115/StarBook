@@ -6,6 +6,7 @@ if (isset($_POST['name'])) {
         $alert = "Sản phẩm đã tồn tại";
     } else {
         $author_id = $_POST['author_id'];
+        $cat_id = $_POST['cat_id'];
         $price = $_POST['price'];
         $description = $_POST['description'];
         $status = $_POST['status'];
@@ -27,8 +28,8 @@ if (isset($_POST['name'])) {
             $imageName = time() . '_' . $imageName;
             // move file upload to the destination want to save
             move_uploaded_file($imageTemp, $store . $imageName);
-            $connect->query("insert products(author_id, name, image, price, description, status)
-            values ($author_id, '$name', '$imageName', $price, '$description', '$status')");
+            $connect->query("insert products(author_id,cat_id, name, image, price, description, status)
+            values ($author_id,$cat_id, '$name', '$imageName', $price, '$description', '$status')");
             header("Location: ?option=product");
         } else {
             $alert = "File đã chọn không hợp lệ";
@@ -38,6 +39,8 @@ if (isset($_POST['name'])) {
 ?>
 <?php
 $author = $connect->query("select * from authors");
+$categories = $connect->query("select * from categories");
+
 ?>
 <h1>Thêm sản phẩm</h1>
 <section style="color: red; text-align:center"><?= isset($alert) ? $alert : '' ?></section>
@@ -48,7 +51,16 @@ $author = $connect->query("select * from authors");
             <select name="author_id" class="form-control">
                 <option hidden>--Chọn tác giả--</option>
                 <?php foreach ($author as $item) : ?>
-                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </section>
+        <section class="form-group">
+            Tên danh mục:
+            <select name="cat_id" class="form-control">
+                <option hidden>--Chọn danh mục--</option>
+                <?php foreach ($categories as $item) : ?>
+                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
                 <?php endforeach; ?>
             </select>
         </section>

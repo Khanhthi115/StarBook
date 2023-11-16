@@ -41,6 +41,9 @@ if (isset($_GET['option'])) {
         case 'wishlist':
             include "views/wishlist.php";
             break;
+        case 'forgot_password':
+            include "views/forgot_password.php";
+            break;
     }
 } else {
     include "views/home.php";

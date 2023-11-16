@@ -112,7 +112,7 @@
                          <li class="active"><a href="?option=home">Home</a></li>
                          <li><a href="?option=show_products">Sách</a></li>
                          <li><a href="?option=cart">Giỏ hàng</a></li>
-                         <li><a href="#">Bài viết</a>
+                         <li><a href="?option=show_articles">Bài viết</a>
                              <ul class="header__menu__dropdown">
                                  <?php foreach ($result as $item) : ?>
                                      <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
