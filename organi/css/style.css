@@ -3878,13 +3878,14 @@ ol {
 }
 
 .order-container {
-	width: 45%;
+	width: 60%;
 	margin: 50px auto;
 	align-items: center;
 	padding-top: 30px;
 	padding-bottom: 30px;
 	padding-left: 50px;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	background-image: url("https://wallpapers.com/images/featured/pastel-green-1fokm2reflo9iy5r.jpg");
 }
 .order-container section {
 	margin: 20px 0;
@@ -3894,8 +3895,9 @@ ol {
 }
 .order-container input, textarea {
 	border: none;
-	width: 90%;
-	padding: 8px;
+	border-radius: 10px;
+	padding: 10px 15px;
+	width: 70%;
 	box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 }
 .order-container .order-select {
@@ -3916,4 +3918,13 @@ ol {
 	background-color: #7fad39;
 	border-radius: 10px;
 	width: 50%;
+}
+
+.btn-momo-container {
+	display: flex;
+	justify-content: center;
+}
+.btn-momo {
+	width: 50% !important;
+	margin: 0 auto;
 }
