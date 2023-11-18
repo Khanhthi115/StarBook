@@ -44,6 +44,9 @@ if (isset($_GET['option'])) {
         case 'forgot_password':
             include "views/forgot_password.php";
             break;
+        case 'order_history':
+            include "views/order_history.php";
+            break;
     }
 } else {
     include "views/home.php";
