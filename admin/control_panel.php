@@ -22,6 +22,13 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
             <section><a href="?option=article_categories">Danh mục bài viết</a></section>
             <section><a href="?option=article">Bài viết</a></section>
             <section>
+                <a>Thống kê</a>
+                <section><a href="?option=statistical_author">Lượt mua theo tác giả</a></section>
+                <section><a href="?option=statistical_category">Lượt mua theo danh mục</a></section>
+                <section><a href="?option=best_seller">Sản phẩm bán chạy</a></section>
+                <section><a href="?option=sales">Doanh số</a></section>
+            </section>
+            <section>
                 <a>Đơn hàng</a>
                 <section><a href="?option=order&status=1">&nbsp;&nbsp;Đơn hàng chưa xử lý (<?= $chuaXuLy ?>)</a>
                 </section>
@@ -89,6 +96,18 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
                         break;
                     case "order_detail":
                         include "./orders/order_detail.php";
+                        break;
+                    case "statistical_author":
+                        include "./statistical/statistical_author.php";
+                        break;
+                    case "statistical_category":
+                        include "./statistical/statistical_category.php";
+                        break;
+                    case "best_seller":
+                        include "./statistical/best_seller.php";
+                        break;
+                    case "sales":
+                        include "./statistical/sales.php";
                         break;
                 }
             }
