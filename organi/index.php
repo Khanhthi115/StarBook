@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3306);
 ?>
 <?php
 ob_start();
@@ -18,7 +18,8 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Star Book</title>
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet"
+        type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
@@ -48,36 +49,40 @@ session_start();
     <script src="js/main.js"></script>
 
     <!---------Tích hợp thanh toán paypal-------------------->
-    <script src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD">
+    </script>
     <script>
-        paypal.Buttons({
-            style: {
-                layout: 'vertical',
-                color: 'blue',
-                shape: 'rect',
-                label: 'paypal'
-            },
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '70'
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(orderData) {
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for details');
-                    window.location.replace('http://localhost/project-php/organi/?option=order_success&method=paypal')
-                });
-            },
-            onCancel: function(data) {
-                window.location.replace('http://localhost/project-php/organi/?option=order');
-            }
-        }).render('#paypal-button-container');
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '70'
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction ' + transaction.status + ': ' + transaction.id +
+                    '\n\nSee console for details');
+                window.location.replace(
+                    'http://localhost/project-php/organi/?option=order_success&method=paypal')
+            });
+        },
+        onCancel: function(data) {
+            window.location.replace('http://localhost/project-php/organi/?option=order');
+        }
+    }).render('#paypal-button-container');
     </script>
 </body>
 

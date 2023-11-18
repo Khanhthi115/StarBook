@@ -15,7 +15,7 @@ if (isset($_POST['name'])) {
     $connect->query($query);
     $query = "select id from orders order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
-    foreach ($_SESSION['cart'] as $key=>$value){
+    foreach ($_SESSION['cart'] as $key => $value) {
         $productId = $key;
         $number = $value;
         $query = "select price from products where id = $key";
@@ -62,11 +62,14 @@ if (isset($_POST['name'])) {
         ?>
         <select name="order_methods">
             <?php foreach ($result as $item) : ?>
-                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+            <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
             <?php endforeach ?>
         </select>
         <section>
             <input type="submit" value="Đặt hàng" name="order_btn" style="margin-top: 20px">
+        </section>
+        <section>
+            <input type="submit" value="Thanh toán bằng Onepay" name="order_btn" style="margin-top: 20px">
         </section>
     </form>
 </section>
