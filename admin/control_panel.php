@@ -16,6 +16,7 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
     </tr>
     <tr>
         <td>
+            <section><a href="?option=member">Người dùng</a></section>
             <section><a href="?option=author">Tác giả</a></section>
             <section><a href="?option=product_categories">Danh mục sản phẩm</a></section>
             <section><a href="?option=product">Sản phẩm</a></section>
@@ -38,6 +39,15 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
                     case 'logout':
                         unset($_SESSION['admin']);
                         header("Location: .");
+                        break;
+                    case 'member':
+                        include "./member/show_member.php";
+                        break;
+                    case 'member_add':
+                        include "member/member_add.php";
+                        break;
+                    case 'member_update':
+                        include "member/update_member.php";
                         break;
                     case 'author':
                         include "./authors/show_author.php";
