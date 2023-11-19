@@ -93,12 +93,12 @@ if ($resultRevenue && $resultRevenue->num_rows > 0) {
 
         </div><!-- End Customers Card -->
 
-        <?php include('C:\xampp\htdocs\project-php\admin-v2\statistical\byRenevueAndOrders.php') ?>
-        <?php include('C:\xampp\htdocs\project-php\admin-v2\statistical\byProducts.php') ?>
+        <?php include('../admin-v2/statistical/byRenevueAndOrders.php') ?>
+        <?php include('../admin-v2/statistical/byProducts.php') ?>
       </div>
     </div>
     <div class="col-lg-4">
-      <?php include('C:\xampp\htdocs\project-php\admin-v2\statistical\byAuthors.php') ?>
+      <?php include('../admin-v2/statistical/byAuthors.php') ?>
     </div>
   </div>
 </section>

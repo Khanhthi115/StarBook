@@ -242,14 +242,14 @@ ob_start();
           include "./orders/order_detail.php";
           break;
         case 'dashboard':
-          include 'C:\xampp\htdocs\project-php\admin-v2\dashboard.php';
+          include './dashboard.php';
           break;
         default:
-          include 'C:\xampp\htdocs\project-php\admin-v2\dashboard.php';
+          include './dashboard.php';
           break;
       }
     } else {
-      include 'C:\xampp\htdocs\project-php\admin-v2\dashboard.php';
+      include './dashboard.php';
     }
     ?>
   </main><!-- End #main -->

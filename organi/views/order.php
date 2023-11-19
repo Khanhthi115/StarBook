@@ -6,6 +6,7 @@ $member = mysqli_fetch_array($connect->query($query));
 <?php
 $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
 $resultQueryCart = $connect->query($queryCart);
+
 ?>
 <?php
 if (isset($_POST['name'])) {
@@ -105,101 +106,109 @@ if (isset($_POST['name'])) {
 <?php
 $queryCart = "select * from cart where member_id = $memberId";
 $productsInCart = $connect->query($queryCart);
+$cartItemCount = mysqli_num_rows($productsInCart);
 $total = 0;
 ?>
-<div class="container-order">
-    <h2 class="text-center my-3"><b>Đặt hàng</b></h2>
-    <p class="text-center"><i>(Điền đầy đủ thông tin phía bên dưới trừ các phương thức thanh toán ngay)</i></p>
+<?php if ($cartItemCount > 0) : ?>
+    <div class="container-order">
+        <h2 class="text-center my-3"><b>Đặt hàng</b></h2>
+        <p class="text-center"><i>(Điền đầy đủ thông tin phía bên dưới trừ các phương thức thanh toán ngay)</i></p>
 
-    <div class="order-container">
-        <div class="order-list-products">
-            <p>Danh sách sản phẩm đặt</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="shoping__product">Tên Sách</th>
-                        <th>Ảnh</th>
-                        <th>Số Lượng</th>
-                        <th>Thành Tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($productsInCart as $item) : ?>
+        <div class="order-container">
+            <div class="order-list-products">
+                <p>Danh sách sản phẩm đặt</p>
+                <table>
+                    <thead>
                         <tr>
-                            <td class="shoping__cart__item">
-                                <span><?= $item['product_name'] ?><span>
-                            </td>
-                            <td>
-                                <img width="100px" src="../images/<?= $item['product_image'] ?>" alt="">
-                            </td>
-                            <td class="shoping__cart__total">
-                                <span><?= $item['quantity'] ?><span>
-                            </td>
-                            <td class="shoping__cart__total">
-                                <?= number_format($subTotal = $item['product_price'] * $item['quantity'], 0, ',', '.') ?>đ
-                                <?php $total += $subTotal; ?>
-                            </td>
+                            <th class="shoping__product">Tên Sách</th>
+                            <th>Ảnh</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <p></p>
-            <b>Tổng tiền: <?= number_format($total + 30000)?>đ (đã tính phí ship)</b>
-        </div>
-        <div class="order-info">
-            <form method="post">
-                <h4 class="my-3">Thông tin người nhận hàng</h4>
-                <section>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($productsInCart as $item) : ?>
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <span><?= $item['product_name'] ?><span>
+                                </td>
+                                <td>
+                                    <img width="100px" src="../images/<?= $item['product_image'] ?>" alt="">
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <span><?= $item['quantity'] ?><span>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <?= number_format($subTotal = $item['product_price'] * $item['quantity'], 0, ',', '.') ?>đ
+                                    <?php $total += $subTotal; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <p></p>
+                <b>Tổng tiền: <?= number_format($total + 30000) ?>đ (đã tính phí ship)</b>
+            </div>
+            <div class="order-info">
+                <form method="post">
+                    <h4 class="my-3">Thông tin người nhận hàng</h4>
                     <section>
-                        <label>Họ tên: </label>
-                        <input name="name" value="<?= $member['fullname'] ?>" required>
+                        <section>
+                            <label>Họ tên: </label>
+                            <input name="name" value="<?= $member['fullname'] ?>" required>
+                        </section>
+                        <section>
+                            <label>Điện thoại: </label>
+                            <input type="tel" name="phone" value="<?= $member['phonenumber'] ?>" required>
+                        </section>
+                        <section style="display: flex; align-items: center;">
+                            <label>Địa chỉ: </label>
+                            <textarea name="address" rows="3" cols="50" required><?= $member['address'] ?></textarea>
+                        </section>
+                        <section>
+                            <label>Email: </label>
+                            <input name="email" type="email" value="<?= $member['email'] ?>">
+                        </section>
+                        <section style="display: flex; align-items: center;">
+                            <label>Note: </label>
+                            <textarea name="note" rows="3" cols="50"></textarea>
+                        </section>
                     </section>
+                    <?php
+                    $query = "select * from `order_methods` where status";
+                    $result = $connect->query($query);
+                    ?>
+                    <span>Hình thức thanh toán:</span>
                     <section>
-                        <label>Điện thoại: </label>
-                        <input type="tel" name="phone" value="<?= $member['phonenumber'] ?>" required>
+                        <select name="order_methods" class="order-select">
+                            <?php foreach ($result as $item) : ?>
+                                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                            <?php endforeach ?>
+                        </select>
                     </section>
-                    <section style="display: flex; align-items: center;">
-                        <label>Địa chỉ: </label>
-                        <textarea name="address" rows="3" cols="50" required><?= $member['address'] ?></textarea>
+                    <br />
+                    <section class="order-button">
+                        <input type="submit" value="Đặt hàng" name="redirect" style="margin-top: 20px">
                     </section>
+                    <p style="text-align: center">Hoặc thanh toán ngay với Paypal</p>
                     <section>
-                        <label>Email: </label>
-                        <input name="email" type="email" value="<?= $member['email'] ?>">
+                        <div id="paypal-button-container" style="width: 50%; margin: 0 auto"></div>
                     </section>
-                    <section style="display: flex; align-items: center;">
-                        <label>Note: </label>
-                        <textarea name="note" rows="3" cols="50"></textarea>
-                    </section>
-                </section>
-                <?php
-                $query = "select * from `order_methods` where status";
-                $result = $connect->query($query);
-                ?>
-                <span>Hình thức thanh toán:</span>
-                <section>
-                    <select name="order_methods" class="order-select">
-                        <?php foreach ($result as $item) : ?>
-                            <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-                        <?php endforeach ?>
-                    </select>
-                </section>
-                <br />
-                <section class="order-button">
-                    <input type="submit" value="Đặt hàng" name="redirect" style="margin-top: 20px">
-                </section>
-                <p style="text-align: center">Hoặc thanh toán ngay với Paypal</p>
-                <section>
-                    <div id="paypal-button-container" style="width: 50%; margin: 0 auto"></div>
-                </section>
-            </form>
-            <p style="text-align: center">Hoặc thanh toán ngay với Momo</p>
-            <form class="btn-momo-container" action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
-                <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger btn-momo">
-            </form>
-            <p></p>
-            <form class="btn-momo-container" action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
-                <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger btn-momo">
-            </form>
+                </form>
+                <p style="text-align: center">Hoặc thanh toán ngay với Momo</p>
+                <form class="btn-momo-container" action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
+                    <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger btn-momo">
+                </form>
+                <p></p>
+                <form class="btn-momo-container" action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
+                    <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger btn-momo">
+                </form>
+            </div>
         </div>
     </div>
-</div>
+<?php else : ?>
+    <section style="text-align: center; font-size: 30px;">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-3428238-2902697.png" alt="" />
+        <h3 class="text-center my-5">Không có sản phẩm để đặt hàng</h3>
+    </section>
+<?php endif; ?>
