@@ -1,6 +1,7 @@
 <?php
 $option = 'show_products';
-$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from products join authors on products.author_id = authors.id where products.status = 1";
+$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from products 
+join authors on products.author_id = authors.id where products.status = 1 and products.product_quantity > 0";
 // search by authors
 if (isset($_GET['authorId'])) {
     $query .= " and author_id=" . $_GET['authorId'];

@@ -78,7 +78,7 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <input class="btn btn-primary w-100" type="submit" value="Login"/>
                     </div>
                     
                   </form>

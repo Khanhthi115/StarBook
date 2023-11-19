@@ -24,7 +24,7 @@ use PHPMailer\PHPMailer\Exception;
             $mail = new PHPMailer(true);                              // Khai báo hàm
 
             try {
-
+                
                 //Server settings
                 $mail->SMTPDebug = 0;                                 // Bật thông báo lỗi nếu như bị sai cấu hình
                 $mail->isSMTP();                                      // Sử dụng SMTP để gửi mail
@@ -71,15 +71,8 @@ use PHPMailer\PHPMailer\Exception;
         }
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<section class="signup" style="margin-bottom: 50px; margin-top: 20px;" style="animation-name: fadeIn; animation-duration: 1s">
+
+<section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
         <div class="container">
             <div class="signin-content" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="signup-form">
@@ -103,6 +96,3 @@ use PHPMailer\PHPMailer\Exception;
             </div>
         </div>
     </section>
-    
-</body>
-</html>
