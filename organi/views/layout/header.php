@@ -46,7 +46,7 @@
                      <li><a href="?option=show_articles">Tất Cả</a></li>
                  </ul>
              </li>
-             <li><a href="./contact.html">Liên hệ</a></li>
+             <li><a href="./contact.php">Liên hệ</a></li>
          </ul>
      </nav>
      <div id="mobile-menu-wrap"></div>
@@ -86,9 +86,18 @@
                              </div>
                          <?php else : ?>
                              <div class="header__top__right__social">
-                                 Hello: <span style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span>
-                                 <a href="?option=change_password"><i class="fa fa-edit"></i> Đổi mật khẩu</a>
-                                 <a href="?option=logout"><i class="fa fa-user"></i> Đăng xuất</a>
+                                 <ul class="menu_account" style="list-style-type: none; display: flex">
+                                     <li style="font-family: 'Roboto', san-serif; font-size: 14px">Hello: <span style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span></li>
+                                     <li>
+                                         <a href="?option=change_info" class="dropdown-link"><i class="fa fa-user"></i> Tài khoản</a>
+                                         <ul class="dropdown-content">
+                                             <li><a href="?option=change_info">Thay đổi thông tin</a></li>
+                                             <li><a href="?option=order_history">Xem lịch sử đơn hàng</a></li>
+                                             <li><a href="?option=logout">Đăng xuất</a></li>
+                                             <li><a href="?option=change_password">Đổi mật khẩu</a></li>
+                                         </ul>
+                                     </li>
+                                 </ul>
                              </div>
                          <?php endif; ?>
                      </div>

@@ -403,7 +403,7 @@ ol {
 	position: absolute;
 	left: 0;
 	top: 50px;
-	background: #222222;
+	background: #222222cd;
 	width: 180px;
 	z-index: 9;
 	padding: 5px 0;
@@ -419,10 +419,11 @@ ol {
 .header__menu ul li .header__menu__dropdown li {
 	margin-right: 0;
 	display: block;
+	text-align: center;
 }
 
 .header__menu ul li .header__menu__dropdown li:hover>a {
-	color: #7fad39;
+	color: #71e44e;
 }
 
 .header__menu ul li .header__menu__dropdown li a {
@@ -3849,12 +3850,14 @@ ol {
 		width: 100%;
 	}
 }
+
 .container-order {
 	width: 100%;
 	height: 100%;
 	padding: 50px 0;
 	background-color: #8080800a;
 }
+
 .order-container {
 	width: 90%;
 	display: flex;
@@ -3867,6 +3870,7 @@ ol {
 	align-items: flex-start;
 	gap: 30px;
 }
+
 .order-list-products {
 	width: 50%;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -3875,14 +3879,19 @@ ol {
 	flex: 0.75;
 	background-color: white;
 }
+
 .order-list-products table {
 	width: 100%;
 	height: 100%;
 	font-size: 13px;
 }
-.order-list-products table tr, td, th {
+
+.order-list-products table tr,
+td,
+th {
 	padding: 10px;
 }
+
 .order-info {
 	background-color: white;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -3890,6 +3899,7 @@ ol {
 	padding: 50px;
 	flex: 1;
 }
+
 .order-container section {
 	margin: 20px 0;
 }
@@ -3898,7 +3908,9 @@ ol {
 	.order-container {
 		flex-direction: column;
 	}
-	.order-list-products, .order-info {
+
+	.order-list-products,
+	.order-info {
 		width: 100%;
 	}
 }
@@ -3956,6 +3968,44 @@ textarea {
 	padding: 25px;
 	border-radius: 20px;
 }
+
 .order-history-child table {
 	width: 100%;
 }
+
+.menu_account li .dropdown-content {
+	position: absolute;
+	right: 0;
+	top: 50px;
+	background: #222222bb;
+	width: 180px;
+	z-index: 9;
+	padding: 5px 0;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+	opacity: 0;
+	visibility: hidden;
+	list-style-type: none;
+}
+.menu_account li .dropdown-content li {
+	margin-right: 0;
+	display: block;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+}
+.menu_account li .dropdown-content li a {
+	color: white;
+}
+.menu_account li:hover .dropdown-content {
+	top: 30px;
+	opacity: 1;
+	visibility: visible;
+}
+.menu_account li:hover .dropdown-content li:hover a{
+	color: #66da1e;
+}
+  
