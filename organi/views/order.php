@@ -9,97 +9,101 @@ $resultQueryCart = $connect->query($queryCart);
 
 ?>
 <?php
-if (isset($_POST['name'])) {
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $note = $_POST['note'];
-    $order_method_id = $_POST['order_methods'];
-    $memberId = $member['id'];
-    $query = "insert `orders` (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
-    $connect->query($query);
-    $query = "select `id` from `orders` order by id desc limit 1";
-    $orderId = mysqli_fetch_array($connect->query($query))['id'];
-    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-    echo $member['id'];
-    $resultQueryCart = $connect->query($queryCart);
-    $total = 0;
-    foreach ($resultQueryCart as $item) {
-        $productId = $item['product_id'];
-        $number = $item['quantity'];
-        $price = $item['product_price'];
-        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+if (isset($_SESSION['member'])) {
+    if (isset($_POST['name'])) {
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $note = $_POST['note'];
+        $order_method_id = $_POST['order_methods'];
+        $memberId = $member['id'];
+        $query = "insert `orders` (order_method_id, member_id, receiver, address, phone, email, note) values ($order_method_id, $memberId, '$name', '$address', $phone, '$email', '$note')";
         $connect->query($query);
-        $total += $item['product_price'] * $item['quantity'];
-    }
+        $query = "select `id` from `orders` order by id desc limit 1";
+        $orderId = mysqli_fetch_array($connect->query($query))['id'];
+        $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+        echo $member['id'];
+        $resultQueryCart = $connect->query($queryCart);
+        $total = 0;
+        foreach ($resultQueryCart as $item) {
+            $productId = $item['product_id'];
+            $number = $item['quantity'];
+            $price = $item['product_price'];
+            $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+            $connect->query($query);
+            $total += $item['product_price'] * $item['quantity'];
+        }
 
-    switch ($order_method_id) {
-        case 5:
-            $vnp_TxnRef = $orderId;
-            $vnp_OrderInfo = 'Thanh toán đơn hàng tại web';
-            $vnp_OrderType = 'billpayment';
-            $vnp_Amount = ($total + 30000) * 100;
-            $vnp_Locale = 'vn';
-            $vnp_BankCode = 'NCB';
-            $vnp_IpAddr = $expire;
-            $vnp_ExpireDate = $expire;
-            $inputData = array(
-                "vnp_Version" => "2.1.0",
-                "vnp_TmnCode" => $vnp_TmnCode,
-                "vnp_Amount" => $vnp_Amount,
-                "vnp_Command" => "pay",
-                "vnp_CreateDate" => date('YmdHis'),
-                "vnp_CurrCode" => "VND",
-                "vnp_IpAddr" => $vnp_IpAddr,
-                "vnp_Locale" => $vnp_Locale,
-                "vnp_OrderInfo" => $vnp_OrderInfo,
-                "vnp_OrderType" => $vnp_OrderType,
-                "vnp_ReturnUrl" => $vnp_Returnurl,
-                "vnp_TxnRef" => $vnp_TxnRef,
-                "vnp_ExpireDate" => $vnp_ExpireDate
-            );
+        switch ($order_method_id) {
+            case 5:
+                $vnp_TxnRef = $orderId;
+                $vnp_OrderInfo = 'Thanh toán đơn hàng tại web';
+                $vnp_OrderType = 'billpayment';
+                $vnp_Amount = ($total + 30000) * 100;
+                $vnp_Locale = 'vn';
+                $vnp_BankCode = 'NCB';
+                $vnp_IpAddr = $expire;
+                $vnp_ExpireDate = $expire;
+                $inputData = array(
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => $vnp_TmnCode,
+                    "vnp_Amount" => $vnp_Amount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnp_IpAddr,
+                    "vnp_Locale" => $vnp_Locale,
+                    "vnp_OrderInfo" => $vnp_OrderInfo,
+                    "vnp_OrderType" => $vnp_OrderType,
+                    "vnp_ReturnUrl" => $vnp_Returnurl,
+                    "vnp_TxnRef" => $vnp_TxnRef,
+                    "vnp_ExpireDate" => $vnp_ExpireDate
+                );
 
-            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-                $inputData['vnp_BankCode'] = $vnp_BankCode;
-            }
-            ksort($inputData);
-            $query = "";
-            $i = 0;
-            $hashdata = "";
-            foreach ($inputData as $key => $value) {
-                if ($i == 1) {
-                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-                } else {
-                    $hashdata .= urlencode($key) . "=" . urlencode($value);
-                    $i = 1;
+                if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                    $inputData['vnp_BankCode'] = $vnp_BankCode;
                 }
-                $query .= urlencode($key) . "=" . urlencode($value) . '&';
-            }
+                ksort($inputData);
+                $query = "";
+                $i = 0;
+                $hashdata = "";
+                foreach ($inputData as $key => $value) {
+                    if ($i == 1) {
+                        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                    } else {
+                        $hashdata .= urlencode($key) . "=" . urlencode($value);
+                        $i = 1;
+                    }
+                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                }
 
-            $vnp_Url = $vnp_Url . "?" . $query;
-            if (isset($vnp_HashSecret)) {
-                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
-                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-            }
-            $returnData = array(
-                'code' => '00', 'message' => 'success', 'data' => $vnp_Url
-            );
-            if (isset($_POST['redirect'])) {
+                $vnp_Url = $vnp_Url . "?" . $query;
+                if (isset($vnp_HashSecret)) {
+                    $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+                    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                }
+                $returnData = array(
+                    'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+                );
+                if (isset($_POST['redirect'])) {
+                    $queryDeleteCart = "delete from `cart` where `member_id` = " . $member['id'];
+                    $connect->query($queryDeleteCart);
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
+                break;
+            default:
                 $queryDeleteCart = "delete from `cart` where `member_id` = " . $member['id'];
                 $connect->query($queryDeleteCart);
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-            break;
-        default:
-            $queryDeleteCart = "delete from `cart` where `member_id` = " . $member['id'];
-            $connect->query($queryDeleteCart);
-            header("Location: ?option=order_success");
-            break;
+                header("Location: ?option=order_success");
+                break;
+        }
     }
+} else {
+    header("location: ?option=signin");
 }
 ?>
 

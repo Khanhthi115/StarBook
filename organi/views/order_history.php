@@ -1,26 +1,31 @@
 <?php
-$query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
-$member = mysqli_fetch_array($connect->query($query));
-$queryOrders = " select * from `orders` where `member_id` = " . $member['id'];
-$resultQueryOrders = $connect->query($queryOrders);
-if ($resultQueryOrders) {
-    // Truy vấn thành công, lưu kết quả vào một mảng
-    $orders = [];
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $orders[] = $row;
-    }
-
-    // Sử dụng mảng $orders cho các xử lý tiếp theo
-    // Ví dụ: lặp qua từng đơn hàng và hiển thị thông tin
-    foreach ($orders as $order) {
-        echo "Order ID: " . $order['id'] . "<br>";
-        // Hiển thị các thông tin khác của đơn hàng
+if (isset($_SESSION['member'])) {
+    $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
+    $member = mysqli_fetch_array($connect->query($query));
+    $queryOrders = " select * from `orders` where `member_id` = " . $member['id'];
+    $resultQueryOrders = $connect->query($queryOrders);
+    if ($resultQueryOrders) {
+        // Truy vấn thành công, lưu kết quả vào một mảng
+        $orders = [];
+    
+        while ($row = mysqli_fetch_assoc($result)) {
+            $orders[] = $row;
+        }
+    
+        // Sử dụng mảng $orders cho các xử lý tiếp theo
+        // Ví dụ: lặp qua từng đơn hàng và hiển thị thông tin
+        foreach ($orders as $order) {
+            echo "Order ID: " . $order['id'] . "<br>";
+            // Hiển thị các thông tin khác của đơn hàng
+        }
+    } else {
+        // Truy vấn thất bại, xử lý lỗi (ví dụ: hiển thị thông báo lỗi)
+        echo "Error executing the query: " . $connect->error;
     }
 } else {
-    // Truy vấn thất bại, xử lý lỗi (ví dụ: hiển thị thông báo lỗi)
-    echo "Error executing the query: " . $connect->error;
+    header("location: ?option=signin");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
