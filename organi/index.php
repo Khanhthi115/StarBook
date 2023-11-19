@@ -47,6 +47,8 @@ session_start();
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="../public/ckeditor5/ckeditor.js"></script>
+
 
     <!---------Tích hợp thanh toán paypal-------------------->
     <script src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD"></script>
@@ -86,3 +88,10 @@ session_start();
 <?php
 ob_end_flush()
 ?>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#contact'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

@@ -1,5 +1,5 @@
 <?php
-$query = "select * from products where status = 1 order by id desc limit 6";
+$query = "select * from products where status = 1 and product_quantity > 0 order by id desc limit 6";
 $result = $connect->query($query);
 $evenProducts = [];
 $oddProducts = [];
@@ -17,11 +17,12 @@ $queryNNA = "select
             products.image,
             products.price,
             products.author_id,
+            products.product_quantity,
             authors.id,
             products.id
             from products inner join authors 
             on products.author_id = authors.id 
-            where authors.name = 'Nguyễn Nhật Ánh'
+            where authors.name = 'Nguyễn Nhật Ánh' and products.product_quantity > 0
             limit 6";
 $resultNNA = $connect->query($queryNNA);
 $evenProductsNNA = [];
@@ -39,11 +40,12 @@ products.name as 'name',
 products.image,
 products.price,
 products.cat_id,
+products.product_quantity,
 categories.id,
 products.id
 from products inner join categories 
 on products.cat_id = categories.id 
-where categories.id = 6
+where categories.id = 6 and products.product_quantity > 0
 limit 6";
 $resultNPV = $connect->query($queryNPV);
 $evenProductsNPV = [];
