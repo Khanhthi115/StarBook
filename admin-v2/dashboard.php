@@ -1,11 +1,9 @@
 <?php
-$queryNumberOfOrders = "select * from orders";
+$queryNumberOfOrders = "select * from orders where status != 4";
 $resultNumberOfOrders = mysqli_num_rows($connect->query($queryNumberOfOrders));
 $queryNumberOfMembers = "select * from member";
 $resultNumberOfMembers = mysqli_num_rows($connect->query($queryNumberOfMembers));
-$queryNumberOfMembers = "select * from member";
-$resultNumberOfMembers = mysqli_num_rows($connect->query($queryNumberOfMembers));
-$queryRevenue = "select price, quantity from order_detail";
+$queryRevenue = "select price, quantity from order_detail join orders on orders.id = order_detail.orderId where orders.status != 4";
 $resultRevenue = $connect->query($queryRevenue);
 if ($resultRevenue && $resultRevenue->num_rows > 0) {
   $total = 0;

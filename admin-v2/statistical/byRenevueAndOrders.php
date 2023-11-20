@@ -1,6 +1,7 @@
 <?php
 $query = "select date(orders.order_date) as date, sum(order_detail.quantity * order_detail.price) as purchases
     from order_detail join orders on orders.id=order_detail.orderId
+    where orders.status != 4
     group by date
     order by date DESC";
 

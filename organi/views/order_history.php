@@ -2,25 +2,11 @@
 if (isset($_SESSION['member'])) {
     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
-    $queryOrders = " select * from `orders` where `member_id` = " . $member['id'];
+    $queryOrders = " select * from `orders` where `member_id` = " . $member['id']  . " order by `id` DESC";
     $resultQueryOrders = $connect->query($queryOrders);
-    if ($resultQueryOrders) {
-        // Truy vấn thành công, lưu kết quả vào một mảng
-        $orders = [];
-    
-        while ($row = mysqli_fetch_assoc($result)) {
-            $orders[] = $row;
-        }
-    
-        // Sử dụng mảng $orders cho các xử lý tiếp theo
-        // Ví dụ: lặp qua từng đơn hàng và hiển thị thông tin
-        foreach ($orders as $order) {
-            echo "Order ID: " . $order['id'] . "<br>";
-            // Hiển thị các thông tin khác của đơn hàng
-        }
-    } else {
-        // Truy vấn thất bại, xử lý lỗi (ví dụ: hiển thị thông báo lỗi)
-        echo "Error executing the query: " . $connect->error;
+    if (isset($_GET['id'])) {
+        $connect->query("update orders set status = 4 where id = " . $_GET['id']);
+        header ("location: ?option=order_history");
     }
 } else {
     header("location: ?option=signin");
@@ -58,42 +44,49 @@ if (isset($_SESSION['member'])) {
         <?php foreach ($resultQueryOrders as $item) : ?>
             <div class="order-history-child">
                 <span style="color: green"><b>Mã đơn hàng: <?= $item['id'] ?></b></span> <br />
-                <span>Phương thức thanh toán: <?= $item['order_method_id'] ?><span>
-                        <hr />
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Tên Sách</th>
-                                    <th>Ảnh</th>
-                                    <th>Số Lượng</th>
-                                    <th>Thành Tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // $queryItems = " select * from `order_detail` where `orderId` = " . $item['id'];
-                                $queryItems = "select a.name, a.image, b.orderId, b.productId, b.price, b.quantity from products a join 
+                <div style="display: flex; gap: 30px">
+                    <div>Phương thức thanh toán: <?= $item['order_method_id'] == 1 ? "Thanh toán khi nhận hàng" : ($item['order_method_id'] == 5 ? "VNPAY" : ($item['order_method_id'] == 4 ? "Paypal" : "Phương thức khác")) ?></div>
+                    <div>Trạng thái: <?= $item['status'] == 1 ? "Chưa xử lý" : ($item['status'] == 2 ? "Đang xử lý" : ($item['status'] == 3 ? "Đã xử lý" : "Hủy")) ?></div>
+                </div>
+
+                <hr />
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="shoping__product">Tên Sách</th>
+                            <th>Ảnh</th>
+                            <th>Số Lượng</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // $queryItems = " select * from `order_detail` where `orderId` = " . $item['id'];
+                        $queryItems = "select a.name, a.image, b.orderId, b.productId, b.price, b.quantity from products a join 
                         order_detail b on a.id = b.productId where b.orderId = " . $item['id'];
-                                $resultQueryItems = ($connect->query($queryItems));
-                                ?>
-                                <?php foreach ($resultQueryItems as $item1) : ?>
-                                    <tr>
-                                        <td class="shoping__cart__item">
-                                            <span><?= $item1['name'] ?><span>
-                                        </td>
-                                        <td>
-                                            <img width="100px" src="../images/<?= $item1['image'] ?>" alt="">
-                                        </td>
-                                        <td class="shoping__cart__total">
-                                            <span><?= $item1['quantity'] ?><span>
-                                        </td>
-                                        <td class="shoping__cart__total">
-                                            <span><?= $item1['price'] ?><span>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        $resultQueryItems = ($connect->query($queryItems));
+                        ?>
+                        <?php foreach ($resultQueryItems as $item1) : ?>
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <span><?= $item1['name'] ?><span>
+                                </td>
+                                <td>
+                                    <img width="100px" src="../images/<?= $item1['image'] ?>" alt="">
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <span><?= $item1['quantity'] ?><span>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <span><?= $item1['price'] ?><span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php if ($item['status'] == 1) : ?>
+                    <span class="btn btn-danger" onclick="if(confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) location='?option=order_history&id=<?= $item['id'] ?>';">Hủy đơn hàng</span>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
         <?php if ($resultQueryOrders->num_rows === 0) : ?>

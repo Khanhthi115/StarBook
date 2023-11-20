@@ -14,7 +14,7 @@
     $query = "select * from member";
     $result = $connect->query($query);
 ?>
-<<h1>DANH SÁCH NGƯỜI DÙNG</h1>
+<h1>DANH SÁCH NGƯỜI DÙNG</h1>
 <section style="text-align:center">
     <a href="?option=member_add" class="btn btn-success mb-3">Thêm người dùng</a>
 </section>

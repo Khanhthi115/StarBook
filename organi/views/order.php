@@ -9,6 +9,17 @@ $resultQueryCart = $connect->query($queryCart);
 
 ?>
 <?php
+if (isset($_GET['method'])) {
+    switch ($_GET['method']) {
+        case 'momoATM':
+            //copy path file momoATM rồi paste vào đây
+            include 'C:\xampp\htdocs\project-php\organi\views\momoATM.php';
+            break;
+        case 'momoQR':
+            include 'C:\xampp\htdocs\project-php\organi\views\momoQR.php';
+            break;
+    }
+}
 if (isset($_SESSION['member'])) {
     if (isset($_POST['name'])) {
         $name = $_POST['name'];
@@ -23,7 +34,6 @@ if (isset($_SESSION['member'])) {
         $query = "select `id` from `orders` order by id desc limit 1";
         $orderId = mysqli_fetch_array($connect->query($query))['id'];
         $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-        echo $member['id'];
         $resultQueryCart = $connect->query($queryCart);
         $total = 0;
         foreach ($resultQueryCart as $item) {
@@ -40,7 +50,7 @@ if (isset($_SESSION['member'])) {
                 $vnp_TxnRef = $orderId;
                 $vnp_OrderInfo = 'Thanh toán đơn hàng tại web';
                 $vnp_OrderType = 'billpayment';
-                $vnp_Amount = ($total + 30000) * 100;
+                $vnp_Amount = $total < 200000 ? ($total + 30000) * 100 : $total * 100;
                 $vnp_Locale = 'vn';
                 $vnp_BankCode = 'NCB';
                 $vnp_IpAddr = $expire;
@@ -92,7 +102,8 @@ if (isset($_SESSION['member'])) {
                     header('Location: ' . $vnp_Url);
                     die();
                 } else {
-                    echo json_encode($returnData);
+                    // echo json_encode($returnData);
+                    die();
                 }
                 break;
             default:
@@ -151,7 +162,7 @@ $total = 0;
                     </tbody>
                 </table>
                 <p></p>
-                <b>Tổng tiền: <?= number_format($total + 30000) ?>đ (đã tính phí ship)</b>
+                <b>Tổng tiền: <?= $total < 200000 ? number_format($total + 30000) : number_format($total) ?>đ (đã tính phí ship)</b>
             </div>
             <div class="order-info">
                 <form method="post">
@@ -200,11 +211,11 @@ $total = 0;
                     </section>
                 </form>
                 <p style="text-align: center">Hoặc thanh toán ngay với Momo</p>
-                <form class="btn-momo-container" action="views\momoQR.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
+                <form class="btn-momo-container" action="?option=order&method=momoQR" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
                     <input type="submit" name="momo" value="Thanh toán MOMO QRcode" class="btn btn-danger btn-momo">
                 </form>
                 <p></p>
-                <form class="btn-momo-container" action="views\momoATM.php" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
+                <form class="btn-momo-container" action="?option=order&method=momoATM" class="" method="POST" target="_blank" enctype="application/x-www-form-urlencoded" action="init_payment.php">
                     <input type="submit" name="momo" value="Thanh toán MOMO ATM" class="btn btn-danger btn-momo">
                 </form>
             </div>

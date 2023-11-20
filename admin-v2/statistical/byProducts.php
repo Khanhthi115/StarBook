@@ -2,6 +2,7 @@
 $query = "select products.name as product_name, sum(order_detail.quantity) as product_quantity
             from products join order_detail on products.id=order_detail.productId
             join orders on orders.id=order_detail.orderId
+            where orders.status != 4
             group by product_name
             order by product_quantity DESC
             limit 10";

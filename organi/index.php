@@ -9,6 +9,29 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
+<?php
+if (isset($_SESSION['member'])) {
+    $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
+    $member = mysqli_fetch_array($connect->query($query));
+    $query = "select `id` from `orders` order by id desc limit 1";
+    $orderId = mysqli_fetch_array($connect->query($query))['id'];
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+    $total1 = 0.0;
+    foreach ($resultQueryCart as $item) {
+        $productId = $item['product_id'];
+        $number = $item['quantity'];
+        $price = $item['product_price'];
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+        $connect->query($query);
+        $total1 += $item['product_price'] * $item['quantity'];
+    }
+    if ($total1 < 200000) {
+        $total1 += 30000;
+    }
+    $total1 = number_format($total1 / 24000, 2);
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -64,7 +87,8 @@ session_start();
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '70'
+                            value: <?= number_format($total1, 2, '.', '') ?>,
+                            currency: 'USD'
                         }
                     }]
                 });

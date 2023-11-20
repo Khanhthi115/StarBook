@@ -26,12 +26,29 @@
          </ul>
      </div>
      <div class="humberger__menu__widget">
-         <div class="header__top__right__auth">
-             <a href="?option=register"><i class="fa fa-user"></i> Đăng ký</a>
-         </div>
-         <div class="header__top__right__auth">
-             <a href="?option=signin"><i class="fa fa-user"></i> Đăng nhập</a>
-         </div>
+         <?php if (empty($_SESSION['member'])) : ?>
+             <div class="header__top__right__auth">
+                 <a href="?option=register"><i class="fa fa-user"></i> Đăng ký</a>
+             </div>
+             <div class="header__top__right__auth">
+                 <a href="?option=signin"><i class="fa fa-user"></i> Đăng nhập</a>
+             </div>
+         <?php else : ?>
+             <div class="header__top__right__social">
+                 <ul class="menu_account" style="list-style-type: none; display: flex">
+                     <li style="font-family: 'Roboto', san-serif; font-size: 14px">Hello: <span style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span></li>
+                     <li>
+                         <a href="?option=change_info" class="dropdown-link"><i class="fa fa-user"></i> Tài khoản</a>
+                         <ul class="dropdown-content">
+                             <li><a href="?option=change_info">Thay đổi thông tin</a></li>
+                             <li><a href="?option=order_history">Xem lịch sử đơn hàng</a></li>
+                             <li><a href="?option=change_password">Đổi mật khẩu</a></li>
+                             <li><a href="?option=logout">Đăng xuất</a></li>
+                         </ul>
+                     </li>
+                 </ul>
+             </div>
+         <?php endif; ?>
      </div>
      <nav class="humberger__menu__nav mobile-menu">
          <ul>
@@ -93,8 +110,8 @@
                                          <ul class="dropdown-content">
                                              <li><a href="?option=change_info">Thay đổi thông tin</a></li>
                                              <li><a href="?option=order_history">Xem lịch sử đơn hàng</a></li>
-                                             <li><a href="?option=logout">Đăng xuất</a></li>
                                              <li><a href="?option=change_password">Đổi mật khẩu</a></li>
+                                             <li><a href="?option=logout">Đăng xuất</a></li>
                                          </ul>
                                      </li>
                                  </ul>
