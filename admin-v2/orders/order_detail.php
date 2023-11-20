@@ -2,9 +2,11 @@
 if (isset($_GET['action'])) {
     $condition = "orderId = " . $_GET['id'] . " and productId = " . $_GET['product_id'];
     if ($_GET['type'] == 'asc') {
+        $connect->query("update `products` set `product_quantity` = `product_quantity` - 1 where `id` = " . $_GET['product_id']);
         $query = "update order_detail set quantity = quantity + 1
         where $condition";
     } else {
+        $connect->query("update `products` set `product_quantity` = `product_quantity` + 1 where `id` = " . $_GET['product_id']);
         $query = "update order_detail set quantity = quantity - 1
         where $condition";
     }
@@ -25,10 +27,9 @@ $order = mysqli_fetch_array($connect->query($query));
 
 ?>
 
-<h1>CHI TIẾT ĐƠN HÀNG<br>(Mã đơn hàng: <?= $order['id'] ?>)</h1>
-<h2>NGÀY TẠO ĐƠN</h2>
-<section><?= $order['order_date'] ?></section>
-<h2>Thông tin người đặt hàng: </h2>
+<h2>CHI TIẾT ĐƠN HÀNG<br/>(Mã đơn hàng: <?= $order['id'] ?>)</h2>
+<p>Ngày tạo đơn: <?= $order['order_date'] ?></p>
+<h4>Thông tin người đặt hàng: </h4>
 <table class="table table-bordered">
     <tbody>
         <tr>
@@ -53,7 +54,7 @@ $order = mysqli_fetch_array($connect->query($query));
         </tr>
     </tbody>
 </table>
-<h2>Thông tin người nhận hàng: </h2>
+<h4>Thông tin người nhận hàng: </h4>
 <table class="table table-bordered">
     <tbody>
         <tr>
@@ -74,7 +75,7 @@ $order = mysqli_fetch_array($connect->query($query));
         </tr>
     </tbody>
 </table>
-<h2>PHƯƠNG THỨC THANH TOÁN</h2>
+<h4>Phương thức thanh toán</h4>
 <section><?= $order['order_method_name'] ?></section>
 <?php
 $query = "select a.status, b.*, c.name, c.image 
@@ -83,8 +84,9 @@ $query = "select a.status, b.*, c.name, c.image
     where a.id = " . $order['id'];
 $order_detail = $connect->query($query);
 ?>
+<br/>
 <form method="post">
-    <h2>CÁC SẢN PHẨM ĐẶT MUA</h2>
+    <h4>Các sản phẩm đặt mua</h4>
     <?php $count = 1; ?>
     <table class="table table-bordered" style="text-align: center">
         <thead>
@@ -110,7 +112,7 @@ $order_detail = $connect->query($query);
             </tr>
         <?php endforeach; ?>
     </table>
-    <h2>TRẠNG THÁI ĐƠN HÀNG</h2>
+    <h4>TRẠNG THÁI ĐƠN HÀNG</h4>
     <p style="display: <?= $order['status'] == 2 || $order['status'] == 3 || $order['status'] == 4 ? 'none' : 'block' ?>">
         <input type="radio" name="status" value="1" <?= $order['status'] == 1 ? 'checked' : '' ?>> Chưa xử lý
     </p>

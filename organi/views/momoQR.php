@@ -1,4 +1,24 @@
 <?php
+if (isset($_SESSION['member'])) {
+    $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
+    $member = mysqli_fetch_array($connect->query($query));
+    $query = "select `id` from `orders` order by id desc limit 1";
+    $orderId = mysqli_fetch_array($connect->query($query))['id'];
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+    $total1 = 0.0;
+    foreach ($resultQueryCart as $item) {
+        $productId = $item['product_id'];
+        $number = $item['quantity'];
+        $price = $item['product_price'];
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+        $connect->query($query);
+        $total1 += $item['product_price'] * $item['quantity'];
+    }
+    if ($total1 < 200000) {
+        $total1 += 30000;
+    }
+}
 if (!function_exists('curl_init')) {
     die('Phần mở rộng cURL không được cài đặt/hoạt động.');
 }
@@ -40,7 +60,7 @@ $accessKey = 'klm05TvNBzhg7h7j';
 $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
 $orderInfo = "Thanh toán qua MoMo QRcode";
-$amount = "10000";
+$amount = strval($total1);
 $orderId = time();
 $requestId = time();
 $redirectUrl = "http://localhost/starbook/organi/index.php?option=order_success";

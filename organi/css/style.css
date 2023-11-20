@@ -3704,6 +3704,23 @@ ol {
 	color: white;
 }
 
+@media only screen and (max-width: 900px) {
+
+	.signup-content,
+	.signin-content {
+		flex-direction: column;
+	}
+
+	.signup-form {
+		width: 100%;
+	}
+
+	.signin-image,
+	.signup-image {
+		width: 100%;
+	}
+}
+
 .article-detail-container {
 	margin: 30px auto;
 	display: flex;
@@ -3842,7 +3859,7 @@ ol {
 	margin: 0 auto;
 	width: 320px;
 	height: 300px;
-	object-fit: cover;
+	object-fit: contain;
 }
 
 @media only screen and (max-width: 600px) {
@@ -3990,6 +4007,7 @@ textarea {
 	visibility: hidden;
 	list-style-type: none;
 }
+
 .menu_account li .dropdown-content li {
 	margin-right: 0;
 	display: block;
@@ -3997,15 +4015,17 @@ textarea {
 	padding: 5px 10px;
 	text-align: center;
 }
+
 .menu_account li .dropdown-content li a {
 	color: white;
 }
+
 .menu_account li:hover .dropdown-content {
 	top: 30px;
 	opacity: 1;
 	visibility: visible;
 }
-.menu_account li:hover .dropdown-content li:hover a{
+
+.menu_account li:hover .dropdown-content li:hover a {
 	color: #66da1e;
 }
-  

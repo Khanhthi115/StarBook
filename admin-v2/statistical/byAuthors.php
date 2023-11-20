@@ -3,6 +3,7 @@ $query = "select authors.name as name, sum(order_detail.quantity) as value
             from authors join products on authors.id=products.author_id
             join order_detail on products.id=order_detail.productId
             join orders on orders.id=order_detail.orderId
+            where orders.status != 4
             group by name";
 
 $result = $connect->query($query);
@@ -26,7 +27,7 @@ if ($result) {
     <div class="card-body pb-0">
         <h5 class="card-title">Thống kê lượt mua theo tác giả</h5>
 
-        <div id="trafficChart" style="min-height: 550px;" class="echart"></div>
+        <div id="trafficChart" style="min-height: 600px;" class="echart"></div>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {

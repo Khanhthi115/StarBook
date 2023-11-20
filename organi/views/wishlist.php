@@ -4,7 +4,7 @@ if (isset($_SESSION['member'])) {
         if ($_GET['action'] === 'add') {
             // Kiểm tra xem sản phẩm đã tồn tại trong danh sách yêu thích của người dùng hay chưa
             $productId = $_GET['id'];
-            $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId" and `product_quantity` > 0);
+            $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId and `product_quantity` > 0");
             $result = mysqli_fetch_array($result);
             $member = $_SESSION['member'];
             $memberId = $connect->query("SELECT `id` FROM `member` WHERE `username` = '$member'");

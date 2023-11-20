@@ -5,37 +5,6 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $hashPassword = md5($password);
     $query = "SELECT * FROM `member` WHERE `username` = '$username' AND `password` = '$hashPassword'";
     $result = $connect->query($query);
-
-    // if ($result_signin) {
-    //     if ($result_signin->num_rows == 0) {
-    //         $alert = "Sai tên đăng nhập hoặc mật khẩu";
-    //     } else if (mysqli_fetch_array($result_signin)['status'] == 0) {
-    //         $alert = "Tài khoản bị khóa hoặc đang được xử lý";
-    //     } else {
-    //         $_SESSION['member'] = $username;
-    //         if (isset($_GET['order'])) {
-    //             header("location: ?option=order");
-    //         } 
-    //         //phần của chức năng bình luận sản phẩm khi chưa đăng nhập
-    //         else if ($_GET['product_id']){
-    //             $result = mysqli_fetch_array($result_signin);
-    //             echo $result, "hello";
-    //             $member_id = $result['id'];
-    //             $product_id = $_GET['product_id'];
-    //             $content = $_SESSION['content'];
-    //             $connect->query("insert comments (memberId, productId, date, content) values ($member_id, $product_id, now(), '$content')");
-    //             echo "<script>alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!')</script>";
-    //         }
-    //         else {
-    //             // navigate with js
-    //             // echo "<script>location='?option=home';</script>";
-    //             //navigate with php
-    //             header("location: ?option=home");
-    //         }
-    //     }
-    // } else {
-    //     $alert = "Lỗi khi thực hiện truy vấn";
-    // }
     if (mysqli_num_rows($result) == 0) {
         $alert = "Sai tên đăng nhập hoặc mật khẩu";
     } else {
@@ -71,7 +40,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StarBook</title>
 </head>
 
 <body>
