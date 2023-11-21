@@ -178,8 +178,8 @@ $productsInCart = $connect->query($queryCart);
                         <h5>Tổng Tiền</h5>
                         <ul>
                             <li>Tạm Tính <span><?= number_format($total, 0, ',', '.') ?>đ</span></li>
-                            <li>Phí Ship <span><?= $total < 200000 ? number_format(30000, 0, ',', '.') : 0 ?>đ</span></li>
-                            <li>Tổng <span><?= $total < 200000 ? number_format($total + 30000, 0, ',', '.') : number_format($total, 0, ',', '.')?>đ</span></li>
+                            <li>Phí Ship <span><?= $total < min_money ? number_format(shipping_fee, 0, ',', '.') : 0 ?>đ</span></li>
+                            <li>Tổng <span><?= $total < min_money ? number_format($total + shipping_fee, 0, ',', '.') : number_format($total, 0, ',', '.')?>đ</span></li>
                         </ul>
                         <a href="?option=order" class="primary-btn">ĐẶT HÀNG</a>
                     </div>
