@@ -1,5 +1,7 @@
 <?php
 $connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
+CONST min_money = 200000;
+CONST shipping_fee = 30000;
 ?>
 <?php
 ob_start();
@@ -17,19 +19,19 @@ if (isset($_SESSION['member'])) {
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
     $resultQueryCart = $connect->query($queryCart);
-    $total1 = 0.0;
+    $total_paypal = 0.0;
     foreach ($resultQueryCart as $item) {
         $productId = $item['product_id'];
         $number = $item['quantity'];
         $price = $item['product_price'];
         $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
         $connect->query($query);
-        $total1 += $item['product_price'] * $item['quantity'];
+        $total_paypal += $item['product_price'] * $item['quantity'];
     }
-    if ($total1 < 200000) {
-        $total1 += 30000;
+    if ($total_paypal < min_money) {
+        $total_paypal += shipping_fee;
     }
-    $total1 = number_format($total1 / 24000, 2);
+    $total_paypal = number_format($total_paypal / 24000, 2);
 }
 ?>
 
@@ -87,7 +89,7 @@ if (isset($_SESSION['member'])) {
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: <?= number_format($total1, 2, '.', '') ?>,
+                            value: <?= number_format($total_paypal, 2, '.', '') ?>,
                             currency: 'USD'
                         }
                     }]
