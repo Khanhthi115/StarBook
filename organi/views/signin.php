@@ -62,6 +62,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +77,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <body>
     <section class="signup" style="margin-bottom: 50px; margin-top: 20px;">
         <div class="container">
-            <div class="signin-content">
+            <div class="signin-content" style="animation-name: fadeIn; animation-duration: 2s">
                 <div class="signup-form">
                     <h2 class="form-title">Đăng nhập</h2>
                     <form method="POST" class="register-form" id="register-form">
@@ -88,8 +89,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="password" id="pass" placeholder="Mật khẩu" />
                         </div>
+                        <a href="?option=forgot_password" class="signup-image-link">Quên mật khẩu?</a>
+
                         <div class="form-group">
                             <input type="submit" name="signin" id="signup" class="btn btn-primary btn-signup" value="Đăng nhập" />
+                        
                         </div>
                     </form>
                 </div>

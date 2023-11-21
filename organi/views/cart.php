@@ -1,44 +1,4 @@
 <?php
-// if (empty($_SESSION['cart'])) {
-//     $_SESSION['cart'] = array();
-// }
-// if (isset($_GET['action'])) {
-//     $id = isset($_GET['id']) ? $_GET['id'] : '';
-//     switch ($_GET['action']) {
-//         case 'add':
-//             // if product is already in cart we increase its quantity else the quantity of it is 1
-//             if (array_key_exists($id, array_keys($_SESSION['cart']))) {
-//                 $_SESSION['cart'][$id]++;
-//                 // change link or when reload page the quantity will increase
-//                 header("location: ?option=cart");
-//             } else {
-//                 $_SESSION['cart'][$id] = 1;
-//                 header("location: ?option=cart");
-//             }
-//             break;
-//         case 'delete':
-//             unset($_SESSION['cart'][$id]);
-//             break;
-//         case 'delete_all':
-//             unset($_SESSION['cart']);
-//             break;
-//         case 'update':
-//             if ($_GET['type'] == 'asc')
-//                 $_SESSION['cart'][$id]++;
-//             else if ($_GET['type'] == 'dec')
-//                 if ($_SESSION['cart'][$id] > 1) $_SESSION['cart'][$id]--;
-//             header("location: ?option=cart");
-//             break;
-//         case 'order':
-//             if (isset($_SESSION['member'])) {
-//                 header("location: ?option=order");
-//             } else {
-//                 header("location: ?option=signin&order=1");
-//             }
-//             break;
-//     }
-// }
-//
 if (isset($_SESSION['member'])) {
     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
@@ -53,30 +13,58 @@ if (isset($_SESSION['member'])) {
             $productName = $product['name'];
             $productImage = $product['image'];
             $productPrice = $product['price'];
+            $productQuantity = $product['product_quantity'];
         }
         switch ($_GET['action']) {
             case 'add':
-                $queryProductsInCart = "select * from `cart` where `product_id` = $productId and `member_id` = $memberId";
-                if (mysqli_num_rows($connect->query($queryProductsInCart)) != 0) {
-                    $connect->query("update `cart` " . " set `quantity` = `quantity` + 1 where `product_id` = " . $productId . " and `member_id` = " . $memberId);
+                $queryProductsInCart = "select * from `cart` where `product_id` = $productId and `member_id` = $memberId and " . $productQuantity . " > 0";
+                if ($productQuantity == 0) {
+                    echo "<script>alert('Không tăng được số lượng sản phẩm do kho không đủ hàng')</script>";
+                } else if (mysqli_num_rows($connect->query($queryProductsInCart)) != 0) {
+                    $connect->query("update `cart` set `quantity` = `quantity` + 1 where `product_id` = " . $productId . " and `member_id` = " . $memberId);
+                    $connect->query("update `products` set `product_quantity` = `product_quantity` - 1 where `id` = " . $productId);
                     header("location: ?option=cart");
                 } else {
-                    $connect->query("insert into cart (product_id, product_name, product_price, product_image, member_id, quantity) values ($productId, '$productName', $productPrice, '$productImage', $memberId, 1)");
+                    $connect->query("update `products` set `product_quantity` = `product_quantity` - 1 where `id` = " . $productId);
+                    $connect->query("insert into `cart` (product_id, product_name, product_price, product_image, member_id, quantity) values ($productId, '$productName', $productPrice, '$productImage', $memberId, 1)");
                     header("location: ?option=cart");
                 }
                 break;
             case 'delete':
-                $connect->query("delete from cart where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                $queryQuantity = "SELECT quantity FROM cart WHERE product_id = " . $_GET['id'] . " AND member_id = " . $memberId;
+                $resultQuantity = $connect->query($queryQuantity);
+
+                if ($resultQuantity && $resultQuantity->num_rows > 0) {
+                    $row = $resultQuantity->fetch_assoc();
+                    $qty = $row['quantity'];
+                } else {
+                    echo "Product not found in the cart.";
+                }
+                $connect->query("update `products` set `product_quantity` = `product_quantity` + " . $qty . "  where `id` = " . $productId);
+                $connect->query("delete from `cart` where `product_id` = " . $_GET['id'] . " and `member_id` = " . $memberId);
                 break;
             case 'delete_all':
-                echo $memberId;
-                $result = $connect->query("delete from cart where member_id = " . $memberId);
+                $queryDeleteAll = "select * from `cart` where `member_id` = " . $memberId;
+                $resultDeleteAll = $connect->query($queryDeleteAll);
+                while ($row = $resultDeleteAll->fetch_assoc()) {
+                    $productDeleteId = $row['product_id'];
+                    $productDeleteQuantity = $row['quantity'];
+                    $connect->query("update `products` set `product_quantity` = `product_quantity` + " . $productDeleteQuantity . "  where `id` = " . $productDeleteId);
+                }
+                $connect->query("delete from `cart` where `member_id` = " . $memberId);
                 break;
             case 'update':
-                if ($_GET['type'] == 'asc')
-                    $connect->query("update cart " . " set quantity = quantity + 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
-                else if ($_GET['type'] == 'dec')
-                    $connect->query("update cart " . " set quantity = quantity - 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                if ($_GET['type'] == 'asc') {
+                    if ($productQuantity > 0) {
+                        $connect->query("update `products` set `product_quantity` = `product_quantity` - 1 where `id` = " . $productId);
+                        $connect->query("update `cart` set quantity = quantity + 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                    } else {
+                        echo "<script>alert('Không tăng được số lượng sản phẩm do kho không đủ hàng!')</script>";
+                    }
+                } else if ($_GET['type'] == 'dec') {
+                    $connect->query("update `products` set `product_quantity` = `product_quantity` + 1 where `id` = " . $productId);
+                    $connect->query("update `cart` set quantity = quantity - 1 where product_id = " . $_GET['id'] . " and member_id = " . $memberId);
+                }
                 header("location: ?option=cart");
                 break;
         }
@@ -114,11 +102,6 @@ $productsInCart = $connect->query($queryCart);
 <section class="shoping-cart spad">
     <?php
     $total = 0;
-    // if (!empty($_SESSION['id'])) :
-    //     // $ids below must be a string
-    //     $ids = implode(',', array_keys($_SESSION['cart']));
-    //     $query = "Select * from products where id in ($ids)";
-    //     $result = $connect->query($query);
     if (mysqli_num_rows($connect->query($queryCart)) != 0) :
         // 
     ?>
@@ -132,7 +115,7 @@ $productsInCart = $connect->query($queryCart);
                                     <th class="shoping__product">Tên Sách</th>
                                     <th>Giá</th>
                                     <th>Số Lượng</th>
-                                    <th>Thành Tiền</th>
+                                    <th>Tổng tiền</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -175,8 +158,8 @@ $productsInCart = $connect->query($queryCart);
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="?option=show_products" class="primary-btn cart-btn">Tiếp tục mua sắm</a>
-                        <a href="" onclick="if(confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?')) location='?option=cart&action=delete_all';" class="primary-btn cart-btn cart-btn-right">
-                            Xóa tất cả</a>
+                        <span style="cursor: pointer" onclick="if(confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm khỏi giỏ hàng?')) location='?option=cart&action=delete_all';" class="primary-btn cart-btn cart-btn-right">
+                            Xóa tất cả</span>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -203,7 +186,10 @@ $productsInCart = $connect->query($queryCart);
                 </div>
             </div>
         </div>
-    <?php else : ?> <section style="text-align: center; font-size: 30px;">Giỏ hàng trống</section>
+    <?php else : ?>
+        <section style="text-align: center; font-size: 30px;">
+            <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-3428238-2902697.png" alt="" />
+        </section>
     <?php endif; ?>
 </section>
 <!-- Shoping Cart Section End -->
