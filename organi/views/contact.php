@@ -45,7 +45,7 @@ use PHPMailer\PHPMailer\Exception;
             echo '<script>alert("Phản hồi của bạn đã được gửi!")</script>';
             // echo 'Message has been sent';
         } catch (Exception $e) {
-            // echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+             echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
         }
 
     }
@@ -54,24 +54,90 @@ use PHPMailer\PHPMailer\Exception;
 $article_cat = $connect->query("select * from article_categories");
 ?>
 
-<h3 style="text-align: center">Liên hệ với chúng tôi</h3>
-<section class="container col-md-6">
-    <form method="post" enctype="multipart/form-data">
-        
-        <section class="form-group">
-            Họ và tên: <input name="name" class="form-control">
-        </section>
-        
-        <section class="form-group">
-            <label>Email: </label>
-            <textarea style="width: 100%" cols="5" id="summary" name="email"></textarea>
-        </section>
-        <section class="form-group">
-            <label>Nội dung: </label>
-            <textarea id="contact" name="content"></textarea>
-        </section>
-        <section>
-            <input type="submit" name="send" value="Gửi" class="btn btn-success">
-        </section>
-    </form>
-</section>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Liên hệ</h2>
+                        <div class="breadcrumb__option">
+                            <a href="?option=home">Home</a>
+                            <span>Liên hệ với chúng tôi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Contact Section Begin -->
+    <section class="contact spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_phone"></span>
+                        <h4>Điện thoại</h4>
+                        <p>+01-3-8888-6868</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_pin_alt"></span>
+                        <h4>Địa chỉ</h4>
+                        <p>Đại học Công Nghiệp Hà Nội</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_clock_alt"></span>
+                        <h4>Open time</h4>
+                        <p>10:00 am to 23:00 pm</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                    <div class="contact__widget">
+                        <span class="icon_mail_alt"></span>
+                        <h4>Email</h4>
+                        <p>starbook@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    <!-- Map Begin -->
+    <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7446.9475896511685!2d105.73166127368222!3d21.053730725802723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345457e292d5bf%3A0x20ac91c94d74439a!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2hp4buHcCBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1700982337261!5m2!1svi!2s" height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    <!-- Map End -->
+
+    <!-- Contact Form Begin -->
+    <div class="contact-form spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact__form__title">
+                        <h2>Để lại tin nhắn</h2>
+                    </div>
+                </div>
+            </div>
+            <form method="post">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" name="name" placeholder="Tên của bạn">
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" name="email" placeholder="Email">
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <textarea placeholder="Tin nhắn" name="content"></textarea>
+                        <input type="submit" name="send" class="btn btn-success w-50 text-white" value="GỬI MAIL"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
