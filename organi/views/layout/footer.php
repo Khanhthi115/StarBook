@@ -1,8 +1,8 @@
 <?php
-$query = "select * from categories limit 7";
+$query = "select * from `categories` limit 7";
 $result = $connect->query($query);
 
-$queryAuthors = "select * from authors limit 7";
+$queryAuthors = "select * from `authors` limit 7";
 $resultAuthors = $connect->query($queryAuthors);
 
 $queryArticleCategories = "select * from article_categories limit 7";

@@ -5,7 +5,7 @@ if (isset($_SESSION['member'])) {
     $queryOrders = " select * from `orders` where `member_id` = " . $member['id']  . " order by `id` DESC";
     $resultQueryOrders = $connect->query($queryOrders);
     if (isset($_GET['id'])) {
-        $connect->query("update orders set status = 4 where id = " . $_GET['id']);
+        $connect->query("update `orders` set `status` = 4 where `id` = " . $_GET['id']);
         header ("location: ?option=order_history");
     }
 } else {

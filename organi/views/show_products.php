@@ -1,7 +1,7 @@
 <?php
 $option = 'show_products';
-$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from products 
-join authors on products.author_id = authors.id where products.status = 1 and products.product_quantity > 0";
+$query = "select products.*, authors.id as 'author_id', authors.name as 'author_name' from `products` 
+join `authors` on `products.author_id` = `authors.id` where products.status = 1 and products.product_quantity > 0";
 // search by authors
 if (isset($_GET['authorId'])) {
     $query .= " and author_id=" . $_GET['authorId'];
@@ -60,12 +60,12 @@ if (!isset($_GET['sort'])) {
 ?>
 
 <?php
-$query = "select * from categories";
+$query = "select * from `categories`";
 $result_categories = $connect->query($query);
 ?>
 
 <?php
-$query_latest = "select * from products where status = 1 order by id desc limit 6";
+$query_latest = "select * from `products` where `status` = 1 order by `id` desc limit 6";
 $result_latest = $connect->query($query_latest);
 $evenProducts = [];
 $oddProducts = [];

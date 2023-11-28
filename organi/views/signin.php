@@ -1,33 +1,47 @@
 <?php
-if (isset($_POST['username']) && isset($_POST['password'])) {
+// session_start(); // Start session if not already started
+
+if (isset($_POST["signin"])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $hashPassword = md5($password);
-    $query = "SELECT * FROM `member` WHERE `username` = '$username' AND `password` = '$hashPassword'";
-    $result = $connect->query($query);
-    if (mysqli_num_rows($result) == 0) {
-        $alert = "Sai tên đăng nhập hoặc mật khẩu";
+    if (empty($_POST['username'])) {
+        $errorTK = "Vui lòng nhập tên đăng nhập";
+    }else if(empty($_POST['password'])){
+        $errorMK = "Vui lòng nhập mật khẩu";
     } else {
-        $result = mysqli_fetch_array($result);
-        if ($result['status'] == 0) {
-            $alert = "Tài khoản bạn đang bị khóa hoặc trong quá trình xử lý";
-        } else {
-            $_SESSION['member'] = $username;
-            if (isset($_GET['order'])) {
-                header("location: ?option=order");
-            } elseif (isset($_GET['product_id'])) {
-                $member_id = $result['id'];
-                $product_id = $_GET['product_id'];
-                $content = $_SESSION['content'];
-                $connect->query("insert comments (memberId, productId, date, content) values ($member_id, $product_id, now(), '$content')");
-                echo "
-                <script>
-                    alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!');
-                    location='?option=detail_product&id=$product_id';
-                </script>";
+        $query = "SELECT * FROM `member` WHERE `username` = '$username'";
+        $result = $connect->query($query);
+
+        if ($result && $result->num_rows > 0) {
+            $userData = $result->fetch_assoc();
+
+            if ($userData['password'] === $hashPassword) {
+                if ($userData['status'] == 0) {
+                    $warnings = "Tài khoản bạn đang bị khóa hoặc trong quá trình xử lý";
+                } else {
+                    $_SESSION['member'] = $username;
+                    if (isset($_GET['order'])) {
+                        header("location: ?option=order");
+                    } elseif (isset($_GET['product_id'])) {
+                        $member_id = $userData['id'];
+                        $product_id = $_GET['product_id'];
+                        $content = $_SESSION['content'];
+                        $connect->query("INSERT INTO `comments` (memberId, productId, date, content) VALUES ($member_id, $product_id, now(), '$content')");
+                        echo "
+                        <script>
+                            alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!');
+                            location='?option=detail_product&id=$product_id';
+                        </script>";
+                    } else {
+                        header("location: ?option=home");
+                    }
+                }
             } else {
-                header("location: ?option=home");
+                $errors = "Sai tên đăng nhập hoặc mật khẩu";
             }
+        } else {
+            $errors = "Sai tên đăng nhập hoặc mật khẩu";
         }
     }
 }
@@ -52,11 +66,15 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <form method="POST" class="register-form" id="register-form">
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="name" placeholder="Tên đăng nhập" />
+                            <input type="text" name="username" value="<?php echo $username ?>" id="name" placeholder="Tên đăng nhập" />
+                            <p style="color:red;"><?php echo $errorTK;?></p>
                         </div>
                         <div class="form-group">
                             <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="password" id="pass" placeholder="Mật khẩu" />
+                            <p style="color:red;"><?php echo $errorMK;?></p>
+                            <p style="color:red;"><?php echo $errors;?></p>
+                            <p style="color:red;"><?php echo $warnings;?></p>
                         </div>
                         <a href="?option=forgot_password" class="signup-image-link">Quên mật khẩu?</a>
 
