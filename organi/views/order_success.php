@@ -18,18 +18,18 @@ if (isset($_GET['vnp_Amount']) && isset($_GET['vnp_BankTranNo'])) {
     '$vnp_PayDate', '$vnp_TmnCode', '$vnp_TransactionNo', '$orderId')";
     $connect->query($insert_vnpay);
 } else if (isset($_GET['vnp_Amount']) && empty($_GET['vnp_BankTranNo'])) {
-    $query = "select id from orders order by id desc limit 1";
+    $query = "select `id` from `orders` order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
-    $connect->query("update orders set status = 4 where id = " . $orderId);
+    $connect->query("update `orders` set `status` = 4 where `id` = " . $orderId);
 } else if (isset($_GET['method']) == 'paypal') {
     $receiver = $member['fullname'];
     $address = $member['address'];
     $phone = $member['phonenumber'];
     $email = $member['email'];
-    $query = "INSERT INTO orders (order_method_id, member_id, receiver, address, phone, email)
+    $query = "INSERT INTO `orders` (order_method_id, member_id, receiver, address, phone, email)
     VALUES (4, $memberId, '$receiver', '$address', '$phone', '$email')";
     $connect->query($query);
-    $query = "select id from orders order by id desc limit 1";
+    $query = "select `id` from `orders` order by id desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
     $resultQueryCart = $connect->query($queryCart);
@@ -42,7 +42,7 @@ if (isset($_GET['vnp_Amount']) && isset($_GET['vnp_BankTranNo'])) {
         $pay_result = $connect->query($query);
         $total += $item['product_price'] * $item['quantity'];
     }
-    $connect->query("delete from cart where member_id = " . $memberId);
+    $connect->query("delete from `cart` where member_id = " . $memberId);
 }
 ?>
 <?php

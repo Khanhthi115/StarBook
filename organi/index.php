@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
+$connect = new MySQLi('localhost', 'root', '12345678', 'starbook_databse', 3306);
 CONST min_money = 200000;
 CONST shipping_fee = 30000;
 ?>
@@ -15,7 +15,7 @@ session_start();
 if (isset($_SESSION['member'])) {
     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
-    $query = "select `id` from `orders` order by id desc limit 1";
+    $query = "select `id` from `orders` order by `id` desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
     $resultQueryCart = $connect->query($queryCart);
