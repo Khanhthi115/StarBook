@@ -81,37 +81,6 @@ if (isset($_SESSION['member'])) {
         src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD">
     </script>
     <script>
-    HEAD
-    paypal.Buttons({
-        style: {
-            layout: 'vertical',
-            color: 'blue',
-            shape: 'rect',
-            label: 'paypal'
-        },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: '70'
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(orderData) {
-                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                var transaction = orderData.purchase_units[0].payments.captures[0];
-                alert('Transaction ' + transaction.status + ': ' + transaction.id +
-                    '\n\nSee console for details');
-                window.location.replace(
-                    'http://localhost/project-php/organi/?option=order_success&method=paypal')
-            });
-        },
-        onCancel: function(data) {
-            window.location.replace('http://localhost/project-php/organi/?option=order');
-        }
-    }).render('#paypal-button-container');
     paypal.Buttons({
         style: {
             layout: 'vertical',
