@@ -16,13 +16,13 @@ if (isset($_POST['signup'])) {
         echo "<script>alert('Mật khẩu phải gồm ít nhất 6 ký tự, bao gồm chữ và số')</script>";
     } else {
         // Kiểm tra username đã tồn tại trong database
-        $query = "SELECT * FROM member WHERE username = '$username'";
+        $query = "SELECT * FROM `member` WHERE `username` = '$username'";
         $result = $connect->query($query);
         if (mysqli_num_rows($result) != 0) {
             echo "<script>alert('Tên đăng nhập đã tồn tại')</script>";
         } else {
             $password = md5($password);
-            $query = "INSERT INTO member (username, password, fullname, phonenumber, address, email) VALUES ('$username', '$password', '$fullname', '$phone', '$address', '$email')";
+            $query = "INSERT INTO `member` (`username`, `password`, `fullname`, `phonenumber`, `address`, `email`) VALUES ('$username', '$password', '$fullname', '$phone', '$address', '$email')";
             $connect->query($query);
             echo "<script>alert('Đăng ký thành công'); location='?option=home'</script>";
         }

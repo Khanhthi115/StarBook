@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse',3310);
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
 const min_money = 200000;
 const shipping_fee = 30000;
 ?>
@@ -12,27 +12,27 @@ session_start();
 <!DOCTYPE html>
 <html lang="zxx">
 <?php
-// if (isset($_SESSION['member'])) {
-//     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
-//     $member = mysqli_fetch_array($connect->query($query));
-//     $query = "select `id` from `orders` order by id desc limit 1";
-//     $orderId = mysqli_fetch_array($connect->query($query))['id'];
-//     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
-//     $resultQueryCart = $connect->query($queryCart);
-//     $total_paypal = 0.0;
-//     foreach ($resultQueryCart as $item) {
-//         $productId = $item['product_id'];
-//         $number = $item['quantity'];
-//         $price = $item['product_price'];
-//         $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
-//         $connect->query($query);
-//         $total_paypal += $item['product_price'] * $item['quantity'];
-//     }
-//     if ($total_paypal < min_money) {
-//         $total_paypal += shipping_fee;
-//     }
-//     $total_paypal = number_format($total_paypal / 24000, 2);
-// }
+if (isset($_SESSION['member'])) {
+    $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
+    $member = mysqli_fetch_array($connect->query($query));
+    $query = "select `id` from `orders` order by `id` desc limit 1";
+    $orderId = mysqli_fetch_array($connect->query($query))['id'];
+    $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
+    $resultQueryCart = $connect->query($queryCart);
+    $total_paypal = 0.0;
+    foreach ($resultQueryCart as $item) {
+        $productId = $item['product_id'];
+        $number = $item['quantity'];
+        $price = $item['product_price'];
+        $query = "insert `order_detail` values ($productId, $orderId, $number, $price)";
+        $connect->query($query);
+        $total_paypal += $item['product_price'] * $item['quantity'];
+    }
+    if ($total_paypal < min_money) {
+        $total_paypal += shipping_fee;
+    }
+    $total_paypal = number_format($total_paypal / 24000, 2);
+}
 ?>
 
 <head>

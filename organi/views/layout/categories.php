@@ -1,5 +1,5 @@
 <?php
-$query = "select * from categories";
+$query = "select * from `categories`";
 $result = $connect->query($query);
 ?>
 <!-- Hero Section Begin -->
