@@ -5,9 +5,9 @@ if (isset($_POST['content'])) {
     // when user have signed in and comment
     if (isset($_SESSION['member'])) {
         $date = time();
-        $memberId = mysqli_fetch_array($connect->query("select * from member where username='" . $_SESSION['member'] . "'"));
+        $memberId = mysqli_fetch_array($connect->query("select * from `member` where `username`='" . $_SESSION['member'] . "'"));
         $memberId = $memberId['id'];
-        $connect->query("insert comments (memberId, productId, date, content) values ($memberId, $productId, now(), '$content')");
+        $connect->query("insert `comments` (memberId, productId, date, content) values ($memberId, $productId, now(), '$content')");
         echo "<script>alert('Bình luận đã được gửi đi và sẽ sớm xuất hiện!')</script>";
     } else {
         // when user have not signed in and comment
@@ -22,16 +22,16 @@ if (isset($_POST['content'])) {
 ?>
 <?php
 $id = $_GET['id'];
-$query = "select * from products where id = $id";
+$query = "select * from `products` where `id` = $id";
 $result = $connect->query($query);
 $item = mysqli_fetch_array($result);
 
 $id_author = $item['author_id'];
-$queryAuthor = "select * from authors where id = $id_author";
+$queryAuthor = "select * from `authors` where `id` = $id_author";
 $resultAuthor = $connect->query($queryAuthor);
 $itemAuthor = mysqli_fetch_array($resultAuthor);
 
-$queryRelatedBooks = "select * from products where status = 1 and product_quantity > 0 and author_id = " . $itemAuthor['id'] . " order by rand() limit 4";
+$queryRelatedBooks = "select * from `products` where `status` = 1 and `product_quantity` > 0 and `author_id` = " . $itemAuthor['id'] . " order by rand() limit 4";
 $resultRelatedBooks = $connect->query($queryRelatedBooks);
 ?>
 

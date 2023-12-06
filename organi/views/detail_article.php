@@ -1,15 +1,15 @@
 <?php
 $id = $_GET['id'];
-$query = "select * from articles where id = $id";
+$query = "select * from `articles` where `id` = $id";
 $result = $connect->query($query);
 $item = mysqli_fetch_array($result);
 
 $article_cat = $item['article_cat_id'];
-$queryCat = "select * from article_categories where id = $article_cat";
+$queryCat = "select * from `article_categories` where `id` = $article_cat";
 $resultCat = $connect->query($queryCat);
 $itemCat = mysqli_fetch_array($resultCat);
 
-$queryArticles = "select * from articles where status = 1 order by rand() limit 6";
+$queryArticles = "select * from `articles` where `status` = 1 order by rand() limit 6";
 $resultArticles = $connect->query($queryArticles);
 $numberArticles = mysqli_num_rows($resultArticles);
 ?>

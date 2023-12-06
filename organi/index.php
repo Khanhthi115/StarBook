@@ -1,7 +1,7 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse', 3310);
-CONST min_money = 200000;
-CONST shipping_fee = 30000;
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
+const min_money = 200000;
+const shipping_fee = 30000;
 ?>
 <?php
 ob_start();
@@ -15,7 +15,7 @@ session_start();
 if (isset($_SESSION['member'])) {
     $query  = "select * from `member` where `username`='" . $_SESSION['member'] . "'";
     $member = mysqli_fetch_array($connect->query($query));
-    $query = "select `id` from `orders` order by id desc limit 1";
+    $query = "select `id` from `orders` order by `id` desc limit 1";
     $orderId = mysqli_fetch_array($connect->query($query))['id'];
     $queryCart = " select * from `cart` where `member_id` = " . $member['id'];
     $resultQueryCart = $connect->query($queryCart);
@@ -43,7 +43,8 @@ if (isset($_SESSION['member'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Star Book</title>
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet"
+        type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
@@ -76,37 +77,41 @@ if (isset($_SESSION['member'])) {
 
 
     <!---------Tích hợp thanh toán paypal-------------------->
-    <script src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AVYk5egfKaRv3HGriaCdV2lJyLXHHS-UEucTmFzCIY4LP6QWxFHRjnY_B2CgqgeCXYBjwp-LLCjMrfK9&currency=USD">
+    </script>
     <script>
-        paypal.Buttons({
-            style: {
-                layout: 'vertical',
-                color: 'blue',
-                shape: 'rect',
-                label: 'paypal'
-            },
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: <?= number_format($total_paypal, 2, '.', '') ?>,
-                            currency: 'USD'
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(orderData) {
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for details');
-                    window.location.replace('http://localhost/project-php/organi/?option=order_success&method=paypal')
-                });
-            },
-            onCancel: function(data) {
-                window.location.replace('http://localhost/project-php/organi/?option=order');
-            }
-        }).render('#paypal-button-container');
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'paypal'
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: <?= number_format($total_paypal, 2, '.', '') ?>,
+                        currency: 'USD'
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction ' + transaction.status + ': ' + transaction.id +
+                    '\n\nSee console for details');
+                window.location.replace(
+                    'http://localhost/project-php/organi/?option=order_success&method=paypal')
+            });
+        },
+        onCancel: function(data) {
+            window.location.replace('http://localhost/project-php/organi/?option=order');
+        }
+    }).render('#paypal-button-container');
     </script>
 </body>
 
@@ -115,9 +120,9 @@ if (isset($_SESSION['member'])) {
 ob_end_flush()
 ?>
 <script>
-    ClassicEditor
-        .create(document.querySelector('#contact'))
-        .catch(error => {
-            console.error(error);
-        });
+ClassicEditor
+    .create(document.querySelector('#contact'))
+    .catch(error => {
+        console.error(error);
+    });
 </script>

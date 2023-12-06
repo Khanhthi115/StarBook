@@ -49,6 +49,10 @@ if (isset($_GET['option'])) {
             break;
         case 'order_history':
             include "views/order_history.php";
+            break;
+        case 'update_members':
+            include "views/update_members.php";
+            break;
     }
 } else {
     include "views/home.php";

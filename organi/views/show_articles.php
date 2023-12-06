@@ -1,6 +1,6 @@
 <?php
 $option = 'show_articles';
-$queryArticles = "select * from articles where status = 1";
+$queryArticles = "select * from `articles` where `status` = 1";
 
 // search by keyword
 if (isset($_GET['article_cat'])) {

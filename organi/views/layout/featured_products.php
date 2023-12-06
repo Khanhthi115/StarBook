@@ -1,8 +1,8 @@
 <?php
-$query = "select * from products where status = 1 and product_quantity > 0";
+$query = "select * from `products` where `status` = 1 and product_quantity > 0";
 $query .= "  ORDER BY RAND() limit 8";
 $result = $connect->query($query);
-$query_categories = "select * from categories limit 5";
+$query_categories = "select * from `categories` limit 5";
 $result_categories = $connect->query($query_categories);
 ?>
 <!-- Featured Section Begin -->
