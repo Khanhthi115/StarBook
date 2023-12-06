@@ -31,7 +31,7 @@ $queryAuthor = "select * from authors where id = $id_author";
 $resultAuthor = $connect->query($queryAuthor);
 $itemAuthor = mysqli_fetch_array($resultAuthor);
 
-$queryRelatedBooks = "select * from products where status = 1 and author_id = " . $itemAuthor['id'] . " order by rand() limit 4";
+$queryRelatedBooks = "select * from products where status = 1 and product_quantity > 0 and author_id = " . $itemAuthor['id'] . " order by rand() limit 4";
 $resultRelatedBooks = $connect->query($queryRelatedBooks);
 ?>
 
@@ -50,13 +50,6 @@ $resultRelatedBooks = $connect->query($queryRelatedBooks);
                 <div class="product__details__text">
                     <h3><?= $item['name'] ?></h3>
                     <div class="product__details__price"><?= number_format($item['price'], 0, ",", ".") ?>đ</div>
-                    <!-- <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
-                            </div>
-                        </div>
-                    </div> -->
                     <a href="?option=cart&action=add&id=<?= $item['id'] ?>" class="primary-btn">Thêm vào giỏ hàng</a>
                     <a href="?option=wishlist&action=add&id=<?= $item['id'] ?>" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>

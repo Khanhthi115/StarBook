@@ -1,10 +1,5 @@
 <?php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
   
 $vnp_TmnCode = "9P7F376T"; //Mã định danh merchant kết nối (Terminal Id)
 $vnp_HashSecret = "YTAJUOPLXQYFOZIHTZHDOYMRURPHBBIE"; //Secret key

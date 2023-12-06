@@ -22,3 +22,10 @@ email: sb-pxhpx27491437@personal.example.com
 pass: 123456abc
 dashboard: mksv
 *********************************************
+
+************THANH TOÁN ONEPAY***********
+Thẻ ABB:
+Số thẻ: 9704250000000001
+Tháng/Năm phát hành: 01/13
+Tên: NGUYEN VAN A
+Mã OTP: 123456

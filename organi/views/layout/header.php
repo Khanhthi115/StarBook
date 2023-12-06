@@ -21,17 +21,39 @@
      </div>
      <div class="humberger__menu__cart">
          <ul>
-             <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i> <?= isset($numberOfProductsInCart) && $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a></li>
-             <li><a href="?option=wishlist"><i class="fa fa-heart"></i> <?= isset($numberOfProductsInWishlist) && $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></a></li>
+             <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i>
+                     <?= isset($numberOfProductsInCart) && $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a>
+             </li>
+             <li><a href="?option=wishlist"><i class="fa fa-heart"></i>
+                     <?= isset($numberOfProductsInWishlist) && $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></a>
+             </li>
          </ul>
      </div>
      <div class="humberger__menu__widget">
+         <?php if (empty($_SESSION['member'])) : ?>
          <div class="header__top__right__auth">
              <a href="?option=register"><i class="fa fa-user"></i> Đăng ký</a>
          </div>
          <div class="header__top__right__auth">
              <a href="?option=signin"><i class="fa fa-user"></i> Đăng nhập</a>
          </div>
+         <?php else : ?>
+         <div class="header__top__right__social">
+             <ul class="menu_account" style="list-style-type: none; display: flex">
+                 <li style="font-family: 'Roboto', san-semembersmembersnt-size: 14px">Hello: <span
+                         style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span></li>
+                 <li>
+                     <a href="?option=change_info" class="dropdown-link"><i class="fa fa-user"></i> Tài khoản</a>
+                     <ul class="dropdown-content">
+                         <li><a href="?option=update_members">Thay đổi thông tin</a></li>
+                         <li><a href="?option=order_history">Xem lịch sử đơn hàng</a></li>
+                         <li><a href="?option=change_password">Đổi mật khẩu</a></li>
+                         <li><a href="?option=logout">Đăng xuất</a></li>
+                     </ul>
+                 </li>
+             </ul>
+         </div>
+         <?php endif; ?>
      </div>
      <nav class="humberger__menu__nav mobile-menu">
          <ul>
@@ -41,12 +63,12 @@
              <li><a href="?option=show_articles">Bài viết</a>
                  <ul class="header__menu__dropdown">
                      <?php foreach ($result as $item) : ?>
-                         <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                     <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
                      <?php endforeach; ?>
                      <li><a href="?option=show_articles">Tất Cả</a></li>
                  </ul>
              </li>
-             <li><a href="./contact.html">Liên hệ</a></li>
+             <li><a href="./contact.php">Liên hệ</a></li>
          </ul>
      </nav>
      <div id="mobile-menu-wrap"></div>
@@ -78,18 +100,30 @@
                  <div class="col-lg-6 col-md-6">
                      <div class="header__top__right">
                          <?php if (empty($_SESSION['member'])) : ?>
-                             <div class="header__top__right__auth">
-                                 <a href="?option=register"><i class="fa fa-user"></i> Đăng ký</a>
-                             </div>
-                             <div class="header__top__right__auth">
-                                 <a href="?option=signin"><i class="fa fa-user"></i> Đăng nhập</a>
-                             </div>
+                         <div class="header__top__right__auth">
+                             <a href="?option=register"><i class="fa fa-user"></i> Đăng ký</a>
+                         </div>
+                         <div class="header__top__right__auth">
+                             <a href="?option=signin"><i class="fa fa-user"></i> Đăng nhập</a>
+                         </div>
                          <?php else : ?>
-                             <div class="header__top__right__social">
-                                 Hello: <span style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span>
-                                 <a href="?option=change_password"><i class="fa fa-edit"></i> Đổi mật khẩu</a>
-                                 <a href="?option=logout"><i class="fa fa-user"></i> Đăng xuất</a>
-                             </div>
+                         <div class="header__top__right__social">
+                             <ul class="menu_account" style="list-style-type: none; display: flex">
+                                 <li style="font-family: 'Roboto', san-serif; font-size: 14px">Hello: <span
+                                         style="color: green; margin-right: 30px;"><?= $_SESSION['member'] ?></span>
+                                 </li>
+                                 <li>
+                                     <a href="?option=change_info" class="dropdown-link"><i class="fa fa-user"></i> Tài
+                                         khoản</a>
+                                     <ul class="dropdown-content">
+                                         <li><a href="?option=update_members">Thay đổi thông tin</a></li>
+                                         <li><a href="?option=order_history">Xem lịch sử đơn hàng</a></li>
+                                         <li><a href="?option=change_password">Đổi mật khẩu</a></li>
+                                         <li><a href="?option=logout">Đăng xuất</a></li>
+                                     </ul>
+                                 </li>
+                             </ul>
+                         </div>
                          <?php endif; ?>
                      </div>
                  </div>
@@ -100,7 +134,8 @@
          <div class="row">
              <div class="col-lg-3">
                  <div class="header__logo">
-                     <a href="?option=home"><img style="margin: auto;" height="80px" src="../images/logo_new.png" alt=""></a>
+                     <a href="?option=home"><img style="margin: auto;" height="80px" src="../images/logo_new.png"
+                             alt=""></a>
                  </div>
              </div>
              <div class="col-lg-6">
@@ -112,20 +147,26 @@
                          <li><a href="?option=show_articles">Bài viết</a>
                              <ul class="header__menu__dropdown">
                                  <?php foreach ($result as $item) : ?>
-                                     <li><a href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a></li>
+                                 <li><a
+                                         href="?option=show_articles&article_cat=<?= $item['id'] ?>"><?= $item['name'] ?></a>
+                                 </li>
                                  <?php endforeach; ?>
                                  <li><a href="?option=show_articles">Tất Cả</a></li>
                              </ul>
                          </li>
-                         <li><a href="./contact.html">Liên hệ</a></li>
+                         <li><a href="?option=contact">Liên hệ</a></li>
                      </ul>
                  </nav>
              </div>
              <div class="col-lg-3">
                  <div class="header__cart">
                      <ul>
-                         <li><a href="?option=wishlist"><i class="fa fa-heart"></i> <span><?= isset($numberOfProductsInWishlist) && $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></span></a></li>
-                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i> <span><?= isset($numberOfProductsInCart) && $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a></li>
+                         <li><a href="?option=wishlist"><i class="fa fa-heart"></i>
+                                 <span><?= isset($numberOfProductsInWishlist) && $numberOfProductsInWishlist > 0 ? $numberOfProductsInWishlist : "0" ?></span></a>
+                         </li>
+                         <li><a href="?option=cart"><i class="fa fa-shopping-bag"></i>
+                                 <span><?= isset($numberOfProductsInCart) && $numberOfProductsInCart > 0 ? $numberOfProductsInCart : "0" ?></a>
+                         </li>
                      </ul>
                  </div>
              </div>

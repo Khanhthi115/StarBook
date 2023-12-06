@@ -1,8 +1,12 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 $chuaXuLy = mysqli_num_rows($connect->query("select * from orders where status=1"));
 $dangXuLy = mysqli_num_rows($connect->query("select * from orders where status=2"));
 $daXuLy = mysqli_num_rows($connect->query("select * from orders where status=3"));
 $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +52,7 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">        
+      <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -64,7 +68,7 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
             <li>
               <hr class="dropdown-divider">
             </li>
-            
+
             <li>
               <a class="dropdown-item d-flex align-items-center" href="?option=logout">
                 <i class="bi bi-box-arrow-right"></i>
@@ -86,14 +90,21 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="?option=home">
+        <a class="nav-link " href="?option=dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-      
+
       <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?option=members">
+          <i class="bi bi-person"></i>
+          <span>Quản lý tài khoản</span>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="?option=product_categories">
@@ -129,7 +140,7 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
           <span>Quản lý bài viết</span>
         </a>
       </li>
-      
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gem"></i><span>Đơn hàng</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -163,70 +174,84 @@ $huy = mysqli_num_rows($connect->query("select * from orders where status=4"));
 
   <main id="main" class="main">
 
-  <?php
-            if (isset($_GET['option'])) {
-                switch ($_GET['option']) {
-                    case 'logout':
-                        unset($_SESSION['admin']);
-                        header("Location: .");
-                        break;
-                    case 'author':
-                        include "./authors/show_author.php";
-                        break;
-                    case 'author_add':
-                        include "authors/author_add.php";
-                        break;
-                    case 'author_update':
-                        include "authors/update_author.php";
-                        break;
-                    case 'product':
-                        include "./products/show_product.php";
-                        break;
-                    case 'product_add':
-                        include "./products/product_add.php";
-                        break;
-                    case "product_update":
-                        include "./products/product_update.php";
-                        break;
-                    case "product_categories":
-                        include "./product_categories/show_product_cat.php";
-                        break;
-                    case "product_cat_add":
-                        include "./product_categories/product_cat_add.php";
-                        break;
-                    case "product_cat_update":
-                        include "./product_categories/product_cat_update.php";
-                        break;
-                    case "article_categories":
-                        include "./article_categories/show_articles_cat.php";
-                        break;
-                    case "article_categories_add":
-                        include "./article_categories/articles_cat_add.php";
-                        break;
-                    case "article_categories_update":
-                        include "./article_categories/articles_cat_update.php";
-                        break;
-                    case "article":
-                        include "./articles/show_article.php";
-                        break;
-                    case "article_update":
-                        include "./articles/article_update.php";
-                        break;
-                    case "article_add":
-                        include "./articles/article_add.php";
-                        break;
-                    case "order":
-                        include "./orders/show_order.php";
-                        break;
-                    case "order_detail":
-                        include "./orders/order_detail.php";
-                        break;
-                    default:
-                        include "./dashboard.php";
-                        break;
-                }
-            }
-?>
+    <?php
+    if (isset($_GET['option'])) {
+      switch ($_GET['option']) {
+        case 'logout':
+          unset($_SESSION['admin']);
+          header("Location: .");
+          break;
+        case 'members':
+          include "./members/show_member.php";
+          break;
+        case 'member_add':
+          include "members/member_add.php";
+          break;
+        case 'member_update':
+          include "members/update_member.php";
+          break;
+        case 'author':
+          include "./authors/show_author.php";
+          break;
+        case 'author_add':
+          include "authors/author_add.php";
+          break;
+        case 'author_update':
+          include "authors/update_author.php";
+          break;
+        case 'product':
+          include "./products/show_product.php";
+          break;
+        case 'product_add':
+          include "./products/product_add.php";
+          break;
+        case "product_update":
+          include "./products/product_update.php";
+          break;
+        case "product_categories":
+          include "./product_categories/show_product_cat.php";
+          break;
+        case "product_cat_add":
+          include "./product_categories/product_cat_add.php";
+          break;
+        case "product_cat_update":
+          include "./product_categories/product_cat_update.php";
+          break;
+        case "article_categories":
+          include "./article_categories/show_articles_cat.php";
+          break;
+        case "article_categories_add":
+          include "./article_categories/articles_cat_add.php";
+          break;
+        case "article_categories_update":
+          include "./article_categories/articles_cat_update.php";
+          break;
+        case "article":
+          include "./articles/show_article.php";
+          break;
+        case "article_update":
+          include "./articles/article_update.php";
+          break;
+        case "article_add":
+          include "./articles/article_add.php";
+          break;
+        case "order":
+          include "./orders/show_order.php";
+          break;
+        case "order_detail":
+          include "./orders/order_detail.php";
+          break;
+        case 'dashboard':
+          include './dashboard.php';
+          break;
+        default:
+          include './dashboard.php';
+          break;
+      }
+    } else {
+      include './dashboard.php';
+    }
+    ?>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

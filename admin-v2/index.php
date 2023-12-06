@@ -2,7 +2,7 @@
 session_start();
 ?>
 <?php
-$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse','3310');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,7 @@ $connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="../public/ckeditor5/ckeditor.js"></script>
+</head>
 
 <body>
     <?php

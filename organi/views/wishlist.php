@@ -1,35 +1,10 @@
 <?php
-// if (empty($_SESSION['wishlist'])) {
-//     $_SESSION['wishlist'] = array();
-// }
-
-// if (isset($_GET['action'])) {
-//     $id = isset($_GET['id']) ? $_GET['id'] : '';
-//     switch ($_GET['action']) {
-//         case 'add':
-//             if (!in_array($id, $_SESSION['wishlist'])) {
-//                 $_SESSION['wishlist'][] = $id;
-//             }
-//             header("location: ?option=wishlist");
-//             break;
-//         case 'remove':
-//             $index = array_search($id, $_SESSION['wishlist']);
-//             if ($index !== false) {
-//                 unset($_SESSION['wishlist'][$index]);
-//             }
-//             header("location: ?option=wishlist");
-//             break;
-//     }
-// }
-?>
-
-<?php
 if (isset($_SESSION['member'])) {
     if (isset($_GET['action'])) {
         if ($_GET['action'] === 'add') {
             // Kiểm tra xem sản phẩm đã tồn tại trong danh sách yêu thích của người dùng hay chưa
             $productId = $_GET['id'];
-            $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId");
+            $result = $connect->query("SELECT * FROM `products` WHERE `id` = $productId and `product_quantity` > 0");
             $result = mysqli_fetch_array($result);
             $member = $_SESSION['member'];
             $memberId = $connect->query("SELECT `id` FROM `member` WHERE `username` = '$member'");
