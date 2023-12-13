@@ -43,7 +43,7 @@ $result = $connect->query($query);
                         </div>
                     </div>
                 </div>
-                <div class="hero__item set-bg" data-setbg="../images/banner.jpg" style="animation-name: fadeInUp; animation-duration: 1s">
+                <div class="hero__item set-bg" data-setbg="../images/banner.webp" style="animation-name: fadeInUp; animation-duration: 1s">
                     <!-- <div class="hero__text">
                             <span>SÁCH MỚI</span>
                             <h2>Cho mùa hè thêm xanh</h2>

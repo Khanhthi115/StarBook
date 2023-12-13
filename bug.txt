@@ -1,2 +1,0 @@
-order.php
-    người dùng thanh toán bằng paypal thì mặc định thông tin người nhận sẽ là thông tin trong tài khoản của người dùng

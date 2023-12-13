@@ -37,7 +37,7 @@ $vpc_AccessCode = 'D67341C2';
 $vpc_MerchTxnRef = time() ;
 $vpc_OrderInfo = 'JSECURETEST01';
 $vpc_Amount = $_POST['total_momo']*100;
-$vpc_ReturnURL = 'http://localhost/BTL_PHP/StarBook/organi/index.php?option=order_success';
+$vpc_ReturnURL = 'http://localhost/project-php/organi/?option=order_success';
 $vpc_Command = 'pay';
 $vpc_Locale = 'vn';
 $vpc_Currency = 'VND';
