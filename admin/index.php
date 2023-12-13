@@ -20,7 +20,7 @@ $connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
     if (isset($_POST['username'])) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
-        $query = "select * from admin where username='$username' and password='$password'";
+        $query = "select * from `admin` where `username`='$username' and `password`='$password'";
         $result = $connect->query($query);
         if (mysqli_num_rows($result) == 0)
             echo "<script>alert('Sai tên đăng nhập hoặc mật khẩu')</script>";
