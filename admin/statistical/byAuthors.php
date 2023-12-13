@@ -27,7 +27,7 @@ if ($result) {
     <div class="card-body pb-0">
         <h5 class="card-title">Thống kê lượt mua theo tác giả</h5>
 
-        <div id="trafficChart" style="min-height: 600px;" class="echart"></div>
+        <div id="trafficChart" style="min-height: 800px;" class="echart"></div>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {

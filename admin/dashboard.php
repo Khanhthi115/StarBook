@@ -91,12 +91,12 @@ if ($resultRevenue && $resultRevenue->num_rows > 0) {
 
         </div><!-- End Customers Card -->
 
-        <?php include('../admin-v2/statistical/byRenevueAndOrders.php') ?>
-        <?php include('../admin-v2/statistical/byProducts.php') ?>
+        <?php include('../admin/statistical/byRenevueAndOrders.php') ?>
+        <?php include('../admin/statistical/byProducts.php') ?>
       </div>
     </div>
     <div class="col-lg-4">
-      <?php include('../admin-v2/statistical/byAuthors.php') ?>
+      <?php include('../admin/statistical/byAuthors.php') ?>
     </div>
   </div>
 </section>
