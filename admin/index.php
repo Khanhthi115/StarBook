@@ -2,7 +2,7 @@
 session_start();
 ?>
 <?php
-$connect = new MySQLi('localhost', 'root', '12345678', 'starbook_databse');
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
 ?>
 <!DOCTYPE html>
 <html lang="en">

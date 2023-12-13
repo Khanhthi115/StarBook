@@ -1,5 +1,5 @@
 <?php
-$connect = new MySQLi('localhost', 'root', '12345678', 'starbook_databse');
+$connect = new MySQLi('localhost', 'root', '', 'starbook_databse');
 const min_money = 200000;
 const shipping_fee = 30000;
 ?>
