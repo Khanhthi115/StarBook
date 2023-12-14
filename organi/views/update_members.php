@@ -12,9 +12,9 @@ if (isset($_POST['tinh'])) {
     if (strlen($phonenumber) !== 10 || !is_numeric($phonenumber)) {
         echo "<script>alert('Số điện thoại không hợp lệ. Vui lòng nhập lại!')</script>";
     } else {
-        $connect->query("update member set fullname = '$fullname', 
+        $connect->query("update `member` set `fullname` = '$fullname', 
                         `phonenumber` = '$phonenumber', `address` = '$address', `email` = '$email' 
-                        where id = " . $memberId);
+                        where `id` = " . $memberId);
         header("Location: ?option=update_members");
     }
     

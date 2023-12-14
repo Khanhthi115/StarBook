@@ -1,6 +1,6 @@
  <!-- Blog Section Begin -->
  <?php
-    $query = "select * from articles where status = 1";
+    $query = "select * from `articles` where `status` = 1";
 
     // take products from current page
     $query .= " order by rand() limit 3";

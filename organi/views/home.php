@@ -1,5 +1,5 @@
 <?php
-$queryAuthors = "select * from authors where status = 1 and image != ''";
+$queryAuthors = "select * from `authors` where `status` = 1 and `image` != ''";
 $resultAuthors = $connect->query($queryAuthors);
 ?>
 <?php include("views/layout/categories.php"); ?>

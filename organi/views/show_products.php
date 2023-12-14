@@ -60,12 +60,12 @@ if (!isset($_GET['sort'])) {
 ?>
 
 <?php
-$query = "select * from categories";
+$query = "select * from `categories`";
 $result_categories = $connect->query($query);
 ?>
 
 <?php
-$query_latest = "select * from products where status = 1 order by id desc limit 6";
+$query_latest = "select * from `products` where `status` = 1 order by `id` desc limit 6";
 $result_latest = $connect->query($query_latest);
 $evenProducts = [];
 $oddProducts = [];
