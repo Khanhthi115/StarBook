@@ -244,6 +244,9 @@ ob_start();
         case 'dashboard':
           include './dashboard.php';
           break;
+        case 'order_print':
+          include './orders/order_print.php';
+          break;
         default:
           include './dashboard.php';
           break;
