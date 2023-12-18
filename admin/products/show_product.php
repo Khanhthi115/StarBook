@@ -24,12 +24,12 @@ $result = $connect->query($query);
     <thead>
         <tr>
             <th>STT</th>
-            <th>Mã sản phẩm</th>
+            <th width="90px">Mã SP</th>
             <th>Tên sản phẩm</th>
             <th>Ảnh</th>
-            <th>Giá</th>
-            <th>Trạng thái</th>
-            <th>Action</th>
+            <th width="120px">Giá</th>
+            <th width="120px">Trạng thái</th>
+            <th width="200px">Action</th>
         </tr>
     </thead>
     <tbody>
