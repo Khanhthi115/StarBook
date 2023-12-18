@@ -63,7 +63,7 @@ $tong = 0;
 while ($row = mysqli_fetch_array($order_detail)) {
     $i++;
     $pdf->Cell(10, 10, $i, 1, 0, 'C');
-    $pdf->Cell(140, 10, $row['name'], 1, 0, 'C');
+    $pdf->Cell(140, 10, substr($row['name'], 0, 61), 1, 0, 'C');
     $pdf->Cell(30, 10, number_format($row['price']) . "đ", 1, 0, 'C');
     $pdf->Cell(10, 10, $row['quantity'], 1, 0, 'C');
     $pdf->Ln();

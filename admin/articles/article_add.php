@@ -39,7 +39,7 @@ if (isset($_POST['name'])) {
 <?php
 $article_cat = $connect->query("select * from article_categories");
 ?>
-<h1>Thêm sản phẩm</h1>
+<h1>Thêm bài viết</h1>
 <section style="color: red; text-align:center"><?= isset($alert) ? $alert : '' ?></section>
 <section class="container col-md-6">
     <form method="post" enctype="multipart/form-data">

@@ -134,7 +134,8 @@ $productsInCart = $connect->query($queryCart);
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
                                                 <div class="pro-qty">
-                                                    <span class="dec qtybtn" onclick="location='?option=cart&action=update&type=dec&id=<?= $item['product_id'] ?>';">-</span>
+                                                    <span class="dec qtybtn<?= ($item['quantity'] == 1) ? ' disabled' : '' ?>" onclick="<?= ($item['quantity'] > 1) ? "location='?option=cart&action=update&type=dec&id={$item['product_id']}'" : '' ?>">-</span>
+                                                    <!-- <span class="dec qtybtn" onclick="location='?option=cart&action=update&type=dec&id=<?= $item['product_id'] ?>';">-</span> -->
                                                     <input type="text" value="<?= $item['quantity'] ?>" disabled>
                                                     <span class="inc qtybtn" onclick="location='?option=cart&action=update&type=asc&id=<?= $item['product_id'] ?>';">+</span>
                                                 </div>
@@ -164,13 +165,13 @@ $productsInCart = $connect->query($queryCart);
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
-                        <div class="shoping__discount">
+                        <!-- <div class="shoping__discount">
                             <h5>Nhập mã giảm giá</h5>
                             <form action="#">
                                 <input type="text" placeholder="Enter your coupon code">
                                 <button type="submit" class="site-btn">ÁP DỤNG</button>
                             </form>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -179,7 +180,7 @@ $productsInCart = $connect->query($queryCart);
                         <ul>
                             <li>Tạm Tính <span><?= number_format($total, 0, ',', '.') ?>đ</span></li>
                             <li>Phí Ship <span><?= $total < min_money ? number_format(shipping_fee, 0, ',', '.') : 0 ?>đ</span></li>
-                            <li>Tổng <span><?= $total < min_money ? number_format($total + shipping_fee, 0, ',', '.') : number_format($total, 0, ',', '.')?>đ</span></li>
+                            <li>Tổng <span><?= $total < min_money ? number_format($total + shipping_fee, 0, ',', '.') : number_format($total, 0, ',', '.') ?>đ</span></li>
                         </ul>
                         <a href="?option=order" class="primary-btn">ĐẶT HÀNG</a>
                     </div>

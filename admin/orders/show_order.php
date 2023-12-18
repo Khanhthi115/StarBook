@@ -29,10 +29,10 @@ $result = $connect->query($query);
                 <td><?= $item['id'] ?></td>
                 <td><?= $item['order_date'] ?></td>
                 <td>
-                    <a class="btn btn-sm btn-info text-white" href="?option=order_detail&id=<?= $item['id'] ?>">Detail</a>
+                    <a class="btn btn-sm btn-info text-white" href="?option=order_detail&id=<?= $item['id'] ?>">Xem</a>
                     <a class="btn btn-sm btn-primary text-white" href="../../../project-php/admin/orders/order_print.php?id=<?= $item['id'] ?>">In đơn hàng</a>
                     <!-- delete button only display when status = 'HUY' -->
-                    <a style="display: <?= $item['status'] == 4 ? '' : 'none' ?>" class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
+                    <a style="display: <?= $item['status'] == 4 ? '' : 'none' ?>" class="btn btn-sm btn-danger" href="?option=order&id=<?= $item['id'] ?>" onclick="return confirm('Bạn có muốn xóa đơn hàng này?')">Xóa</a>
                 </td>
             </tr>
         <?php endforeach ?>
