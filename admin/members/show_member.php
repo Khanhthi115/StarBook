@@ -18,7 +18,7 @@
 <section style="text-align:center">
     <a href="?option=member_add" class="btn btn-success mb-3">Thêm người dùng</a>
 </section>
-<table class="table table-bordered" style="text-align: center">
+<table class="table table-bordered" style="text-align: center; font-size: 14px">
     <thead>
         <tr>
             <th width="20px">Id</th>
@@ -28,7 +28,7 @@
             <th>Address</th>
             <th>Email</th>
             <th>Status</th>
-            <th>Action</th>
+            <th width="200px">Action</th>
         </tr>
     </thead>
     <tbody>
